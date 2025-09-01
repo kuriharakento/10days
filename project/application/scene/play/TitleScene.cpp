@@ -81,6 +81,8 @@ void TitleScene::Update()
 	// ImGuiの描画
 	DrawImGui();
 
+	debugCamera_->Update();
+
 	// 前フレームの位置を更新
 	CollisionManager::GetInstance()->UpdatePreviousPositions();
 
