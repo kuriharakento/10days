@@ -116,7 +116,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\effects\postprocess\base\BasePostEffect.cpp" />
     <ClCompile Include="engine\effects\particle\component\single\AccelerationComponent.cpp" />
     <ClCompile Include="application\GameObject\component\collision\AABBColliderComponent.cpp" />
-    <ClCompile Include="application\animation\Slide.cpp" />
     <ClCompile Include="application\GameObject\base\GameObject.cpp" />
     <ClCompile Include="application\GameObject\component\base\ICollisionComponent.cpp" />
     <ClCompile Include="application\GameObject\component\collision\CollisionManager.cpp" />
@@ -217,7 +216,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\effects\postprocess\CRTEffect.h" />
     <ClInclude Include="engine\effects\postprocess\base\BasePostEffect.h" />
     <ClInclude Include="engine\effects\particle\component\single\AccelerationComponent.h" />
-    <ClInclude Include="application\animation\Slide.h" />
     <ClInclude Include="engine\effects\particle\component\single\ColorFadeOutComponent.h" />
     <ClInclude Include="engine\effects\particle\component\single\DragComponent.h" />
     <ClInclude Include="engine\effects\particle\component\interface\IParticleComponent.h" />

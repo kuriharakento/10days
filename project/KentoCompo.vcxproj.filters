@@ -37,9 +37,6 @@
     <ClCompile Include="application\GameObject\component\collision\OBBColliderComponent.cpp">
       <Filter>application\GameObject\component\collision</Filter>
     </ClCompile>
-    <ClCompile Include="application\animation\Slide.cpp">
-      <Filter>application\animation</Filter>
-    </ClCompile>
     <ClCompile Include="application\effect\AssaultRifleHitEffect.cpp">
       <Filter>application\effect</Filter>
     </ClCompile>
@@ -320,9 +317,6 @@
     </ClInclude>
     <ClInclude Include="application\GameObject\component\collision\OBBColliderComponent.h">
       <Filter>application\GameObject\component\collision</Filter>
-    </ClInclude>
-    <ClInclude Include="application\animation\Slide.h">
-      <Filter>application\animation</Filter>
     </ClInclude>
     <ClInclude Include="application\effect\AssaultRifleHitEffect.h">
       <Filter>application\effect</Filter>
