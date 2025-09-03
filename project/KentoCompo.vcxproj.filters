@@ -294,6 +294,7 @@
     <ClCompile Include="application\GameObject\component\action\MoveComponent.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\player\PlayerData.cpp" />
     <ClCompile Include="application\GameObject\component\action\PlayerXPComponent.cpp" />
+    <ClCompile Include="application\GameObject\component\action\LevelUpComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -660,6 +661,7 @@
     <ClInclude Include="application\GameObject\Combatable\character\player\PlayerInfo.h" />
     <ClInclude Include="application\GameObject\Combatable\character\player\PlayerData.h" />
     <ClInclude Include="application\GameObject\component\action\PlayerXPComponent.h" />
+    <ClInclude Include="application\GameObject\component\action\LevelUpComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">

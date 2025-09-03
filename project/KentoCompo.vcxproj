@@ -170,6 +170,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\GameObject\component\action\GravityPhysicsComponent.cpp" />
     <ClCompile Include="engine\jsonEditor\JsonSerialization.cpp" />
     <ClCompile Include="engine\jsonEditor\JsonEditorImGuiUtils.cpp" />
+    <ClCompile Include="application\GameObject\component\action\LevelUpComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="engine\manager\system\SrvManager.cpp" />
     <ClCompile Include="engine\manager\effect\ParticleManager.cpp" />
@@ -333,6 +334,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\time\TimerManager.h" />
     <ClInclude Include="application\GameObject\Combatable\character\player\PlayerData.h" />
     <ClInclude Include="application\GameObject\component\action\PlayerXPComponent.h" />
+    <ClInclude Include="application\GameObject\component\action\LevelUpComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="externals\imgui\LICENSE.txt" />

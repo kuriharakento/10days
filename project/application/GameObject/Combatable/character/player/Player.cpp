@@ -2,6 +2,7 @@
 
 #include "application/GameObject/component/action/MoveComponent.h"
 #include "application/GameObject/component/action/PlayerXPComponent.h"
+#include "application/GameObject/component/action/LevelUpComponent.h"
 #include "application/GameObject/component/base/ICollisionComponent.h"
 #include "application/GameObject/component/collision/CollisionUtils.h"
 #include "application/GameObject/component/collision/OBBColliderComponent.h"
@@ -44,6 +45,8 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 
 	// XPコンポーネントを追加
 	AddComponent("PlayerXPComponent", std::make_unique<PlayerXPComponent>(data_.get()));
+	// LvUPコンポーネントを追加
+	AddComponent("LevelUpComponent", std::make_unique<LevelUpComponent>(data_.get()));
 }
 
 void Player::Update()

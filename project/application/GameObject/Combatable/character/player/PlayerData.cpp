@@ -54,7 +54,7 @@ void PlayerData::DrawImGui()
 		ImGui::DragFloat("xpIntoLevel", &info.xpState.xpIntoLevel);
 		ImGui::DragFloat("xpToNextThreshold", &info.xpState.xpToNextThreshold);
 		float p = (info.xpState.xpIntoLevel / info.xpState.xpToNextThreshold) * 100.0f;
-		ImGui::Text("%.0f per", p);
+		ImGui::Text("NextLv.%.0f%%", p);
 		ImGui::TreePop();
 	}
 	ImGui::PopID();
