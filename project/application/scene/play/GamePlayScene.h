@@ -2,6 +2,8 @@
 // scene
 #include "engine/scene/interface/BaseScene.h"
 
+#include "application/GameObject/Combatable/character/player/Player.h"
+
 class GamePlayScene : public BaseScene
 {
 public:
@@ -14,5 +16,8 @@ public:
 	//描画
 	void Draw3D() override;
 	void Draw2D() override;
+
+private:
+	std::unique_ptr<Player> player_;
 };
 

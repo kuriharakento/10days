@@ -290,6 +290,8 @@
       <Filter>engine\time</Filter>
     </ClCompile>
     <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\player\Player.cpp" />
+    <ClCompile Include="application\GameObject\component\action\MoveComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -651,6 +653,8 @@
     </ClInclude>
     <ClInclude Include="application\GameObject\base\GameObjectInfo.h" />
     <ClInclude Include="application\GameObject\Combatable\character\base\Character.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\player\Player.h" />
+    <ClInclude Include="application\GameObject\component\action\MoveComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">
