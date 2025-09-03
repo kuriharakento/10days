@@ -23,7 +23,24 @@ void EnemyMoveComponent::Update(GameObject* owner)
 	// 位置を更新
 	owner->SetPosition(owner->GetPosition() + movement);
 
-	// 向きをターゲットに向ける
-	owner->SetRotation(Vector3(0, atan2f(direction.x, direction.z) * (180.0f / 3.14159f), 0));
+    //正規化された方向ベクトル
+       Vector3 normalizedDir = direction;
+    normalizedDir.NormalizeSelf();
+
+    // Y軸回りの目標回転角度を計算（atan2を使用）
+    float targetRotationY = atan2f(normalizedDir.x, normalizedDir.z);
+
+    // 現在の回転を取得
+    Vector3 currentRotation = owner->GetRotation();
+
+    // Y軸の回転のみ、最短経路で補間
+    float easedRotationY = MathUtils::LerpAngle(
+        currentRotation.y,
+        targetRotationY,
+        0.2f // 補間速度（回避中は少し速めに）
+    );
+
+    // 回転を更新
+    owner->SetRotation({ currentRotation.x, easedRotationY, currentRotation.z });
 
 }

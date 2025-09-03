@@ -21,6 +21,8 @@ public:
 	
 	void AddZombieEnemy(uint32_t count);
 
+	void AddRushEnemy(uint32_t count);
+
 	void SetEnemyData(const std::vector<GameObjectInfo>& data);
 	
 	void SetTarget(GameObject* target) { target_ = target; }
