@@ -292,6 +292,8 @@
     <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\player\Player.cpp" />
     <ClCompile Include="application\GameObject\component\action\MoveComponent.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\player\PlayerData.cpp" />
+    <ClCompile Include="application\GameObject\component\action\PlayerXPComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -655,6 +657,9 @@
     <ClInclude Include="application\GameObject\Combatable\character\base\Character.h" />
     <ClInclude Include="application\GameObject\Combatable\character\player\Player.h" />
     <ClInclude Include="application\GameObject\component\action\MoveComponent.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\player\PlayerInfo.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\player\PlayerData.h" />
+    <ClInclude Include="application\GameObject\component\action\PlayerXPComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">

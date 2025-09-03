@@ -201,12 +201,15 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\scene\play\StageEditScene.cpp" />
     <ClCompile Include="engine\time\Timer.cpp" />
     <ClCompile Include="engine\time\TimerManager.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\player\PlayerData.cpp" />
+    <ClCompile Include="application\GameObject\component\action\PlayerXPComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObjectTag.h" />
     <ClInclude Include="application\GameObject\combatable\base\StatusValue.h" />
     <ClInclude Include="application\GameObject\Combatable\character\base\Character.h" />
     <ClInclude Include="application\GameObject\Combatable\character\player\Player.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\player\PlayerInfo.h" />
     <ClInclude Include="application\GameObject\component\action\MoveComponent.h" />
     <ClInclude Include="application\GameObject\component\collision\AABBColliderComponent.h" />
     <ClInclude Include="application\effect\AssaultRifleHitEffect.h" />
@@ -328,6 +331,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\scene\play\StageEditScene.h" />
     <ClInclude Include="engine\time\Timer.h" />
     <ClInclude Include="engine\time\TimerManager.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\player\PlayerData.h" />
+    <ClInclude Include="application\GameObject\component\action\PlayerXPComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="externals\imgui\LICENSE.txt" />
