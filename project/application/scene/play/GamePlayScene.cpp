@@ -4,11 +4,12 @@
 #include "input/Input.h"
 // scene
 #include "engine/scene/manager/SceneManager.h"
+// app
+#include "application/GameObject/component/collision/CollisionManager.h"
 
 
 void GamePlayScene::Initialize()
 {
-
 }
 
 void GamePlayScene::Finalize()

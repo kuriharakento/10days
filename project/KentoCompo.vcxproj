@@ -109,6 +109,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\effect\EnemyDeathEffect.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp" />
     <ClCompile Include="application\GameObject\component\collision\CollisionUtils.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.cpp" />
+    <ClCompile Include="application\GameObject\component\action\EnemyMoveComponent.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\EnemyManager.cpp" />
     <ClCompile Include="engine\camerawork\debug\DebugCamera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -199,6 +202,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\scene\play\StageEditScene.cpp" />
     <ClCompile Include="engine\time\Timer.cpp" />
     <ClCompile Include="engine\time\TimerManager.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\zombie\ZombieEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObjectTag.h" />
@@ -211,6 +215,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\GameObject\component\collision\CollisionUtils.h" />
     <ClInclude Include="application\GameObject\combatable\base\CombatableObject.h" />
     <ClInclude Include="application\GameObject\base\GameObjectInfo.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.h" />
+    <ClInclude Include="application\GameObject\component\action\EnemyMoveComponent.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\EnemyManager.h" />
     <ClInclude Include="engine\camerawork\debug\DebugCamera.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -324,6 +331,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\scene\play\StageEditScene.h" />
     <ClInclude Include="engine\time\Timer.h" />
     <ClInclude Include="engine\time\TimerManager.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\zombie\ZombieEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="externals\imgui\LICENSE.txt" />

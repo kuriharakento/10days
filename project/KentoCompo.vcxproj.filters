@@ -290,6 +290,10 @@
       <Filter>engine\time</Filter>
     </ClCompile>
     <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.cpp" />
+    <ClCompile Include="application\GameObject\component\action\EnemyMoveComponent.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\zombie\ZombieEnemy.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\EnemyManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -651,6 +655,10 @@
     </ClInclude>
     <ClInclude Include="application\GameObject\base\GameObjectInfo.h" />
     <ClInclude Include="application\GameObject\Combatable\character\base\Character.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.h" />
+    <ClInclude Include="application\GameObject\component\action\EnemyMoveComponent.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\zombie\ZombieEnemy.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\EnemyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">
