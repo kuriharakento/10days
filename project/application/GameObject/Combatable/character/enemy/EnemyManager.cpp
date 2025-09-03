@@ -12,8 +12,8 @@ void EnemyManager::Initialize(Object3dCommon* object3dCommon, LightManager* ligh
 	// 敵キャラクターの出現範囲を設定
 	emitRange_ =
 	{
-		{ -10.0f, 1.0f, -10.0f }, // 最小座標
-		{ 10.0f, 1.0f, 10.0f }   // 最大座標
+		{ -100.0f, 1.0f, -100.0f }, // 最小座標
+		{ 100.0f, 1.0f, 100.0f }   // 最大座標
 	};
 
 }
