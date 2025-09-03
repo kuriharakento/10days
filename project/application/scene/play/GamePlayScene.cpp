@@ -10,11 +10,16 @@
 
 void GamePlayScene::Initialize()
 {
+	// エネミーマネージャーの初期化
+	enemyManager_ = std::make_unique<EnemyManager>();
+	enemyManager_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), player_.get());
+	enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
+
 }
 
 void GamePlayScene::Finalize()
 {
-
+	
 }
 
 void GamePlayScene::Update()
@@ -23,11 +28,15 @@ void GamePlayScene::Update()
 	{
 		sceneManager_->ChangeScene("TITLE");
 	}
+
+	// エネミーマネージャーの更新
+	enemyManager_->Update();
 }
 
 void GamePlayScene::Draw3D()
 {
-
+	// エネミーマネージャーの描画
+	enemyManager_->Draw(sceneManager_->GetCameraManager());
 }
 
 void GamePlayScene::Draw2D()
