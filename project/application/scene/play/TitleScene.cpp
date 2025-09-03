@@ -67,26 +67,26 @@ void TitleScene::Initialize()
 	// 当たり判定用のOBBコライダーを追加
 	auto obb1 = std::make_unique<OBBColliderComponent>(debugCube1_.get());
 	obb1->SetOnEnter([](GameObject* other) {
-		other->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
+		other->SetPosition(Vector3(15.0f, 0.0f, 0.0f));
 					 });
 	obb1->SetOnStay([](GameObject* other) {
-		other->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
-					 });
+		other->SetPosition(Vector3(15.0f, 0.0f, 0.0f));
+					});
 	obb1->SetUseSubstep(true);
 	debugCube1_->AddComponent("OBBCollider", std::move(obb1));
 
 	debugCube2_ = std::make_unique<GameObject>("DebugCube");
 	debugCube2_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), sceneManager_->GetCameraManager()->GetActiveCamera());
-	debugCube2_->SetPosition({ 3.0f, 0.0f, 0.0f });
+	debugCube2_->SetPosition({ 15.0f, 0.0f, 0.0f });
 	// 当たり判定用のOBBコライダーを追加
 	auto obb2 = std::make_unique<OBBColliderComponent>(debugCube2_.get());
 	obb2->SetOnEnter([](GameObject* other) {
-		other->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
+		other->SetPosition(Vector3(-5.0f, 0.0f, 0.0f));
 					 });
 	obb2->SetOnStay([](GameObject* other) {
 		other->SetPosition(Vector3(-5.0f, 0.0f, 0.0f));
 		Logger::Log("Collsiion");
-					 });
+					});
 	debugCube2_->AddComponent("OBBCollider", std::move(obb2));
 
 	// 衝突判定を2Dモードに変更
@@ -111,9 +111,6 @@ void TitleScene::Update()
 		sceneManager_->ChangeScene("STAGEEDIT");
 	}
 
-	
-	static float frame = 0.0f;
-
 	// ImGuiの描画
 	DrawImGui();
 
@@ -122,11 +119,8 @@ void TitleScene::Update()
 	// 前フレームの位置を更新
 	CollisionManager::GetInstance()->UpdatePreviousPositions();
 
-	if (frame <= 2.0f)
-	{
-		debugCube1_->SetPosition(debugCube1_->GetPosition() + Vector3(10.0f, 0.0f, 0.0f));
-		frame++;
-	}
+	debugCube1_->SetPosition(debugCube1_->GetPosition() + Vector3(10.0f, 0.0f, 0.0f));
+
 	debugCube1_->Update();
 	debugCube2_->Update();
 
@@ -352,7 +346,7 @@ void TitleScene::DrawImGui()
 	{
 		debugCube2_->SetPosition(cube2pos);
 	}
-	
+
 
 #pragma region PostProcess
 	ImGui::SeparatorText("PostProcess");

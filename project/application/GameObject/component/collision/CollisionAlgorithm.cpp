@@ -356,74 +356,166 @@ bool CollisionAlgorithm::CheckAABBvsAABB2D(const AABBColliderComponent* a, const
 // --- OBB vs OBB 2D判定 ---
 bool CollisionAlgorithm::CheckOBBvsOBB2D(const OBBColliderComponent* a, const OBBColliderComponent* b, CollisionPlane plane)
 {
-	int axis1, axis2;
-	GetPlaneAxes(plane, axis1, axis2);
-
 	const OBB& obbA = a->GetOBB();
 	const OBB& obbB = b->GetOBB();
 
-	// 2D平面上の中心
-	Vector2 cA, cB;
+	bool isColliding = false;
+
 	switch (plane)
 	{
 	case CollisionPlane::XY:
-		cA = Vector2(obbA.center.x, obbA.center.y);
-		cB = Vector2(obbB.center.x, obbB.center.y);
+		isColliding = CheckOBBvsOBB_XY(obbA, obbB);
 		break;
 	case CollisionPlane::XZ:
-		cA = Vector2(obbA.center.x, obbA.center.z);
-		cB = Vector2(obbB.center.x, obbB.center.z);
+		isColliding = CheckOBBvsOBB_XZ(obbA, obbB);
 		break;
 	case CollisionPlane::YZ:
-		cA = Vector2(obbA.center.y, obbA.center.z);
-		cB = Vector2(obbB.center.y, obbB.center.z);
+		isColliding = CheckOBBvsOBB_YZ(obbA, obbB);
 		break;
 	}
 
-	// OBBの軸ベクトル（2D投影）
-	Matrix4x4 rotA = obbA.rotate;
-	Matrix4x4 rotB = obbB.rotate;
-	Vector2 axesA[2], axesB[2];
+	if (isColliding)
+	{
+		// 衝突位置の設定
+		ICollisionComponent* aNonConst = const_cast<OBBColliderComponent*>(a);
+		ICollisionComponent* bNonConst = const_cast<OBBColliderComponent*>(b);
+		aNonConst->SetCollisionPosition(obbA.center);
+		bNonConst->SetCollisionPosition(obbB.center);
+	}
 
-	axesA[0] = Vector2(GetSizeComponent(Vector3(rotA.m[axis1][0], rotA.m[axis2][0], 0), 0),
-					   GetSizeComponent(Vector3(rotA.m[axis1][0], rotA.m[axis2][0], 0), 1));
-	axesA[1] = Vector2(GetSizeComponent(Vector3(rotA.m[axis1][1], rotA.m[axis2][1], 0), 0),
-					   GetSizeComponent(Vector3(rotA.m[axis1][1], rotA.m[axis2][1], 0), 1));
+	return isColliding;
+}
 
-	axesB[0] = Vector2(GetSizeComponent(Vector3(rotB.m[axis1][0], rotB.m[axis2][0], 0), 0),
-					   GetSizeComponent(Vector3(rotB.m[axis1][0], rotB.m[axis2][0], 0), 1));
-	axesB[1] = Vector2(GetSizeComponent(Vector3(rotB.m[axis1][1], rotB.m[axis2][1], 0), 0),
-					   GetSizeComponent(Vector3(rotB.m[axis1][1], rotB.m[axis2][1], 0), 1));
+// XY平面専用の高速判定
+bool CollisionAlgorithm::CheckOBBvsOBB_XY(const OBB& obbA, const OBB& obbB)
+{
+	// XY平面の中心座標（直接アクセス）
+	Vector2 centerA(obbA.center.x, obbA.center.y);
+	Vector2 centerB(obbB.center.x, obbB.center.y);
+	Vector2 toCenter = centerB - centerA;
 
-	Vector2 testAxes[4] = {
-		Vector2::Normalize(axesA[0]),
-		Vector2::Normalize(axesA[1]),
-		Vector2::Normalize(axesB[0]),
-		Vector2::Normalize(axesB[1])
+	// XY平面の軸ベクトル（回転行列から直接取得、正規化済み）
+	Vector2 axesA[2] = {
+		Vector2(obbA.rotate.m[0][0], obbA.rotate.m[0][1]),  // X軸
+		Vector2(obbA.rotate.m[1][0], obbA.rotate.m[1][1])   // Y軸
 	};
 
-	Vector2 toCenter = cB - cA;
+	Vector2 axesB[2] = {
+		Vector2(obbB.rotate.m[0][0], obbB.rotate.m[0][1]),  // X軸
+		Vector2(obbB.rotate.m[1][0], obbB.rotate.m[1][1])   // Y軸
+	};
+
+	// XY平面のサイズ
+	Vector2 sizeA(obbA.size.x, obbA.size.y);
+	Vector2 sizeB(obbB.size.x, obbB.size.y);
+
+	// 4つの分離軸でテスト
+	Vector2 testAxes[4] = { axesA[0], axesA[1], axesB[0], axesB[1] };
 
 	for (int i = 0; i < 4; ++i)
 	{
 		const Vector2& axis = testAxes[i];
-		if (axis.x == 0 && axis.y == 0) continue;
 
-		float aProj = std::abs(Vector2::Dot(axesA[0] * GetSizeComponent(obbA.size, axis1), axis)) +
-			std::abs(Vector2::Dot(axesA[1] * GetSizeComponent(obbA.size, axis2), axis));
-		float bProj = std::abs(Vector2::Dot(axesB[0] * GetSizeComponent(obbB.size, axis1), axis)) +
-			std::abs(Vector2::Dot(axesB[1] * GetSizeComponent(obbB.size, axis2), axis));
+		// 投影幅計算
+		float projA = std::abs(Vector2::Dot(axesA[0] * sizeA.x, axis)) +
+			std::abs(Vector2::Dot(axesA[1] * sizeA.y, axis));
+
+		float projB = std::abs(Vector2::Dot(axesB[0] * sizeB.x, axis)) +
+			std::abs(Vector2::Dot(axesB[1] * sizeB.y, axis));
 
 		float distance = std::abs(Vector2::Dot(toCenter, axis));
 
-		if (distance > aProj + bProj)
-			return false;
+		if (distance > projA + projB)
+		{
+			return false; // 分離軸発見
+		}
 	}
+	return true; // 衝突
+}
 
-	ICollisionComponent* aNonConst = const_cast<OBBColliderComponent*>(a);
-	ICollisionComponent* bNonConst = const_cast<OBBColliderComponent*>(b);
-	aNonConst->SetCollisionPosition(obbA.center);
-	bNonConst->SetCollisionPosition(obbB.center);
+// XZ平面専用の高速判定
+bool CollisionAlgorithm::CheckOBBvsOBB_XZ(const OBB& obbA, const OBB& obbB)
+{
+	Vector2 centerA(obbA.center.x, obbA.center.z);
+	Vector2 centerB(obbB.center.x, obbB.center.z);
+	Vector2 toCenter = centerB - centerA;
+
+	Vector2 axesA[2] = {
+		Vector2(obbA.rotate.m[0][0], obbA.rotate.m[0][2]),  // X軸のXZ成分
+		Vector2(obbA.rotate.m[2][0], obbA.rotate.m[2][2])   // Z軸のXZ成分
+	};
+
+	Vector2 axesB[2] = {
+		Vector2(obbB.rotate.m[0][0], obbB.rotate.m[0][2]),
+		Vector2(obbB.rotate.m[2][0], obbB.rotate.m[2][2])
+	};
+
+	Vector2 sizeA(obbA.size.x, obbA.size.z);  // XZなのでZ成分
+	Vector2 sizeB(obbB.size.x, obbB.size.z);  // XZなのでZ成分
+
+	Vector2 testAxes[4] = { axesA[0], axesA[1], axesB[0], axesB[1] };
+
+	for (int i = 0; i < 4; ++i)
+	{
+		const Vector2& axis = testAxes[i];
+
+		// 修正: sizeA.x と sizeA.y ではなく、sizeA.x と sizeA.z
+		float projA = std::abs(Vector2::Dot(axesA[0] * sizeA.x, axis)) +
+			std::abs(Vector2::Dot(axesA[1] * sizeA.y, axis));  // ← ここをsizeA.yに修正
+
+		float projB = std::abs(Vector2::Dot(axesB[0] * sizeB.x, axis)) +
+			std::abs(Vector2::Dot(axesB[1] * sizeB.y, axis));  // ← ここをsizeB.yに修正
+
+		float distance = std::abs(Vector2::Dot(toCenter, axis));
+
+		if (distance > projA + projB)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+// YZ平面専用の高速判定
+bool CollisionAlgorithm::CheckOBBvsOBB_YZ(const OBB& obbA, const OBB& obbB)
+{
+	Vector2 centerA(obbA.center.y, obbA.center.z);
+	Vector2 centerB(obbB.center.y, obbB.center.z);
+	Vector2 toCenter = centerB - centerA;
+
+	Vector2 axesA[2] = {
+		Vector2(obbA.rotate.m[1][1], obbA.rotate.m[1][2]),  // Y軸のYZ成分
+		Vector2(obbA.rotate.m[2][1], obbA.rotate.m[2][2])   // Z軸のYZ成分
+	};
+
+	Vector2 axesB[2] = {
+		Vector2(obbB.rotate.m[1][1], obbB.rotate.m[1][2]),
+		Vector2(obbB.rotate.m[2][1], obbB.rotate.m[2][2])
+	};
+
+	Vector2 sizeA(obbA.size.y, obbA.size.z);  // YZなのでY,Z成分
+	Vector2 sizeB(obbB.size.y, obbB.size.z);  // YZなのでY,Z成分
+
+	Vector2 testAxes[4] = { axesA[0], axesA[1], axesB[0], axesB[1] };
+
+	for (int i = 0; i < 4; ++i)
+	{
+		const Vector2& axis = testAxes[i];
+
+		// 修正: YZ平面なので sizeA.x と sizeA.y を使用
+		float projA = std::abs(Vector2::Dot(axesA[0] * sizeA.x, axis)) +  // sizeA.x = obbA.size.y
+			std::abs(Vector2::Dot(axesA[1] * sizeA.y, axis));   // sizeA.y = obbA.size.z
+
+		float projB = std::abs(Vector2::Dot(axesB[0] * sizeB.x, axis)) +
+			std::abs(Vector2::Dot(axesB[1] * sizeB.y, axis));
+
+		float distance = std::abs(Vector2::Dot(toCenter, axis));
+
+		if (distance > projA + projB)
+		{
+			return false;
+		}
+	}
 	return true;
 }
 
