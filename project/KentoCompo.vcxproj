@@ -108,6 +108,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\effect\DodgeEffectParticle.cpp" />
     <ClCompile Include="application\effect\EnemyDeathEffect.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\player\Player.cpp" />
+    <ClCompile Include="application\GameObject\component\action\MoveComponent.cpp" />
     <ClCompile Include="application\GameObject\component\collision\CollisionUtils.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.cpp" />
     <ClCompile Include="application\GameObject\component\action\EnemyMoveComponent.cpp" />
@@ -208,6 +210,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\GameObject\base\GameObjectTag.h" />
     <ClInclude Include="application\GameObject\combatable\base\StatusValue.h" />
     <ClInclude Include="application\GameObject\Combatable\character\base\Character.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\player\Player.h" />
+    <ClInclude Include="application\GameObject\component\action\MoveComponent.h" />
     <ClInclude Include="application\GameObject\component\collision\AABBColliderComponent.h" />
     <ClInclude Include="application\effect\AssaultRifleHitEffect.h" />
     <ClInclude Include="application\effect\DodgeEffectParticle.h" />

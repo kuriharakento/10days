@@ -10,6 +10,11 @@
 
 void GamePlayScene::Initialize()
 {
+	player_ = std::make_unique<Player>();
+	player_->Initialize(
+		sceneManager_->GetObject3dCommon(),
+		sceneManager_->GetLightManager()
+	);
 	// エネミーマネージャーの初期化
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), player_.get());
@@ -28,6 +33,7 @@ void GamePlayScene::Update()
 	{
 		sceneManager_->ChangeScene("TITLE");
 	}
+	player_->Update();
 
 	// エネミーマネージャーの更新
 	enemyManager_->Update();
@@ -35,6 +41,7 @@ void GamePlayScene::Update()
 
 void GamePlayScene::Draw3D()
 {
+	player_->Draw(sceneManager_->GetCameraManager());
 	// エネミーマネージャーの描画
 	enemyManager_->Draw(sceneManager_->GetCameraManager());
 }

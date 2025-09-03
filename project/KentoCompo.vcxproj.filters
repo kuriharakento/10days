@@ -290,6 +290,8 @@
       <Filter>engine\time</Filter>
     </ClCompile>
     <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\player\Player.cpp" />
+    <ClCompile Include="application\GameObject\component\action\MoveComponent.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.cpp" />
     <ClCompile Include="application\GameObject\component\action\EnemyMoveComponent.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\enemy\zombie\ZombieEnemy.cpp" />
@@ -655,6 +657,8 @@
     </ClInclude>
     <ClInclude Include="application\GameObject\base\GameObjectInfo.h" />
     <ClInclude Include="application\GameObject\Combatable\character\base\Character.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\player\Player.h" />
+    <ClInclude Include="application\GameObject\component\action\MoveComponent.h" />
     <ClInclude Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.h" />
     <ClInclude Include="application\GameObject\component\action\EnemyMoveComponent.h" />
     <ClInclude Include="application\GameObject\Combatable\character\enemy\zombie\ZombieEnemy.h" />
