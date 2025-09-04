@@ -49,5 +49,7 @@ private: //メンバ変数
 	std::unique_ptr<ParticleEmitter> mordeVFXFragment_;
 	// デバッグ
 	std::unique_ptr<GameObject> debugCube1_;
-	std::unique_ptr<GameObject> debugCube2_;
+	// ゾーン
+	std::unique_ptr<GameObject> zone_;
+	std::unique_ptr<ParticleEmitter> zoneEffect_;
 };
