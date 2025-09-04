@@ -539,7 +539,7 @@ static void GetPlaneAxes(CollisionPlane plane, int& axis1, int& axis2)
 }
 
 // 軸インデックスから値取得
-float GetSizeComponent(const Vector3& v, int axis)
+float GetSizeFromIndex(const Vector3& v, int axis)
 {
 	switch (axis)
 	{
@@ -560,15 +560,15 @@ bool CollisionAlgorithm::CheckAABBvsAABB2D(const AABBColliderComponent* a, const
 	const AABB& bBox = b->GetAABB();
 
 	// 各軸のmin/max
-	float aMin1 = GetSizeComponent(aBox.min_, axis1);
-	float aMax1 = GetSizeComponent(aBox.max_, axis1);
-	float aMin2 = GetSizeComponent(aBox.min_, axis2);
-	float aMax2 = GetSizeComponent(aBox.max_, axis2);
+	float aMin1 = GetSizeFromIndex(aBox.min_, axis1);
+	float aMax1 = GetSizeFromIndex(aBox.max_, axis1);
+	float aMin2 = GetSizeFromIndex(aBox.min_, axis2);
+	float aMax2 = GetSizeFromIndex(aBox.max_, axis2);
 
-	float bMin1 = GetSizeComponent(bBox.min_, axis1);
-	float bMax1 = GetSizeComponent(bBox.max_, axis1);
-	float bMin2 = GetSizeComponent(bBox.min_, axis2);
-	float bMax2 = GetSizeComponent(bBox.max_, axis2);
+	float bMin1 = GetSizeFromIndex(bBox.min_, axis1);
+	float bMax1 = GetSizeFromIndex(bBox.max_, axis1);
+	float bMin2 = GetSizeFromIndex(bBox.min_, axis2);
+	float bMax2 = GetSizeFromIndex(bBox.max_, axis2);
 
 	bool overlap =
 		(aMax1 >= bMin1 && aMin1 <= bMax1) &&
@@ -778,10 +778,10 @@ bool CollisionAlgorithm::CheckAABBvsOBB2D(const AABBColliderComponent* a, const 
 
 	Matrix4x4 rot = obb.rotate;
 	Vector2 axes[2];
-	axes[0] = Vector2(GetSizeComponent(Vector3(rot.m[axis1][0], rot.m[axis2][0], 0), 0),
-					  GetSizeComponent(Vector3(rot.m[axis1][0], rot.m[axis2][0], 0), 1));
-	axes[1] = Vector2(GetSizeComponent(Vector3(rot.m[axis1][1], rot.m[axis2][1], 0), 0),
-					  GetSizeComponent(Vector3(rot.m[axis1][1], rot.m[axis2][1], 0), 1));
+	axes[0] = Vector2(GetSizeFromIndex(Vector3(rot.m[axis1][0], rot.m[axis2][0], 0), 0),
+					  GetSizeFromIndex(Vector3(rot.m[axis1][0], rot.m[axis2][0], 0), 1));
+	axes[1] = Vector2(GetSizeFromIndex(Vector3(rot.m[axis1][1], rot.m[axis2][1], 0), 0),
+					  GetSizeFromIndex(Vector3(rot.m[axis1][1], rot.m[axis2][1], 0), 1));
 
 	Vector2 aabbAxes[2] = { Vector2(1,0), Vector2(0,1) };
 	Vector2 testAxes[4] = {
@@ -813,8 +813,8 @@ bool CollisionAlgorithm::CheckAABBvsOBB2D(const AABBColliderComponent* a, const 
 		float aProj = std::abs(Vector2::Dot(axis, Vector2(aHalf.x, 0))) +
 			std::abs(Vector2::Dot(axis, Vector2(0, aHalf.y)));
 
-		float bProj = std::abs(Vector2::Dot(axes[0] * GetSizeComponent(obb.size, axis1), axis)) +
-			std::abs(Vector2::Dot(axes[1] * GetSizeComponent(obb.size, axis2), axis));
+		float bProj = std::abs(Vector2::Dot(axes[0] * GetSizeFromIndex(obb.size, axis1), axis)) +
+			std::abs(Vector2::Dot(axes[1] * GetSizeFromIndex(obb.size, axis2), axis));
 
 		float distance = std::abs(Vector2::Dot(toCenter, axis));
 
@@ -838,10 +838,10 @@ bool CollisionAlgorithm::CheckCirclevsCircle2D(const SphereColliderComponent* a,
 	const Sphere& sB = b->GetSphere();
 
 	// 2次元ベクトル化
-	float a1 = GetSizeComponent(sA.center, axis1);
-	float a2 = GetSizeComponent(sA.center, axis2);
-	float b1 = GetSizeComponent(sB.center, axis1);
-	float b2 = GetSizeComponent(sB.center, axis2);
+	float a1 = GetSizeFromIndex(sA.center, axis1);
+	float a2 = GetSizeFromIndex(sA.center, axis2);
+	float b1 = GetSizeFromIndex(sB.center, axis1);
+	float b2 = GetSizeFromIndex(sB.center, axis2);
 
 	float dx = a1 - b1;
 	float dy = a2 - b2;
@@ -868,13 +868,13 @@ bool CollisionAlgorithm::CheckCirclevsAABB2D(const SphereColliderComponent* a, c
 	const Sphere& s = a->GetSphere();
 	const AABB& box = b->GetAABB();
 
-	float cx = GetSizeComponent(s.center, axis1);
-	float cy = GetSizeComponent(s.center, axis2);
+	float cx = GetSizeFromIndex(s.center, axis1);
+	float cy = GetSizeFromIndex(s.center, axis2);
 
-	float minX = GetSizeComponent(box.min_, axis1);
-	float minY = GetSizeComponent(box.min_, axis2);
-	float maxX = GetSizeComponent(box.max_, axis1);
-	float maxY = GetSizeComponent(box.max_, axis2);
+	float minX = GetSizeFromIndex(box.min_, axis1);
+	float minY = GetSizeFromIndex(box.min_, axis2);
+	float maxX = GetSizeFromIndex(box.max_, axis1);
+	float maxY = GetSizeFromIndex(box.max_, axis2);
 
 	// 最近傍点
 	float closestX = (std::max)(minX, (std::min)(cx, maxX));
@@ -907,25 +907,25 @@ bool CollisionAlgorithm::CheckCirclevsOBB2D(const SphereColliderComponent* a, co
 	const OBB& obb = b->GetOBB();
 
 	// 2D座標
-	float sx = GetSizeComponent(s.center, axis1);
-	float sy = GetSizeComponent(s.center, axis2);
-	float obb_cx = GetSizeComponent(obb.center, axis1);
-	float obb_cy = GetSizeComponent(obb.center, axis2);
+	float sx = GetSizeFromIndex(s.center, axis1);
+	float sy = GetSizeFromIndex(s.center, axis2);
+	float obb_cx = GetSizeFromIndex(obb.center, axis1);
+	float obb_cy = GetSizeFromIndex(obb.center, axis2);
 
 	// OBBの2D軸
 	Vector2 axes[2];
-	axes[0] = Vector2(GetSizeComponent(Vector3(obb.rotate.m[axis1][0], obb.rotate.m[axis2][0], 0), 0),
-					  GetSizeComponent(Vector3(obb.rotate.m[axis1][0], obb.rotate.m[axis2][0], 0), 1));
-	axes[1] = Vector2(GetSizeComponent(Vector3(obb.rotate.m[axis1][1], obb.rotate.m[axis2][1], 0), 0),
-					  GetSizeComponent(Vector3(obb.rotate.m[axis1][1], obb.rotate.m[axis2][1], 0), 1));
+	axes[0] = Vector2(GetSizeFromIndex(Vector3(obb.rotate.m[axis1][0], obb.rotate.m[axis2][0], 0), 0),
+					  GetSizeFromIndex(Vector3(obb.rotate.m[axis1][0], obb.rotate.m[axis2][0], 0), 1));
+	axes[1] = Vector2(GetSizeFromIndex(Vector3(obb.rotate.m[axis1][1], obb.rotate.m[axis2][1], 0), 0),
+					  GetSizeFromIndex(Vector3(obb.rotate.m[axis1][1], obb.rotate.m[axis2][1], 0), 1));
 
 	Vector2 obbCenter(obb_cx, obb_cy);
 	Vector2 circleCenter(sx, sy);
 	Vector2 d = circleCenter - obbCenter;
 	Vector2 closest = obbCenter;
 
-	const float size1 = GetSizeComponent(obb.size, axis1);
-	const float size2 = GetSizeComponent(obb.size, axis2);
+	const float size1 = GetSizeFromIndex(obb.size, axis1);
+	const float size2 = GetSizeFromIndex(obb.size, axis2);
 
 	// 各軸ごとに最近傍点を算出
 	float dist1 = Vector2::Dot(d, axes[0]);
@@ -1134,10 +1134,10 @@ bool CollisionAlgorithm::CheckCirclevsCircleSubstep2D(const SphereColliderCompon
 		Vector3 subPosA = MathUtils::Lerp(startA, endA, t);
 		Vector3 subPosB = MathUtils::Lerp(startB, endB, t);
 
-		float a1 = GetSizeComponent(subPosA, axis1);
-		float a2 = GetSizeComponent(subPosA, axis2);
-		float b1 = GetSizeComponent(subPosB, axis1);
-		float b2 = GetSizeComponent(subPosB, axis2);
+		float a1 = GetSizeFromIndex(subPosA, axis1);
+		float a2 = GetSizeFromIndex(subPosA, axis2);
+		float b1 = GetSizeFromIndex(subPosB, axis1);
+		float b2 = GetSizeFromIndex(subPosB, axis2);
 
 		float dx = a1 - b1;
 		float dy = a2 - b2;
@@ -1189,13 +1189,13 @@ bool CollisionAlgorithm::CheckCirclevsAABBSubstep2D(const SphereColliderComponen
 		Vector3 subPosA = MathUtils::Lerp(startA, endA, t);
 		Vector3 subPosB = MathUtils::Lerp(startB, endB, t);
 
-		float cx = GetSizeComponent(subPosA, axis1);
-		float cy = GetSizeComponent(subPosA, axis2);
+		float cx = GetSizeFromIndex(subPosA, axis1);
+		float cy = GetSizeFromIndex(subPosA, axis2);
 
-		float minX = GetSizeComponent(subPosB - boxHalf, axis1);
-		float minY = GetSizeComponent(subPosB - boxHalf, axis2);
-		float maxX = GetSizeComponent(subPosB + boxHalf, axis1);
-		float maxY = GetSizeComponent(subPosB + boxHalf, axis2);
+		float minX = GetSizeFromIndex(subPosB - boxHalf, axis1);
+		float minY = GetSizeFromIndex(subPosB - boxHalf, axis2);
+		float maxX = GetSizeFromIndex(subPosB + boxHalf, axis1);
+		float maxY = GetSizeFromIndex(subPosB + boxHalf, axis2);
 
 		float closestX = (std::max)(minX, (std::min)(cx, maxX));
 		float closestY = (std::max)(minY, (std::min)(cy, maxY));
@@ -1253,24 +1253,24 @@ bool CollisionAlgorithm::CheckCirclevsOBBSubstep2D(const SphereColliderComponent
 		movedOBB.center = subPosB;
 
 		// 2D座標
-		float sx = GetSizeComponent(subPosA, axis1);
-		float sy = GetSizeComponent(subPosA, axis2);
-		float obb_cx = GetSizeComponent(movedOBB.center, axis1);
-		float obb_cy = GetSizeComponent(movedOBB.center, axis2);
+		float sx = GetSizeFromIndex(subPosA, axis1);
+		float sy = GetSizeFromIndex(subPosA, axis2);
+		float obb_cx = GetSizeFromIndex(movedOBB.center, axis1);
+		float obb_cy = GetSizeFromIndex(movedOBB.center, axis2);
 
 		Vector2 axes[2];
-		axes[0] = Vector2(GetSizeComponent(Vector3(movedOBB.rotate.m[axis1][0], movedOBB.rotate.m[axis2][0], 0), 0),
-						  GetSizeComponent(Vector3(movedOBB.rotate.m[axis1][0], movedOBB.rotate.m[axis2][0], 0), 1));
-		axes[1] = Vector2(GetSizeComponent(Vector3(movedOBB.rotate.m[axis1][1], movedOBB.rotate.m[axis2][1], 0), 0),
-						  GetSizeComponent(Vector3(movedOBB.rotate.m[axis1][1], movedOBB.rotate.m[axis2][1], 0), 1));
+		axes[0] = Vector2(GetSizeFromIndex(Vector3(movedOBB.rotate.m[axis1][0], movedOBB.rotate.m[axis2][0], 0), 0),
+						  GetSizeFromIndex(Vector3(movedOBB.rotate.m[axis1][0], movedOBB.rotate.m[axis2][0], 0), 1));
+		axes[1] = Vector2(GetSizeFromIndex(Vector3(movedOBB.rotate.m[axis1][1], movedOBB.rotate.m[axis2][1], 0), 0),
+						  GetSizeFromIndex(Vector3(movedOBB.rotate.m[axis1][1], movedOBB.rotate.m[axis2][1], 0), 1));
 
 		Vector2 obbCenter(obb_cx, obb_cy);
 		Vector2 circleCenter(sx, sy);
 		Vector2 d = circleCenter - obbCenter;
 		Vector2 closest = obbCenter;
 
-		const float size1 = GetSizeComponent(movedOBB.size, axis1);
-		const float size2 = GetSizeComponent(movedOBB.size, axis2);
+		const float size1 = GetSizeFromIndex(movedOBB.size, axis1);
+		const float size2 = GetSizeFromIndex(movedOBB.size, axis2);
 
 		float dist1 = Vector2::Dot(d, axes[0]);
 		float clamped1 = (std::max)(-size1, (std::min)(dist1, size1));
