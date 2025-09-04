@@ -289,8 +289,15 @@
     <ClCompile Include="engine\time\Timer.cpp">
       <Filter>engine\time</Filter>
     </ClCompile>
-    <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp" />
-    <ClCompile Include="application\GameObject\component\collision\CollisionAlgorithm.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp">
+      <Filter>application\GameObject\combatable\character\base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\GameObject\component\collision\CollisionAlgorithm.cpp">
+      <Filter>application\GameObject\component\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="application\GameObject\component\collision\SphereColliderComponent.cpp">
+      <Filter>application\GameObject\component\collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -650,9 +657,21 @@
     <ClInclude Include="application\GameObject\base\GameObjectTag.h">
       <Filter>application\GameObject\base</Filter>
     </ClInclude>
-    <ClInclude Include="application\GameObject\base\GameObjectInfo.h" />
-    <ClInclude Include="application\GameObject\Combatable\character\base\Character.h" />
-    <ClInclude Include="application\GameObject\component\collision\CollisionAlgorithm.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\base\Character.h">
+      <Filter>application\GameObject\combatable\character\base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\GameObject\component\collision\SphereColliderComponent.h">
+      <Filter>application\GameObject\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="application\GameObject\component\collision\CollisionAlgorithm.h">
+      <Filter>application\GameObject\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="application\GameObject\base\GameObjectInfo.h">
+      <Filter>application\GameObject\base</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\math\Sphere.h">
+      <Filter>engine\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">
