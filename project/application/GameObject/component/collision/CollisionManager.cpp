@@ -109,8 +109,10 @@ void CollisionManager::CheckCollisions()
 			ColliderType typeB = b->GetColliderType();
 
 			// 判定次元モード判定
+			//====== 3Dモード ======
 			if (dimension_ == CollisionDimension::Mode3D)
 			{
+				// AABB同士の衝突判定
 				if (typeA == ColliderType::AABB && typeB == ColliderType::AABB)
 				{
 					if (a->UseSubstep() || b->UseSubstep())
@@ -118,6 +120,7 @@ void CollisionManager::CheckCollisions()
 					else
 						isHit = CollisionAlgorithm::CheckAABBvsAABB3D(static_cast<AABBColliderComponent*>(a), static_cast<AABBColliderComponent*>(b));
 				}
+				// OBB同士の衝突判定
 				else if (typeA == ColliderType::OBB && typeB == ColliderType::OBB)
 				{
 					if (a->UseSubstep() || b->UseSubstep())
@@ -125,6 +128,7 @@ void CollisionManager::CheckCollisions()
 					else
 						isHit = CollisionAlgorithm::CheckOBBvsOBB3D(static_cast<OBBColliderComponent*>(a), static_cast<OBBColliderComponent*>(b));
 				}
+				// AABBとOBBの衝突判定
 				else if (typeA == ColliderType::AABB && typeB == ColliderType::OBB)
 				{
 					if (a->UseSubstep() || b->UseSubstep())
@@ -139,10 +143,50 @@ void CollisionManager::CheckCollisions()
 					else
 						isHit = CollisionAlgorithm::CheckAABBvsOBB3D(static_cast<AABBColliderComponent*>(b), static_cast<OBBColliderComponent*>(a));
 				}
+				// Sphere同士の衝突判定
+				else if (typeA == ColliderType::Sphere && typeB == ColliderType::Sphere)
+				{
+					if (a->UseSubstep() || b->UseSubstep())
+						isHit = CollisionAlgorithm::CheckSpherevsSphereSubstep3D(static_cast<SphereColliderComponent*>(a), static_cast<SphereColliderComponent*>(b));
+					else
+						isHit = CollisionAlgorithm::CheckSpherevsSphere3D(static_cast<SphereColliderComponent*>(a), static_cast<SphereColliderComponent*>(b));
+				}
+				// SphereとAABBの衝突判定
+				else if (typeA == ColliderType::Sphere && typeB == ColliderType::AABB)
+				{
+					if (a->UseSubstep() || b->UseSubstep())
+						isHit = CollisionAlgorithm::CheckSpherevsAABBSubstep3D(static_cast<SphereColliderComponent*>(a), static_cast<AABBColliderComponent*>(b));
+					else
+						isHit = CollisionAlgorithm::CheckSpherevsAABB3D(static_cast<SphereColliderComponent*>(a), static_cast<AABBColliderComponent*>(b));
+				}
+				else if (typeA == ColliderType::AABB && typeB == ColliderType::Sphere)
+				{
+					if (a->UseSubstep() || b->UseSubstep())
+						isHit = CollisionAlgorithm::CheckSpherevsAABBSubstep3D(static_cast<SphereColliderComponent*>(b), static_cast<AABBColliderComponent*>(a));
+					else
+						isHit = CollisionAlgorithm::CheckSpherevsAABB3D(static_cast<SphereColliderComponent*>(b), static_cast<AABBColliderComponent*>(a));
+				}
+				// SphereとOBBの衝突判定
+				else if (typeA == ColliderType::Sphere && typeB == ColliderType::OBB)
+				{
+					if (a->UseSubstep() || b->UseSubstep())
+						isHit = CollisionAlgorithm::CheckSpherevsOBBSubstep3D(static_cast<SphereColliderComponent*>(a), static_cast<OBBColliderComponent*>(b));
+					else
+						isHit = CollisionAlgorithm::CheckSpherevsOBB3D(static_cast<SphereColliderComponent*>(a), static_cast<OBBColliderComponent*>(b));
+				}
+				else if (typeA == ColliderType::OBB && typeB == ColliderType::Sphere)
+				{
+					if (a->UseSubstep() || b->UseSubstep())
+						isHit = CollisionAlgorithm::CheckSpherevsOBBSubstep3D(static_cast<SphereColliderComponent*>(b), static_cast<OBBColliderComponent*>(a));
+					else
+						isHit = CollisionAlgorithm::CheckSpherevsOBB3D(static_cast<SphereColliderComponent*>(b), static_cast<OBBColliderComponent*>(a));
+				}
 			}
+			//===== 2Dモード =====
 			else if (dimension_ == CollisionDimension::Mode2D)
 			{
-				// 2D判定(平面指定)
+				
+				// AABB同士の衝突判定
 				if (typeA == ColliderType::AABB && typeB == ColliderType::AABB)
 				{
 					if (a->UseSubstep() || b->UseSubstep())
@@ -150,6 +194,7 @@ void CollisionManager::CheckCollisions()
 					else
 						isHit = CollisionAlgorithm::CheckAABBvsAABB2D(static_cast<AABBColliderComponent*>(a), static_cast<AABBColliderComponent*>(b), collisionPlane_);
 				}
+				// OBB同士の衝突判定
 				else if (typeA == ColliderType::OBB && typeB == ColliderType::OBB)
 				{
 					if (a->UseSubstep() || b->UseSubstep())
@@ -157,6 +202,7 @@ void CollisionManager::CheckCollisions()
 					else
 						isHit = CollisionAlgorithm::CheckOBBvsOBB2D(static_cast<OBBColliderComponent*>(a), static_cast<OBBColliderComponent*>(b), collisionPlane_);
 				}
+				// AABBとOBBの衝突判定
 				else if (typeA == ColliderType::AABB && typeB == ColliderType::OBB)
 				{
 					if (a->UseSubstep() || b->UseSubstep())
@@ -170,6 +216,44 @@ void CollisionManager::CheckCollisions()
 						isHit = CollisionAlgorithm::CheckAABBvsOBBSubstep2D(static_cast<AABBColliderComponent*>(b), static_cast<OBBColliderComponent*>(a), collisionPlane_);
 					else
 						isHit = CollisionAlgorithm::CheckAABBvsOBB2D(static_cast<AABBColliderComponent*>(b), static_cast<OBBColliderComponent*>(a), collisionPlane_);
+				}
+				// Circle同士の衝突判定
+				else if (typeA == ColliderType::Sphere && typeB == ColliderType::Sphere)
+				{
+					if (a->UseSubstep() || b->UseSubstep())
+						isHit = CollisionAlgorithm::CheckCirclevsCircleSubstep2D(static_cast<SphereColliderComponent*>(a), static_cast<SphereColliderComponent*>(b), collisionPlane_);
+					else
+						isHit = CollisionAlgorithm::CheckCirclevsCircle2D(static_cast<SphereColliderComponent*>(a), static_cast<SphereColliderComponent*>(b), collisionPlane_);
+				}
+				// CircleとAABBの衝突判定
+				else if (typeA == ColliderType::Sphere && typeB == ColliderType::AABB)
+				{
+					if (a->UseSubstep() || b->UseSubstep())
+						isHit = CollisionAlgorithm::CheckCirclevsAABBSubstep2D(static_cast<SphereColliderComponent*>(a), static_cast<AABBColliderComponent*>(b), collisionPlane_);
+					else
+						isHit = CollisionAlgorithm::CheckCirclevsAABB2D(static_cast<SphereColliderComponent*>(a), static_cast<AABBColliderComponent*>(b), collisionPlane_);
+				}
+				else if (typeA == ColliderType::AABB && typeB == ColliderType::Sphere)
+				{
+					if (a->UseSubstep() || b->UseSubstep())
+						isHit = CollisionAlgorithm::CheckCirclevsAABBSubstep2D(static_cast<SphereColliderComponent*>(b), static_cast<AABBColliderComponent*>(a), collisionPlane_);
+					else
+						isHit = CollisionAlgorithm::CheckCirclevsAABB2D(static_cast<SphereColliderComponent*>(b), static_cast<AABBColliderComponent*>(a), collisionPlane_);
+				}
+				// CircleとOBBの衝突判定
+				else if (typeA == ColliderType::Sphere && typeB == ColliderType::OBB)
+				{
+					if (a->UseSubstep() || b->UseSubstep())
+						isHit = CollisionAlgorithm::CheckCirclevsOBBSubstep2D(static_cast<SphereColliderComponent*>(a), static_cast<OBBColliderComponent*>(b), collisionPlane_);
+					else
+						isHit = CollisionAlgorithm::CheckCirclevsOBB2D(static_cast<SphereColliderComponent*>(a), static_cast<OBBColliderComponent*>(b), collisionPlane_);
+				}
+				else if (typeA == ColliderType::OBB && typeB == ColliderType::Sphere)
+				{
+					if (a->UseSubstep() || b->UseSubstep())
+						isHit = CollisionAlgorithm::CheckCirclevsOBBSubstep2D(static_cast<SphereColliderComponent*>(b), static_cast<OBBColliderComponent*>(a), collisionPlane_);
+					else
+						isHit = CollisionAlgorithm::CheckCirclevsOBB2D(static_cast<SphereColliderComponent*>(b), static_cast<OBBColliderComponent*>(a), collisionPlane_);
 				}
 			}
 

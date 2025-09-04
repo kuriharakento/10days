@@ -64,8 +64,8 @@ void TitleScene::Initialize()
 	debugCube1_ = std::make_unique<GameObject>("DebugCube");
 	debugCube1_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), sceneManager_->GetCameraManager()->GetActiveCamera());
 	debugCube1_->SetPosition({ -5.0f, 0.0f, 0.0f });
-	// 当たり判定用のOBBコライダーを追加
-	auto obb1 = std::make_unique<OBBColliderComponent>(debugCube1_.get());
+	// 当たり判定用のコンポーネントを追加
+	auto obb1 = std::make_unique<SphereColliderComponent>(debugCube1_.get());
 	obb1->SetOnEnter([](GameObject* other) {
 		other->SetPosition(Vector3(15.0f, 0.0f, 0.0f));
 					 });
@@ -78,14 +78,13 @@ void TitleScene::Initialize()
 	debugCube2_ = std::make_unique<GameObject>("DebugCube");
 	debugCube2_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), sceneManager_->GetCameraManager()->GetActiveCamera());
 	debugCube2_->SetPosition({ 15.0f, 0.0f, 0.0f });
-	// 当たり判定用のOBBコライダーを追加
-	auto obb2 = std::make_unique<OBBColliderComponent>(debugCube2_.get());
+	// 当たり判定用のコンポーネントを追加
+	auto obb2 = std::make_unique<SphereColliderComponent>(debugCube2_.get());
 	obb2->SetOnEnter([](GameObject* other) {
 		other->SetPosition(Vector3(-5.0f, 0.0f, 0.0f));
 					 });
 	obb2->SetOnStay([](GameObject* other) {
 		other->SetPosition(Vector3(-5.0f, 0.0f, 0.0f));
-		Logger::Log("Collsiion");
 					});
 	debugCube2_->AddComponent("OBBCollider", std::move(obb2));
 
@@ -336,13 +335,13 @@ void TitleScene::DrawImGui()
 
 
 	Vector3 cube1pos = debugCube1_->GetPosition();
-	if (ImGui::DragFloat3("debugCube1", &cube1pos.x, 0.1f, -10.0f, 10.0f))
+	if (ImGui::DragFloat3("debugCube1", &cube1pos.x, 0.1f))
 	{
 		debugCube1_->SetPosition(cube1pos);
 	}
 
 	Vector3 cube2pos = debugCube2_->GetPosition();
-	if (ImGui::DragFloat3("debugCube2", &cube2pos.x, 0.1f, -10.0f, 10.0f))
+	if (ImGui::DragFloat3("debugCube2", &cube2pos.x, 0.1f))
 	{
 		debugCube2_->SetPosition(cube2pos);
 	}

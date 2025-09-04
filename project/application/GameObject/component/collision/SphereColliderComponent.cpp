@@ -1,8 +1,10 @@
 #include "SphereColliderComponent.h"
 #include "application/GameObject/base/GameObject.h"
+#include "manager/graphics/LineManager.h"
+#include "math/VectorColorCodes.h"
 
 SphereColliderComponent::SphereColliderComponent(GameObject* owner)
-    : ICollisionComponent(owner), sphere_(), collisionPosition_(0, 0, 0)
+    : ICollisionComponent(owner), sphere_()
 {
 }
 
@@ -22,6 +24,16 @@ void SphereColliderComponent::Update(GameObject* owner)
 	{
 		sphere_.center = owner->GetPosition();
 	}
+
+	// デバッグ描画
+#ifdef _DEBUG
+	LineManager::GetInstance()->DrawSphere(
+		sphere_.center, 
+		sphere_.radius,
+		VectorColorCodes::Yellow
+	);
+#endif
+
 }
 
 ColliderType SphereColliderComponent::GetColliderType() const

@@ -20,5 +20,4 @@ public:
 
 private:
     Sphere sphere_;
-    Vector3 collisionPosition_;
 };
