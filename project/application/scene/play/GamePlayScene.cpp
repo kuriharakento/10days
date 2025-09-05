@@ -18,8 +18,8 @@ void GamePlayScene::Initialize()
 	// エネミーマネージャーの初期化
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), player_.get());
-	//enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
-	//enemyManager_->AddRushEnemy(3);  // ラッシュ敵を3体追加
+	enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
+	enemyManager_->AddRushEnemy(3);  // ラッシュ敵を3体追加
 	enemyManager_->AddBurstEnemy(2); // バースト敵を2体追加
 
 }
