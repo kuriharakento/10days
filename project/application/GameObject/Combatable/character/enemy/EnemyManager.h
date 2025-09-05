@@ -23,6 +23,8 @@ public:
 
 	void AddRushEnemy(uint32_t count);
 
+	void AddBurstEnemy(uint32_t count);
+
 	void SetEnemyData(const std::vector<GameObjectInfo>& data);
 	
 	void SetTarget(GameObject* target) { target_ = target; }
@@ -40,6 +42,8 @@ private:
 	
 	// 敵リスト
 	std::vector<std::unique_ptr<EnemyBase>> enemies_;
+	// 分裂用の一時リスト
+	std::vector<std::unique_ptr<EnemyBase>> enemiesToAdd_;
 	
 	// 敵データ
 	std::vector<GameObjectInfo> enemyData_;

@@ -16,7 +16,7 @@ void EnemyMoveComponent::Update(GameObject* owner)
 	Vector3 direction = target_->GetPosition() - owner->GetPosition();
 	direction.y = 0; // 水平面での向きに制限
 
-	direction.Normalize();
+	direction = direction.Normalize();
 	// 移動量を計算
 	Vector3 movement = (direction * speed_) * TimeManager::GetInstance().GetDeltaTime();
 

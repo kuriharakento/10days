@@ -6,6 +6,8 @@ class EnemyBase : virtual public Character
 {
 public:
 
+	using OnDeathCallback = std::function<void(EnemyBase*)>;
+
 	virtual ~EnemyBase() = default;
 	EnemyBase() : Character(GameObjectTag::Common::EnemyBase) {}
 
@@ -17,10 +19,21 @@ public:
 
 	GameObject* GetTarget() const { return target_; }
 
+	void SetOnDeathCallback(OnDeathCallback callback) { onDeathCallback_ = callback; }
+	void CallOnDeath()
+	{
+		if (onDeathCallback_)
+		{
+			onDeathCallback_(this);
+		}
+	}
+
 protected:
 
 	float* moveSpeed_ = nullptr; // 移動速度
 	GameObject* target_ = nullptr; // 攻撃対象
+
+	OnDeathCallback onDeathCallback_ = nullptr; // 死亡時のコールバック
 
 };
 
