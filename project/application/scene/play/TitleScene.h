@@ -16,6 +16,7 @@
 
 // effects
 #include "application/GameObject/base/GameObject.h"
+#include "application/GameObject/zone/Zone.h"
 #include "effects/particle/ParticleEmitter.h"
 
 class TitleScene : public BaseScene
@@ -50,6 +51,5 @@ private: //メンバ変数
 	// デバッグ
 	std::unique_ptr<GameObject> debugCube1_;
 	// ゾーン
-	std::unique_ptr<GameObject> zone_;
-	std::unique_ptr<ParticleEmitter> zoneEffect_;
+	std::unique_ptr<Zone> zone_;
 };

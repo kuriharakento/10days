@@ -74,50 +74,8 @@ void TitleScene::Initialize()
 	debugCube1_->AddComponent("OBBCollider", std::move(obb1));
 
 	// ゾーンの生成
-	zone_ = std::make_unique<GameObject>("Zone");
-	zone_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), sceneManager_->GetCameraManager()->GetActiveCamera());
-	zone_->SetScale({20.0f, 10.0f, 20.0f});
-	auto zoneCollider = std::make_unique<SphereColliderComponent>(zone_.get());
-	zoneCollider->SetOnEnter([ this ](GameObject* other) {
-		auto postProcess = sceneManager_->GetPostProcessManager();
-		postProcess->grayscaleEffect_->SetEnabled(false);
-							 });
-	zoneCollider->SetOnStay([](GameObject* other) {
-		if (other->GetTag() == "DebugCube")
-		{
-			other->GetObject3d()->SetColor(VectorColorCodes::Red);
-		}
-	});
-	zoneCollider->SetOnExit([this](GameObject* other) {
-		if (other->GetTag() == "DebugCube")
-		{
-			other->GetObject3d()->SetColor(VectorColorCodes::White);
-		}
-		auto postProcess = sceneManager_->GetPostProcessManager();
-		postProcess->grayscaleEffect_->SetEnabled(true);
-		postProcess->grayscaleEffect_->SetIntensity(1.0f);
-							});
-	zone_->AddComponent("SphereCollider", std::move(zoneCollider));
-
-	// ゾーンエフェクトの生成
-	zoneEffect_ = std::make_unique<ParticleEmitter>();
-	zoneEffect_->Initialize("zoneEffect", "./Resources/gradationLine.png");
-	zoneEffect_->SetEmitRange({}, {}); // 座標の位置で発生
-	zoneEffect_->SetInitialLifeTime(0.02f);
-	zoneEffect_->SetEmitRate(0.0f);
-	zoneEffect_->SetBillborad(false);
-	zoneEffect_->SetInitialScale(zone_->GetScale());
-	zoneEffect_->SetInitialRotation(Vector3{ std::numbers::pi_v<float>, 0.0f, 0.0f }); //　地面に倒す角度にする
-	// 円柱を使用する
-	zoneEffect_->SetModelType(ParticleGroup::ParticleType::Cylinder);
-	// Y軸回転を加える
-	zoneEffect_->AddComponent(std::make_shared<UVTranslateComponent>(Vector3{ 0.03f, 0.0f, 0.0f })); // UVを毎フレーム大きくずらす
-	zoneEffect_->Start(
-		&zone_->GetPosition(),
-		1,
-		0.0f,
-		true
-	);
+	zone_ = std::make_unique<Zone>();
+	zone_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), sceneManager_->GetCameraManager()->GetActiveCamera(), sceneManager_->GetPostProcessManager());
 
 	// 衝突判定を2Dモードに変更
 	CollisionManager::GetInstance()->SetCollisionDimension(CollisionDimension::Mode2D);
@@ -149,17 +107,6 @@ void TitleScene::Update()
 	// 前フレームの位置を更新
 	CollisionManager::GetInstance()->UpdatePreviousPositions();
 
-	// ゾーン縮小
-	if (zone_->GetScale().x > 0.01f)
-	{
-		zone_->SetScale(zone_->GetScale() - Vector3{ 0.01f, 0.0f, 0.0f });
-	}
-
-	//ゾーンエフェクトをゾーンの大きさに合わせる
-	zoneEffect_->SetInitialScale({ zone_->GetScale().x, zone_->GetScale().y, zone_->GetScale().x });
-	auto zoneCollider = zone_->GetComponent< SphereColliderComponent>();
-	zoneCollider->SetSphere(Sphere(zone_->GetPosition(), zone_->GetScale().x));
-
 	debugCube1_->Update();
 	zone_->Update();
 
@@ -169,7 +116,15 @@ void TitleScene::Update()
 
 void TitleScene::Draw3D()
 {
+	// グリッドの描画
+	LineManager::GetInstance()->DrawGrid(
+		300.0f, 
+		5.0f, 
+		VectorColorCodes::Chocolate
+	);
+
 	debugCube1_->Draw(sceneManager_->GetCameraManager());
+	zone_->Draw(sceneManager_->GetCameraManager());
 }
 
 void TitleScene::Draw2D()

@@ -33,6 +33,12 @@ namespace GameObjectTag
 		const std::string Knife = "Knife";
 	}
 
+	// フィールド
+	namespace Field {
+		const std::string Zone = "Zone";
+	}
+
+
 	// アイテム
 	namespace Item {
 		const std::string Obstacle = "Obstacle";

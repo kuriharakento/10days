@@ -298,6 +298,8 @@
     <ClCompile Include="application\GameObject\component\collision\SphereColliderComponent.cpp">
       <Filter>application\GameObject\component\collision</Filter>
     </ClCompile>
+    <ClCompile Include="application\GameObject\zone\Zone.cpp" />
+    <ClCompile Include="application\GameObject\component\action\ZoneShrinkComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -672,6 +674,8 @@
     <ClInclude Include="engine\math\Sphere.h">
       <Filter>engine\math</Filter>
     </ClInclude>
+    <ClInclude Include="application\GameObject\zone\Zone.h" />
+    <ClInclude Include="application\GameObject\component\action\ZoneShrinkComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">
