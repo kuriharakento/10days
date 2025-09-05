@@ -15,6 +15,8 @@
 #include "graphics/3d/Object3d.h"
 
 // effects
+#include "application/GameObject/base/GameObject.h"
+#include "application/GameObject/zone/Zone.h"
 #include "effects/particle/ParticleEmitter.h"
 
 class TitleScene : public BaseScene
@@ -46,4 +48,8 @@ private: //メンバ変数
 	std::unique_ptr<ParticleEmitter> glitch_;
 	std::unique_ptr<ParticleEmitter> mordeVFXGround_;
 	std::unique_ptr<ParticleEmitter> mordeVFXFragment_;
+	// デバッグ
+	std::unique_ptr<GameObject> debugCube1_;
+	// ゾーン
+	std::unique_ptr<Zone> zone_;
 };

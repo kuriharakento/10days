@@ -1,6 +1,9 @@
 #pragma once
 // scene
 #include "engine/scene/interface/BaseScene.h"
+// app
+#include "application/GameObject/Combatable/character/player/Player.h"
+#include "application//GameObject//Combatable//character//enemy//EnemyManager.h"
 
 class GamePlayScene : public BaseScene
 {
@@ -14,5 +17,12 @@ public:
 	//描画
 	void Draw3D() override;
 	void Draw2D() override;
+
+private:
+	std::unique_ptr<Player> player_;
+
+	// ゲームオブジェクト
+	std::unique_ptr<EnemyManager> enemyManager_ = nullptr;
+
 };
 
