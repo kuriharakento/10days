@@ -4,6 +4,8 @@
 // app
 #include "application/GameObject/Combatable/character/player/Player.h"
 #include "application//GameObject//Combatable//character//enemy//EnemyManager.h"
+#include "application/GameObject/zone/Zone.h"
+#include "camerawork/debug/DebugCamera.h"
 
 class GamePlayScene : public BaseScene
 {
@@ -19,10 +21,16 @@ public:
 	void Draw2D() override;
 
 private:
+	// デバッグカメラ
+	std::unique_ptr<DebugCamera> debugCamera_;
+
 	std::unique_ptr<Player> player_;
 
 	// ゲームオブジェクト
 	std::unique_ptr<EnemyManager> enemyManager_ = nullptr;
+
+	// ゾーン
+	std::unique_ptr<Zone> zone_;
 
 };
 

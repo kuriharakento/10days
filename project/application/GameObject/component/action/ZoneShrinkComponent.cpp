@@ -1,7 +1,11 @@
 #include "ZoneShrinkComponent.h"
 
 #include "application/GameObject/component/collision/SphereColliderComponent.h"
+#include "effects/particle/component/group/MaterialColorComponent.h"
 #include "effects/particle/component/group/UVTranslateComponent.h"
+#include "effects/particle/component/single/ColorFadeOutComponent.h"
+#include "effects/particle/component/single/ScaleOverLifetimeComponent.h"
+#include "math/VectorColorCodes.h"
 
 ZoneShrinkComponent::ZoneShrinkComponent(float shrinkSpeed)
 {
@@ -39,15 +43,17 @@ void ZoneShrinkComponent::InitEmitter(GameObject* owner)
 	zoneEffect_ = std::make_unique<ParticleEmitter>();
 	zoneEffect_->Initialize("zoneEffect", "./Resources/gradationLine.png");
 	zoneEffect_->SetEmitRange({}, {}); // 座標の位置で発生
-	zoneEffect_->SetInitialLifeTime(0.02f);
+	zoneEffect_->SetInitialLifeTime(0.04f);
 	zoneEffect_->SetEmitRate(0.0f);
 	zoneEffect_->SetBillborad(false);
 	zoneEffect_->SetInitialScale(owner->GetScale());
 	zoneEffect_->SetInitialRotation(Vector3{ std::numbers::pi_v<float>, 0.0f, 0.0f }); //　地面に倒す角度にする
+	zoneEffect_->SetInitialColor(VectorColorCodes::Red);
 	// 円柱を使用する
 	zoneEffect_->SetModelType(ParticleGroup::ParticleType::Cylinder);
 	// Y軸回転を加える
 	zoneEffect_->AddComponent(std::make_shared<UVTranslateComponent>(Vector3{ 0.03f, 0.0f, 0.0f })); // UVを毎フレーム大きくずらす
+	
 	zoneEffect_->Start(
 		&owner->GetPosition(),
 		1,

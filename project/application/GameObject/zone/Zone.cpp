@@ -17,21 +17,22 @@ void Zone::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager
 	// 当たり判定コンポーネント
 	auto zoneCollider = std::make_unique<SphereColliderComponent>(this);
 	zoneCollider->SetOnEnter([this, postProcess](GameObject* other) {
-		postProcess->grayscaleEffect_->SetEnabled(false);
-							 });
-	zoneCollider->SetOnStay([](GameObject* other) {
-		if (other->GetTag() == "DebugCube")
+		if (other->GetTag() == GameObjectTag::Character::Player)
 		{
+			postProcess->grayscaleEffect_->SetEnabled(false);
 			other->GetObject3d()->SetColor(VectorColorCodes::Red);
 		}
+							 });
+	zoneCollider->SetOnStay([](GameObject* other) {
+
 							});
 	zoneCollider->SetOnExit([this, postProcess](GameObject* other) {
-		if (other->GetTag() == "DebugCube")
+		if (other->GetTag() == GameObjectTag::Character::Player)
 		{
 			other->GetObject3d()->SetColor(VectorColorCodes::White);
+			postProcess->grayscaleEffect_->SetEnabled(true);
+			postProcess->grayscaleEffect_->SetIntensity(1.0f);
 		}
-		postProcess->grayscaleEffect_->SetEnabled(true);
-		postProcess->grayscaleEffect_->SetIntensity(1.0f);
 							});
 	AddComponent("SphereCollider", std::move(zoneCollider));
 
