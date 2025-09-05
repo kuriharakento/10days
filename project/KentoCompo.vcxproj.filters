@@ -289,9 +289,17 @@
     <ClCompile Include="engine\time\Timer.cpp">
       <Filter>engine\time</Filter>
     </ClCompile>
-    <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp">
+  <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp">
       <Filter>application\GameObject\combatable\character\base</Filter>
     </ClCompile>
+    <ClCompile Include="application\GameObject\Combatable\character\player\Player.cpp" />
+    <ClCompile Include="application\GameObject\component\action\MoveComponent.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.cpp" />
+    <ClCompile Include="application\GameObject\component\action\EnemyMoveComponent.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\zombie\ZombieEnemy.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\EnemyManager.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\rushEnemy\RushEnemy.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\burstEnemy\BurstEnemy.cpp" />
     <ClCompile Include="application\GameObject\component\collision\CollisionAlgorithm.cpp">
       <Filter>application\GameObject\component\collision</Filter>
     </ClCompile>
@@ -659,17 +667,25 @@
     <ClInclude Include="application\GameObject\base\GameObjectTag.h">
       <Filter>application\GameObject\base</Filter>
     </ClInclude>
+    <ClInclude Include="application\GameObject\base\GameObjectInfo.h">
+      <Filter>application\GameObject\base</Filter>
+    </ClInclude>
     <ClInclude Include="application\GameObject\Combatable\character\base\Character.h">
       <Filter>application\GameObject\combatable\character\base</Filter>
     </ClInclude>
+    <ClInclude Include="application\GameObject\Combatable\character\player\Player.h" />
+    <ClInclude Include="application\GameObject\component\action\MoveComponent.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.h" />
+    <ClInclude Include="application\GameObject\component\action\EnemyMoveComponent.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\zombie\ZombieEnemy.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\EnemyManager.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\rushEnemy\RushEnemy.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\burstEnemy\BurstEnemy.h" />
     <ClInclude Include="application\GameObject\component\collision\SphereColliderComponent.h">
       <Filter>application\GameObject\component\collision</Filter>
     </ClInclude>
     <ClInclude Include="application\GameObject\component\collision\CollisionAlgorithm.h">
       <Filter>application\GameObject\component\collision</Filter>
-    </ClInclude>
-    <ClInclude Include="application\GameObject\base\GameObjectInfo.h">
-      <Filter>application\GameObject\base</Filter>
     </ClInclude>
     <ClInclude Include="engine\math\Sphere.h">
       <Filter>engine\math</Filter>
