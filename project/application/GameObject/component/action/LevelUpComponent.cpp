@@ -13,37 +13,36 @@ void LevelUpComponent::Update(GameObject* owner)
 
 void LevelUpComponent::ProcessChoise()
 {
-	if (beforeLevel_ != data_->info.xpState.level)
+	if (beforeLevel_ != data_->info.xp.level)
 	{
 #ifdef _DEBUG
 		ImGui::Begin("Choise");
 		if (ImGui::Button("knockback"))
 		{
-			data_->info.multiplier.knockback += data_->info.addBonus.knockback;
+			data_->info.stats.knockback.upgradeCount++;
 			beforeLevel_++;
 		}
 		if (ImGui::Button("attackSpeed"))
 		{
-			data_->info.multiplier.attackSpeed += data_->info.addBonus.attackSpeed;
+			data_->info.stats.attackSpeed.upgradeCount++;
 			beforeLevel_++;
 		}
 		if (ImGui::Button("attackDamage"))
 		{
-			data_->info.multiplier.attackDamage += data_->info.addBonus.attackDamage;
+			data_->info.stats.attackDamage.upgradeCount++;
 			beforeLevel_++;
 		}
 		if (ImGui::Button("moveSpeed"))
 		{
-			data_->info.multiplier.moveSpeed += data_->info.addBonus.moveSpeed;
+			data_->info.stats.moveSpeed.upgradeCount++;
 			beforeLevel_++;
 		}
 		if (ImGui::Button("heal"))
 		{
-			data_->info.status.hitPoint += data_->info.addBonus.heal;
+			data_->info.stats.hitPoint += data_->info.stats.heal;
 			beforeLevel_++;
 		}
 		ImGui::End();
 #endif // _DEBUG
-
 	}
 }

@@ -9,52 +9,76 @@ void PlayerData::DrawImGui()
 {
 #ifdef _DEBUG
 	ImGui::PushID("player");
-	if (ImGui::TreeNode("DefaultStatus"))
+	if (ImGui::TreeNode("CurrentStats"))
 	{
-		ImGui::DragFloat("HP", &info.status.hitPoint);
-		ImGui::DragFloat("KnockBack", &info.status.knockback);
+		ImGui::PushID("CurrentStats");
+		ImGui::DragFloat("HP", &info.stats.hitPoint);
+		float knockback = info.stats.knockback.final();
+		ImGui::DragFloat("KnockBack", &knockback);
 		ImGui::PushItemWidth(ImGui::CalcItemWidth() * 0.5f);
-		ImGui::DragFloat("AS", &info.status.attackSpeed);
+		float attackSpeed = info.stats.attackSpeed.final();
+		ImGui::DragFloat("AS", &attackSpeed);
 		ImGui::SameLine();
-		ImGui::DragFloat("AD", &info.status.attackDamage);
-		ImGui::DragFloat("MS", &info.status.moveSpeed);
-		ImGui::SameLine();
-		ImGui::DragFloat("Exp", &info.status.exp);
+		float attackDamage = info.stats.attackDamage.final();
+		ImGui::DragFloat("AD", &attackDamage);
+		float moveSpeed = info.stats.moveSpeed.final();
+		ImGui::DragFloat("MS", &moveSpeed);
 		ImGui::PopItemWidth();
+		ImGui::PopID();
 		ImGui::TreePop();
 	}
-	if (ImGui::TreeNode("StatusMultiplier"))
+	if (ImGui::TreeNode("BaseStats"))
 	{
-		ImGui::DragFloat("KnockBack", &info.multiplier.knockback);
+		ImGui::PushID("BaseStats");
+		ImGui::DragFloat("HP", &info.stats.hitPoint);
+		ImGui::DragFloat("KnockBack", &info.stats.knockback.baseValue, 0.01f);
 		ImGui::PushItemWidth(ImGui::CalcItemWidth() * 0.5f);
-		ImGui::DragFloat("AS", &info.multiplier.attackSpeed);
+		ImGui::DragFloat("AS", &info.stats.attackSpeed.baseValue, 0.01f);
 		ImGui::SameLine();
-		ImGui::DragFloat("AD", &info.multiplier.attackDamage);
-		ImGui::DragFloat("MS", &info.multiplier.moveSpeed);
+		ImGui::DragFloat("AD", &info.stats.attackDamage.baseValue, 0.01f);
+		ImGui::DragFloat("MS", &info.stats.moveSpeed.baseValue, 0.01f);
 		ImGui::PopItemWidth();
+		ImGui::PopID();
 		ImGui::TreePop();
 	}
-	if (ImGui::TreeNode("AddBonus"))
+	if (ImGui::TreeNode("UpgradeCount"))
 	{
-		ImGui::DragFloat("KnockBack", &info.addBonus.knockback);
+		ImGui::PushID("UpgradeCount");
+		ImGui::DragInt("KnockBack", &info.stats.knockback.upgradeCount);
 		ImGui::PushItemWidth(ImGui::CalcItemWidth() * 0.5f);
-		ImGui::DragFloat("AS", &info.addBonus.attackSpeed);
+		ImGui::DragInt("AS", &info.stats.attackSpeed.upgradeCount);
 		ImGui::SameLine();
-		ImGui::DragFloat("AD", &info.addBonus.attackDamage);
-		ImGui::DragFloat("MS", &info.addBonus.moveSpeed);
-		ImGui::SameLine();
-		ImGui::DragFloat("Heal", &info.addBonus.heal);
+		ImGui::DragInt("AD", &info.stats.attackDamage.upgradeCount);
+		ImGui::DragInt("MS", &info.stats.moveSpeed.upgradeCount);
 		ImGui::PopItemWidth();
+		ImGui::PopID();
+		ImGui::TreePop();
+	}
+	if (ImGui::TreeNode("AddBonus(1/100%)"))
+	{
+		ImGui::PushID("AddBonus");
+		ImGui::DragFloat("KnockBack", &info.stats.knockback.increment, 0.01f);
+		ImGui::PushItemWidth(ImGui::CalcItemWidth() * 0.5f);
+		ImGui::DragFloat("AS", &info.stats.attackSpeed.increment, 0.01f);
+		ImGui::SameLine();
+		ImGui::DragFloat("AD", &info.stats.attackDamage.increment, 0.01f);
+		ImGui::DragFloat("MS", &info.stats.moveSpeed.increment, 0.01f);
+		ImGui::SameLine();
+		ImGui::DragFloat("Heal", &info.stats.heal);
+		ImGui::PopItemWidth();
+		ImGui::PopID();
 		ImGui::TreePop();
 	}
 	if (ImGui::TreeNode("XP"))
 	{
-		ImGui::DragInt("Lv.", &info.xpState.level);
-		ImGui::DragFloat("totalXP", &info.xpState.totalXP);
-		ImGui::DragFloat("xpIntoLevel", &info.xpState.xpIntoLevel);
-		ImGui::DragFloat("xpToNextThreshold", &info.xpState.xpToNextThreshold);
-		float p = (info.xpState.xpIntoLevel / info.xpState.xpToNextThreshold) * 100.0f;
+		ImGui::PushID("XP");
+		ImGui::DragInt("Lv.", &info.xp.level);
+		ImGui::DragFloat("totalXP", &info.xp.totalXP);
+		ImGui::DragFloat("xpIntoLevel", &info.xp.xpIntoLevel);
+		ImGui::DragFloat("xpToNextThreshold", &info.xp.xpToNextThreshold);
+		float p = (info.xp.xpIntoLevel / info.xp.xpToNextThreshold) * 100.0f;
 		ImGui::Text("NextLv.%.0f%%", p);
+		ImGui::PopID();
 		ImGui::TreePop();
 	}
 	ImGui::PopID();

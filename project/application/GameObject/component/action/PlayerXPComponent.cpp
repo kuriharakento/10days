@@ -16,6 +16,6 @@ void PlayerXPComponent::ProcessAddXP()
 	if (Input::GetInstance()->TriggerKey(DIK_X))
 	{
 		float xpGain = 2.0f;
-		int ups = AddXP(data_->info.xpState, data_->info.xpParams, xpGain);
+		int ups = data_->info.xp.addXP(xpGain);
 	}
 }
