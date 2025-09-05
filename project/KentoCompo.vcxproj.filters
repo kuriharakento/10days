@@ -308,6 +308,8 @@
     </ClCompile>
     <ClCompile Include="application\GameObject\zone\Zone.cpp" />
     <ClCompile Include="application\GameObject\component\action\ZoneShrinkComponent.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\enemy\chargeEnemy\ChargeEnemy.cpp" />
+    <ClCompile Include="application\GameObject\component\action\ChargeEnemyTackleComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -692,6 +694,8 @@
     </ClInclude>
     <ClInclude Include="application\GameObject\zone\Zone.h" />
     <ClInclude Include="application\GameObject\component\action\ZoneShrinkComponent.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\enemy\chargeEnemy\ChargeEnemy.h" />
+    <ClInclude Include="application\GameObject\component\action\ChargeEnemyTackleComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">

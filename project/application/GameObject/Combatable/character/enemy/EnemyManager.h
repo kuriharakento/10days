@@ -25,6 +25,8 @@ public:
 
 	void AddBurstEnemy(uint32_t count);
 
+	void AddChargeEnemy(uint32_t count);
+
 	void SetEnemyData(const std::vector<GameObjectInfo>& data);
 	
 	void SetTarget(GameObject* target) { target_ = target; }

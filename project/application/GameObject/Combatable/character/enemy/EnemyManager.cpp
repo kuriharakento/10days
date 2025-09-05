@@ -3,6 +3,7 @@
 #include "zombie/ZombieEnemy.h"
 #include "rushEnemy/RushEnemy.h"
 #include "burstEnemy/BurstEnemy.h"
+#include "chargeEnemy/ChargeEnemy.h"
 
 void EnemyManager::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager, GameObject* target)
 {
@@ -119,6 +120,20 @@ void EnemyManager::AddBurstEnemy(uint32_t count)
 			});
 
 		enemy->Initialize(object3dCommon_, lightManager_, new float(1.1f), target_);
+		// 出現位置をランダムに設定
+		float x = emitRange_.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.x - emitRange_.min_.x)));
+		float z = emitRange_.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.z - emitRange_.min_.z)));
+		enemy->SetPosition(Vector3(x, enemy->GetScale().y, z)); // Y座標は地面に合わせる
+		enemies_.emplace_back(std::move(enemy));
+	}
+}
+
+void EnemyManager::AddChargeEnemy(uint32_t count)
+{
+	for (uint32_t i = 0; i < count; ++i)
+	{
+		auto enemy = std::make_unique<ChargeEnemy>();
+		enemy->Initialize(object3dCommon_, lightManager_, new float(1.0f), target_);
 		// 出現位置をランダムに設定
 		float x = emitRange_.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.x - emitRange_.min_.x)));
 		float z = emitRange_.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.z - emitRange_.min_.z)));
