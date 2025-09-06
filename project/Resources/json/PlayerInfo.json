@@ -1,0 +1,36 @@
+{
+    "playerInfo": {
+        "stats": {
+            "attackDamage": {
+                "baseValue": 1.0,
+                "increment": 1.0,
+                "upgradeCount": 0
+            },
+            "attackSpeed": {
+                "baseValue": 1.0,
+                "increment": 1.0,
+                "upgradeCount": 0
+            },
+            "exp": 0.0,
+            "heal": 30.0,
+            "hitPoint": 100.0,
+            "knockback": {
+                "baseValue": 1.0,
+                "increment": 1.0,
+                "upgradeCount": 0
+            },
+            "moveSpeed": {
+                "baseValue": 9.0,
+                "increment": 1.0,
+                "upgradeCount": 0
+            }
+        },
+        "xp": {
+            "level": 1,
+            "s": 1.0,
+            "totalXP": 0.0,
+            "xpIntoLevel": 0.0,
+            "xpToNextThreshold": 3.0
+        }
+    }
+}

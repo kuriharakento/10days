@@ -8,8 +8,9 @@
 #include "time/TimerManager.h"
 #include "time/Timer.h"
 
-MoveComponent::MoveComponent()
+MoveComponent::MoveComponent(PlayerData* data)
 {
+    data_ = data;
 }
 
 void MoveComponent::Update(GameObject* owner)
@@ -32,7 +33,7 @@ void MoveComponent::ProcessMovement(GameObject* owner)
     if (hasMovementInput_)
     {
         moveDirection.NormalizeSelf(); // 正規化
-        owner->SetPosition(owner->GetPosition() + moveDirection * moveSpeed_ * deltaTime/*TimerManager::GetInstance().GetTimer("")*/);
+        owner->SetPosition(owner->GetPosition() + moveDirection * data_->info.stats.moveSpeed.final() * deltaTime/*TimerManager::GetInstance().GetTimer("")*/);
 
         // プレイヤーの向きを滑らかに変える
         UpdateRotation(owner, moveDirection);
