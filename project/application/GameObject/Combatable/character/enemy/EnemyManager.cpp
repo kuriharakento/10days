@@ -4,6 +4,7 @@
 #include "rushEnemy/RushEnemy.h"
 #include "burstEnemy/BurstEnemy.h"
 #include "chargeEnemy/ChargeEnemy.h"
+#include "application/GameObject/Combatable/character/player/Player.h"
 
 void EnemyManager::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager, GameObject* target)
 {
@@ -39,6 +40,8 @@ void EnemyManager::Update()
 		{
 			(*it)->CallOnDeath(); // 死亡時のコールバックを呼び出す
 			it = enemies_.erase(it); // 死亡した敵を削除
+			auto player = dynamic_cast<Player*>(target_);
+			player->XPGain(2.0f);
 		} 
 		else
 		{

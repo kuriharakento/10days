@@ -98,6 +98,15 @@ void TitleScene::Update()
 		// ステージエディットシーン移動
 		sceneManager_->ChangeScene("STAGEEDIT");
 	}
+#ifdef _DEBUG
+
+#else
+	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
+	{
+		sceneManager_->ChangeScene("GAMEPLAY");
+	}
+#endif // _DEBUG
+
 
 	// ImGuiの描画
 	DrawImGui();

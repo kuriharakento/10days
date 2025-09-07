@@ -33,7 +33,8 @@ void ZombieEnemy::CollisionSettings(ICollisionComponent* collider)
 	collider->SetOnEnter([this](GameObject* other) 
 	{
 		// 衝突した瞬間の処理
-		if (other->GetTag() == GameObjectTag::Weapon::PlayerBullet)
+		if (other->GetTag() == GameObjectTag::Character::PlayerRightArm || 
+			other->GetTag() == GameObjectTag::Character::PlayerLeftArm)
 		{
 			auto combatable = dynamic_cast<CombatableObject*>(other);
 			hp_.base -= combatable->GetAttackPower();
@@ -42,7 +43,7 @@ void ZombieEnemy::CollisionSettings(ICollisionComponent* collider)
 			auto direction = GetPosition() - other->GetPosition();
 			direction.y = 0; // 水平面での向きに制限
 			direction.Normalize();
-			SetPosition(GetPosition() + direction * 10.0f); // ノックバック量を調整
+			SetPosition(GetPosition() + direction * 0.5f); // ノックバック量を調整
 			// 無敵時間を設定
 			SetInvincible(0.5f); // 0.5秒の無敵時間
 		}

@@ -31,5 +31,9 @@ private:
 
 	std::vector<std::unique_ptr<Sprite>> upgradeIcons_;
 
+	std::unique_ptr<GameObject> obj_;
+
+	float timer_ = 0.0f;
+	int spawnCount_ = 0;
 };
 
