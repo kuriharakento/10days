@@ -37,6 +37,9 @@ void GamePlayScene::Update()
 		sceneManager_->ChangeScene("TITLE");
 	}
 	player_->Update();
+	// カメラこんな感じがいいかも
+	sceneManager_->GetCameraManager()->GetActiveCamera()->SetRotate({ 0.78f,0,0 });
+	sceneManager_->GetCameraManager()->GetActiveCamera()->SetTranslate(player_->GetPosition() + Vector3(0,50,-50));
 
 	// エネミーマネージャーの更新
 	enemyManager_->Update();
@@ -51,5 +54,19 @@ void GamePlayScene::Draw3D()
 
 void GamePlayScene::Draw2D()
 {
+	if (true)
+	{
+		for (auto&& spr : upgradeIcons_)
+		{
+			spr->Draw();
+		}
+	}
+}
 
+void GamePlayScene::ResisterSprite(std::string& path, Vector2 pos)
+{
+	auto sprite = std::make_unique<Sprite>();
+	sprite->Initialize(sceneManager_->GetSpriteCommon(), path);
+	sprite->SetPosition(pos);
+	upgradeIcons_.push_back(std::move(sprite));
 }

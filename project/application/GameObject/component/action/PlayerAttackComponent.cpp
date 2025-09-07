@@ -3,6 +3,8 @@
 #include "math/MathUtils.h"
 #include <cmath>
 
+#include "time/TimeManager.h"
+
 PlayerAttackComponent::PlayerAttackComponent(GameObject* owner, PlayerData* data, const char* LR)
 {
 	owner_ = owner;
@@ -25,7 +27,7 @@ PlayerAttackComponent::PlayerAttackComponent(GameObject* owner, PlayerData* data
 
 void PlayerAttackComponent::Update(GameObject* owner)
 {
-	deltaTime_ = 1.0f / 60.0f;
+	deltaTime_ = TimeManager::GetInstance().GetDeltaTime();
 
 	ProcessAttack();
 }

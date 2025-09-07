@@ -45,15 +45,16 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 
 #pragma region // 参考
 	// 試しに腕を追加
-	auto Rarm = std::make_unique<GameObject>(GameObjectTag::Character::PlayerRightArm);
+	auto Rarm = std::make_unique<CombatableObject>(GameObjectTag::Weapon::PlayerBullet);
 	Rarm->Initialize(object3dCommon, lightManager);
 	Rarm->SetModel("cube");
 	Rarm->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
+	Rarm->SetAttackPower(100.0f);
 	Rarm->AddComponent("OBBColliderComponent", std::make_unique<OBBColliderComponent>(Rarm.get()));
 	Rarm->AddComponent("PlayerAttackComponent", std::make_unique<PlayerAttackComponent>(Rarm.get(), data_.get(), "R"));
-	AddChild(GameObjectTag::Character::PlayerRightArm, std::move(Rarm));
+	AddChild(GameObjectTag::Weapon::PlayerBullet, std::move(Rarm));
 
-	auto Larm = std::make_unique<GameObject>(GameObjectTag::Character::PlayerLeftArm);
+	auto Larm = std::make_unique<CombatableObject>(GameObjectTag::Character::PlayerLeftArm);
 	Larm->Initialize(object3dCommon, lightManager);
 	Larm->SetModel("cube");
 	Larm->SetPosition(Vector3(-3.0f, 0.0f, 0.0f));
