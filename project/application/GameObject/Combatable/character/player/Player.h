@@ -13,10 +13,15 @@ public:
 	void Update() override;
 	void Draw(CameraManager* camera) override;
 
+	void SetIsUpgrade(bool is) { isUpgrade_ = is; }
+	bool GetIsUpgrade() { return isUpgrade_; }
+
 private:
 	void CollisionSettings(ICollisionComponent* collider) override;
 
 private:
 	std::shared_ptr<PlayerData> data_;
+
+	bool isUpgrade_ = false;
 };
 

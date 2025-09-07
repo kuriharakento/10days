@@ -2,6 +2,7 @@
 
 // system
 #include "input/Input.h"
+#include "manager/graphics/TextureManager.h"
 // scene
 #include "engine/scene/manager/SceneManager.h"
 // app
@@ -23,6 +24,11 @@ void GamePlayScene::Initialize()
 	enemyManager_->AddBurstEnemy(2); // バースト敵を2体追加
 	enemyManager_->AddChargeEnemy(3); // チャージ敵を4体追加
 
+	ResisterSprite("Resources/icon/ADIcon.png", {300,200});
+	ResisterSprite("Resources/icon/ASIcon.png", { 590,200 });
+	ResisterSprite("Resources/icon/MSIcon.png", { 880,200 });
+	ResisterSprite("Resources/icon/KBIcon.png", { 450,500 });
+	ResisterSprite("Resources/icon/HEALIcon.png", { 730,500 });
 }
 
 void GamePlayScene::Finalize()
@@ -37,6 +43,10 @@ void GamePlayScene::Update()
 		sceneManager_->ChangeScene("TITLE");
 	}
 	player_->Update();
+	for (auto&& spr : upgradeIcons_)
+	{
+		spr->Update();
+	}
 	// カメラこんな感じがいいかも
 	sceneManager_->GetCameraManager()->GetActiveCamera()->SetRotate({ 0.78f,0,0 });
 	sceneManager_->GetCameraManager()->GetActiveCamera()->SetTranslate(player_->GetPosition() + Vector3(0,50,-50));
@@ -54,7 +64,7 @@ void GamePlayScene::Draw3D()
 
 void GamePlayScene::Draw2D()
 {
-	if (true)
+	if (player_->GetIsUpgrade())
 	{
 		for (auto&& spr : upgradeIcons_)
 		{
@@ -63,10 +73,12 @@ void GamePlayScene::Draw2D()
 	}
 }
 
-void GamePlayScene::ResisterSprite(std::string& path, Vector2 pos)
+void GamePlayScene::ResisterSprite(const std::string& path, Vector2 pos)
 {
+	TextureManager::GetInstance()->LoadTexture(path);
 	auto sprite = std::make_unique<Sprite>();
 	sprite->Initialize(sceneManager_->GetSpriteCommon(), path);
 	sprite->SetPosition(pos);
+	sprite->SetAnchorPoint({0.5f,0.5f});
 	upgradeIcons_.push_back(std::move(sprite));
 }

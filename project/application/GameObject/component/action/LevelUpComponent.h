@@ -13,7 +13,7 @@ public:
 	void Update(GameObject* owner) override;
 
 private:
-	void ProcessChoise();
+	void ProcessChoise(GameObject* owner);
 
 private:
 	PlayerData* data_ = nullptr;

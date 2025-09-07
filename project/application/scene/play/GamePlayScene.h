@@ -21,7 +21,7 @@ public:
 	void Draw2D() override;
 
 private:
-	void ResisterSprite(std::string& path, Vector2 pos = {0,0});
+	void ResisterSprite(const std::string& path, Vector2 pos = {0,0});
 
 private:
 	std::unique_ptr<Player> player_;
