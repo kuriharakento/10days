@@ -2,6 +2,9 @@
 
 #include "../../../../component/collision/OBBColliderComponent.h"
 
+
+#include "input/Input.h"
+
 void ZombieEnemy::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager, float* moveSpeed, GameObject* target)
 {
 	EnemyBase::Initialize(object3dCommon, lightManager, moveSpeed, target);
@@ -19,6 +22,35 @@ void ZombieEnemy::Initialize(Object3dCommon* object3dCommon, LightManager* light
 
 void ZombieEnemy::Update()
 {
+#ifdef _DEBUG
+
+	if (Input::GetInstance()->TriggerKey(DIK_K))
+	{
+		// ノックバックテスト
+		auto direction = Vector3(0, 0, -1); // 前方にノックバック
+		direction.Normalize();
+		knockbackStartPos_ = GetPosition();
+		knockbackTargetPos_ = GetPosition() + direction * 2.5f; // 0.5fはノックバックの距離
+		knockbackElapsed_ = 0.0f;
+		isKnockback_ = true;
+	}
+	
+
+#endif // _DEBUG
+
+
+	if (isKnockback_) 
+	{
+		knockbackElapsed_ += /* deltaTime */ 0.016f; // フレーム時間を渡す場合は適宜修正
+		float t = std::min(knockbackElapsed_ / knockbackDuration_, 1.0f);
+		Vector3 newPos = knockbackStartPos_ * (1.0f - t) + knockbackTargetPos_ * t;
+		SetPosition(newPos);
+		if (t >= 1.0f)
+		{
+			isKnockback_ = false;
+		}
+	}
+
 	EnemyBase::Update();
 }
 
@@ -40,9 +72,13 @@ void ZombieEnemy::CollisionSettings(ICollisionComponent* collider)
 
 			// ノックバック
 			auto direction = GetPosition() - other->GetPosition();
-			direction.y = 0; // 水平面での向きに制限
+			direction.y = 0;
 			direction.Normalize();
-			SetPosition(GetPosition() + direction * 0.5f); // ノックバック量を調整
+			knockbackStartPos_ = GetPosition();
+			knockbackTargetPos_ = GetPosition() + direction * 0.5f; // 0.5fはノックバックの距離
+			knockbackElapsed_ = 0.0f;
+			isKnockback_ = true;
+
 			// 無敵時間を設定
 			SetInvincible(0.5f); // 0.5秒の無敵時間
 		}
