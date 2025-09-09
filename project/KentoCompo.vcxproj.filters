@@ -300,6 +300,7 @@
     <ClCompile Include="application\GameObject\Combatable\character\enemy\burstEnemy\BurstEnemy.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\enemy\chargeEnemy\ChargeEnemy.cpp" />
     <ClCompile Include="application\GameObject\component\action\ChargeEnemyTackleComponent.cpp" />
+    <ClCompile Include="application\GameObject\component\action\EnemyKnockbackComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -671,6 +672,7 @@
     <ClInclude Include="application\GameObject\Combatable\character\enemy\burstEnemy\BurstEnemy.h" />
     <ClInclude Include="application\GameObject\Combatable\character\enemy\chargeEnemy\ChargeEnemy.h" />
     <ClInclude Include="application\GameObject\component\action\ChargeEnemyTackleComponent.h" />
+    <ClInclude Include="application\GameObject\component\action\EnemyKnockbackComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">
