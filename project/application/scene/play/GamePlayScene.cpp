@@ -33,6 +33,7 @@ void GamePlayScene::Initialize()
 	enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
 	enemyManager_->AddRushEnemy(3);  // ラッシュ敵を3体追加
 	enemyManager_->AddBurstEnemy(2); // バースト敵を2体追加
+	enemyManager_->AddChargeEnemy(3); // チャージ敵を4体追加
 
 	// ゾーンの生成
 	zone_ = std::make_unique<Zone>();

@@ -13,7 +13,7 @@ public:
 	
 	void Draw(CameraManager* camera) override {}
 
-private:
+protected:
 
 	float speed_;            // 移動速度
 	GameObject* target_;     // 移動目標

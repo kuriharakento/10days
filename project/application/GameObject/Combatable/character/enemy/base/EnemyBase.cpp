@@ -20,9 +20,6 @@ void EnemyBase::Update()
 {
 	Character::Update();
 
-	// 移動処理
-	
-
 	// 死亡処理
 	if (hp_.base <= 0.0f)
 	{
