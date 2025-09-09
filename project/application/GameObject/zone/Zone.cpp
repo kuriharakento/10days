@@ -2,6 +2,8 @@
 
 #include "application/GameObject/component/action/ZoneShrinkComponent.h"
 #include "application/GameObject/component/collision/SphereColliderComponent.h"
+#include "effects/particle/component/single/AccelerationComponent.h"
+#include "effects/particle/component/single/ScaleOverLifetimeComponent.h"
 #include "math/VectorColorCodes.h"
 #include "manager/effect/PostProcessManager.h"
 
@@ -13,6 +15,17 @@ void Zone::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager
 	SetPosition({ 0.0f, 10.0f, 0.0f });
 	SetScale({ 20.0f, 10.0f, 20.0f });
 
+	outEffect_ = std::make_unique<ParticleEmitter>();
+	outEffect_->Initialize("outEffect", "./Resources/exclamationMark.png");
+	outEffect_->SetEmitRange({-2.0f, 0.0f, -2.0f}, { 2.0f, 2.0f, 2.0f });
+	outEffect_->SetInitialLifeTime(0.5f);
+	outEffect_->SetEmitRate(0.0f);
+	outEffect_->SetInitialColor(VectorColorCodes::Red);
+	outEffect_->SetBillborad(true);
+	// コンポーネントを追加
+	outEffect_->AddComponent(std::make_shared<ScaleOverLifetimeComponent>(2.0f, 0.0f));
+	outEffect_->AddComponent(std::make_shared<AccelerationComponent>(Vector3{ 0.0f, 0.4f, 0.0f }));
+
 	// コンポーネント追加
 	// 当たり判定コンポーネント
 	auto zoneCollider = std::make_unique<SphereColliderComponent>(this);
@@ -20,6 +33,8 @@ void Zone::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager
 		if (other->GetTag() == GameObjectTag::Character::Player)
 		{
 			postProcess->grayscaleEffect_->SetEnabled(false);
+			// エフェクトの停止
+			outEffect_->StopEmit();
 		}
 							 });
 	zoneCollider->SetOnStay([](GameObject* other) {
@@ -30,6 +45,13 @@ void Zone::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager
 		{
 			postProcess->grayscaleEffect_->SetEnabled(true);
 			postProcess->grayscaleEffect_->SetIntensity(1.0f);
+			// エフェクトの発生
+			outEffect_->Start(
+				&other->GetPosition(),
+				1,
+				0.0f,
+				true
+			);
 		}
 							});
 	AddComponent("SphereCollider", std::move(zoneCollider));
