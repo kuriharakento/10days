@@ -43,6 +43,8 @@ void PlayerAttackComponent::ProcessAttack(GameObject* owner)
 		//if (Input::GetInstance()->TriggerKey(DIK_RETURN))
 		{
 			timer_ = 0;
+			auto combatable = dynamic_cast<CombatableObject*>(owner);
+			combatable->SetAttackPower(data_->info.stats.attackDamage.final());
 		}
 	}
 	else
@@ -57,6 +59,7 @@ void PlayerAttackComponent::ProcessAttack(GameObject* owner)
 			if (t < 0.5f)
 			{
 				t *= 2.0f;
+				player->SetIsAttack(true);
 			}
 			else
 			{
@@ -67,7 +70,6 @@ void PlayerAttackComponent::ProcessAttack(GameObject* owner)
 			Matrix4x4 rotaMat = MakeRotateYMatrix(rota);
 			owner_->SetPosition(MathUtils::Transform(basePos_, rotaMat));
 			owner_->SetRotation({ 0,rota,0 });
-			player->SetIsAttack(true);
 		}
 	}
 }
