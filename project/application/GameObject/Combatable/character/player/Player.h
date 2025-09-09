@@ -38,7 +38,7 @@ private:
 
 	bool inZone_ = true;
 
-	float zoneDamagePerSec_ = 20.0f;
+	float zoneDamagePerSec_ = 30.0f;
 
 	std::unique_ptr<ParticleEmitter> hitEffect_;
 };

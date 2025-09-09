@@ -33,10 +33,6 @@ void GamePlayScene::Initialize()
 	// エネミーマネージャーの初期化
 	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), player_.get());
-	//enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
-	//enemyManager_->AddRushEnemy(3);  // ラッシュ敵を3体追加
-	//enemyManager_->AddBurstEnemy(2); // バースト敵を2体追加
-	//enemyManager_->AddChargeEnemy(3); // チャージ敵を4体追加
 
 	ui_ = std::make_unique<PlayUI>(player_.get(), sceneManager_->GetSpriteCommon());
 	ui_->Initialize();
@@ -59,43 +55,64 @@ void GamePlayScene::Finalize()
 
 void GamePlayScene::Update()
 {
-	debugCamera_->Update();
 
+#ifdef _DEBUG
+	debugCamera_->Update();
 	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
 	{
 		sceneManager_->ChangeScene("TITLE");
 	}
+#endif // _DEBUG
 
-	CollisionManager::GetInstance()->UpdatePreviousPositions();
-
-	player_->Update();
-
-	ui_->Update();
-
-	// カメラこんな感じがいいかも
+	// カメラ
 	sceneManager_->GetCameraManager()->GetActiveCamera()->SetRotate({ 0.68f,0,0 });
-	sceneManager_->GetCameraManager()->GetActiveCamera()->SetTranslate(player_->GetPosition() + Vector3(0,45,-58));
+	sceneManager_->GetCameraManager()->GetActiveCamera()->SetTranslate(player_->GetPosition() + Vector3(0, 45, -58));
 
-	
-	// エネミーマネージャーの更新
-	enemyManager_->Update();
-  
-	// ゾーンの更新
-	zone_->Update();
-
-	ground_->Update();
-
-	// 衝突判定開始
-	CollisionManager::GetInstance()->CheckCollisions();
-
-	if (timer_ < 10.0f)
+	if (!player_->IsAlive() || endTimer_ >= endTime_)
 	{
-		timer_ += TimeManager::GetInstance().GetDeltaTime();;
+
+		//========================↓↓↓ゲーム終了↓↓↓========================//
+
+
+
+		//========================↑↑↑ゲーム終了↑↑↑========================//
+
 	}
-	else if(spawnCount_ < 3)
+	else
 	{
-		enemyManager_->AddZombieEnemy(15); // ゾンビ敵を15体追加
-		++spawnCount_;
+
+		//=========================↓↓↓ゲーム中↓↓↓=========================//
+
+		CollisionManager::GetInstance()->UpdatePreviousPositions();
+
+		player_->Update();
+		ui_->Update();
+
+		endTimer_ += TimeManager::GetInstance().GetDeltaTime();
+
+
+		// エネミーマネージャーの更新
+		enemyManager_->Update();
+		// ゾーンの更新
+		zone_->Update();
+		ground_->Update();
+
+		// 衝突判定開始
+		CollisionManager::GetInstance()->CheckCollisions();
+
+		if (timer_ < 15.0f)
+		{
+			timer_ += TimeManager::GetInstance().GetDeltaTime();
+		}
+		else if (spawnCount_ < 8)
+		{
+			Spawn(spawnCount_);
+			++spawnCount_;
+			timer_ = 0.0f;
+		}
+
+		//=========================↑↑↑ゲーム中↑↑↑=========================//
+
 	}
 }
 
@@ -114,4 +131,50 @@ void GamePlayScene::Draw3D()
 void GamePlayScene::Draw2D()
 {
 	ui_->Draw();
+}
+
+void GamePlayScene::Spawn(int count)
+{
+	//enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
+	//enemyManager_->AddRushEnemy(3);  // ラッシュ敵を3体追加
+	//enemyManager_->AddBurstEnemy(2); // バースト敵を2体追加
+	//enemyManager_->AddChargeEnemy(3); // チャージ敵を4体追加
+	if (count == 0)
+	{
+		enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
+	}
+	if (count == 1)
+	{
+		enemyManager_->AddZombieEnemy(3); // ゾンビ敵を3体追加
+		enemyManager_->AddRushEnemy(6);  // ラッシュ敵を6体追加
+	}
+	if (count == 2)
+	{
+		enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
+		enemyManager_->AddChargeEnemy(2); // チャージ敵を2体追加
+	}
+	if (count == 3)
+	{
+		enemyManager_->AddBurstEnemy(3); // バースト敵を3体追加
+		enemyManager_->AddChargeEnemy(1); // チャージ敵を1体追加
+	}
+	if (count == 4)
+	{
+		enemyManager_->AddZombieEnemy(10); // ゾンビ敵を10体追加
+	}
+	if (count == 5)
+	{
+		enemyManager_->AddRushEnemy(20);  // ラッシュ敵を20体追加
+	}
+	if (count == 6)
+	{
+		enemyManager_->AddZombieEnemy(6); // ゾンビ敵を3体追加
+		enemyManager_->AddRushEnemy(6);  // ラッシュ敵を6体追加
+		enemyManager_->AddBurstEnemy(2); // バースト敵を2体追加
+		enemyManager_->AddChargeEnemy(3); // チャージ敵を3体追加
+	}
+	if (count == 7)
+	{
+		enemyManager_->AddBurstEnemy(10); // バースト敵を10体追加
+	}
 }

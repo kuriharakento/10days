@@ -22,6 +22,9 @@ public:
 	void Draw2D() override;
 
 private:
+	void Spawn(int count);
+
+private:
 	// デバッグカメラ
 	std::unique_ptr<DebugCamera> debugCamera_;
 
@@ -37,7 +40,9 @@ private:
 
 	std::unique_ptr<GameObject> ground_;
 
-	float timer_ = 0.0f;
+	const float endTime_ = 120.0f;
+	float endTimer_ = 0.0f;
+	float timer_ = 12.0f;
 	int spawnCount_ = 0;
 };
 
