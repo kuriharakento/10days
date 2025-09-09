@@ -89,7 +89,7 @@ void Fade::Start(FadeType type, float duration, const Vector4& color)
 
 bool Fade::IsFinished() const
 {
-	return !TimerManager::GetInstance().GetTimer("Fade") && isActive_;
+	return isActive_;
 }
 
 void Fade::Reset()
