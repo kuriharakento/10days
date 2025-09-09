@@ -19,7 +19,7 @@ void LevelUpComponent::ProcessChoise(GameObject* owner)
 {
 	auto player = dynamic_cast<Player*>(owner);
 	player->SetIsUpgrade(false);
-	if (beforeLevel_ < data_->info.xp.level)
+	if (beforeLevel_ < data_->info.xp.level && data_->info.stats.hitPoint > 0.0f)
 	{
 		TimeManager::GetInstance().SetTimeScale(0.0f);
 		player->SetIsUpgrade(true);

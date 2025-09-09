@@ -95,7 +95,7 @@ void GamePlayScene::Update()
 	{
 
 		//========================↓↓↓ゲーム終了↓↓↓========================//
-
+		TimeManager::GetInstance().SetTimeScale(1.0f);
 		nextScene_ = true;
 		fade_->Start(
 			FadeType::FadeOut,

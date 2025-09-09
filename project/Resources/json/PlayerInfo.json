@@ -15,7 +15,7 @@
             "heal": 30.0,
             "hitPoint": 100.0,
             "knockback": {
-                "baseValue": 2.5,
+                "baseValue": 1.5,
                 "increment": 0.30000001192092896,
                 "upgradeCount": 0
             },

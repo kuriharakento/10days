@@ -49,7 +49,7 @@ void EnemyBase::TakeAttack(GameObject* other, float knockbackValue)
 				auto combatable = dynamic_cast<CombatableObject*>(other);
 				hp_.base -= combatable->GetAttackPower();
 
-				auto direction = GetPosition() - Vector3{ other->GetWorldMatrix().m[3][0], other->GetWorldMatrix().m[3][1], other->GetWorldMatrix().m[3][2] };
+				auto direction = GetPosition() - Vector3{ target_->GetWorldMatrix().m[3][0], target_->GetWorldMatrix().m[3][1], target_->GetWorldMatrix().m[3][2] };
 				direction.y = 0;
 				direction.Normalize();
 				auto knockback = GetComponent<EnemyKnockbackComponent>();
