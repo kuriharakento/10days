@@ -5,6 +5,10 @@
 #include "burstEnemy/BurstEnemy.h"
 #include "chargeEnemy/ChargeEnemy.h"
 #include "application/GameObject/Combatable/character/player/Player.h"
+#include "effects/particle/component/single/AccelerationComponent.h"
+#include "effects/particle/component/single/ColorFadeOutComponent.h"
+#include "effects/particle/component/single/DragComponent.h"
+#include "math/VectorColorCodes.h"
 
 void EnemyManager::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager, GameObject* target)
 {
@@ -21,6 +25,17 @@ void EnemyManager::Initialize(Object3dCommon* object3dCommon, LightManager* ligh
 		{ 50.0f, 1.0f, 50.0f }   // 最大座標
 	};
 
+	deathEffect_ = std::make_unique<ParticleEmitter>();
+	deathEffect_->Initialize("deathEffect", "./Resources/star.png");
+	deathEffect_->SetEmitRate(0.0f);
+	deathEffect_->SetInitialLifeTime(1.5f);
+	deathEffect_->SetInitialScale(Vector3(4.0f, 25.0f, 4.0f));
+	deathEffect_->SetInitialColor(VectorColorCodes::White);
+	deathEffect_->SetBillborad(true);
+	deathEffect_->SetModelType(ParticleGroup::ParticleType::Plane);
+	deathEffect_->AddComponent(std::make_shared<DragComponent>(0.95f)); // 空気抵抗
+	deathEffect_->AddComponent(std::make_shared<ColorFadeOutComponent>());
+	deathEffect_->AddComponent(std::make_shared<AccelerationComponent>(Vector3(0.0f, 0.3f, 0.0f))); // ゆっくり落ちる
 }
 
 void EnemyManager::Update()
@@ -39,6 +54,15 @@ void EnemyManager::Update()
 		if (!(*it)->IsAlive())
 		{
 			(*it)->CallOnDeath(); // 死亡時のコールバックを呼び出す
+
+			// 死亡エフェクト生成
+			deathEffect_->Start(
+				&(*it)->GetPosition(),
+				1,
+				0.0f,
+				false
+			);
+
 			it = enemies_.erase(it); // 死亡した敵を削除
 			auto player = dynamic_cast<Player*>(target_);
 			player->XPGain(2.0f);

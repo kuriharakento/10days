@@ -135,6 +135,7 @@ void MyGame::LoadTextures()
 	TextureManager::GetInstance()->LoadTexture("./Resources/uvChecker.png");
 	TextureManager::GetInstance()->LoadTexture("./Resources/black.png");
 	TextureManager::GetInstance()->LoadTexture("./Resources/red.png");
+	TextureManager::GetInstance()->LoadTexture("./Resources/zone.png");
 	TextureManager::GetInstance()->LoadTexture("./Resources/testSprite.png");
 	TextureManager::GetInstance()->LoadTexture("./Resources/monsterBall.png");
 	TextureManager::GetInstance()->LoadTexture("./Resources/gradationLine.png");
@@ -142,7 +143,7 @@ void MyGame::LoadTextures()
 	TextureManager::GetInstance()->LoadTexture("./Resources/flowerfun.png");
 	TextureManager::GetInstance()->LoadTexture("./Resources/star.png");
 	TextureManager::GetInstance()->LoadTexture("./Resources/skybox.dds");
-	TextureManager::GetInstance()->LoadTexture("./Resources/minimap_frame.png");
+	TextureManager::GetInstance()->LoadTexture("./Resources/exclamationMark.png");
 }
 
 void MyGame::LoadModels()

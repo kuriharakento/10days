@@ -6,6 +6,7 @@
 #include "effects/particle/component/single/ColorFadeOutComponent.h"
 #include "effects/particle/component/single/ScaleOverLifetimeComponent.h"
 #include "math/VectorColorCodes.h"
+#include "time/TimeManager.h"
 
 ZoneShrinkComponent::ZoneShrinkComponent(float shrinkSpeed)
 {
@@ -24,7 +25,7 @@ void ZoneShrinkComponent::Update(GameObject* owner)
 	if (owner->GetScale().x > shrinkMin_)
 	{
 		// ゾーンの縮小は XZ 平面のみ
-		Vector3 newScale = owner->GetScale() - Vector3{ shrinkSpeed_, 0.0f, shrinkSpeed_ };
+		Vector3 newScale = owner->GetScale() - Vector3{ shrinkSpeed_ * TimeManager::GetInstance().GetDeltaTime(), 0.0f, shrinkSpeed_ * TimeManager::GetInstance().GetDeltaTime() };
 		owner->SetScale(newScale);
 		// ゾーンエフェクトの拡大
 		if (zoneEffect_)
@@ -41,14 +42,14 @@ void ZoneShrinkComponent::Update(GameObject* owner)
 void ZoneShrinkComponent::InitEmitter(GameObject* owner)
 {
 	zoneEffect_ = std::make_unique<ParticleEmitter>();
-	zoneEffect_->Initialize("zoneEffect", "./Resources/gradationLine.png");
+	zoneEffect_->Initialize("zoneEffect", "./Resources/zone.png");
 	zoneEffect_->SetEmitRange({}, {}); // 座標の位置で発生
 	zoneEffect_->SetInitialLifeTime(0.04f);
 	zoneEffect_->SetEmitRate(0.0f);
 	zoneEffect_->SetBillborad(false);
 	zoneEffect_->SetInitialScale(owner->GetScale());
 	zoneEffect_->SetInitialRotation(Vector3{ std::numbers::pi_v<float>, 0.0f, 0.0f }); //　地面に倒す角度にする
-	zoneEffect_->SetInitialColor(VectorColorCodes::Red);
+	zoneEffect_->SetInitialColor(VectorColorCodes::Red - Vector4(0.0f,0.0f,0.0f,0.5));
 	// 円柱を使用する
 	zoneEffect_->SetModelType(ParticleGroup::ParticleType::Cylinder);
 	// Y軸回転を加える
