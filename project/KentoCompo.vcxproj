@@ -118,6 +118,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\GameObject\Combatable\character\enemy\burstEnemy\BurstEnemy.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\enemy\chargeEnemy\ChargeEnemy.cpp" />
     <ClCompile Include="application\GameObject\component\action\ChargeEnemyTackleComponent.cpp" />
+    <ClCompile Include="application\GameObject\component\action\EnemyKnockbackComponent.cpp" />
     <ClCompile Include="engine\camerawork\debug\DebugCamera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -239,6 +240,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\GameObject\Combatable\character\enemy\burstEnemy\BurstEnemy.h" />
     <ClInclude Include="application\GameObject\Combatable\character\enemy\chargeEnemy\ChargeEnemy.h" />
     <ClInclude Include="application\GameObject\component\action\ChargeEnemyTackleComponent.h" />
+    <ClInclude Include="application\GameObject\component\action\EnemyKnockbackComponent.h" />
     <ClInclude Include="engine\camerawork\debug\DebugCamera.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>

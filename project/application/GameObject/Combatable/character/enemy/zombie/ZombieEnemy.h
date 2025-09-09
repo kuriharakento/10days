@@ -15,5 +15,6 @@ public:
 	void Draw(CameraManager* camera) override;
 
 	void CollisionSettings(ICollisionComponent* collider)override;
+
 };
 

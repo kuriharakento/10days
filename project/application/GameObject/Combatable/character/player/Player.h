@@ -13,10 +13,17 @@ public:
 	void Update() override;
 	void Draw(CameraManager* camera) override;
 
+	void SetIsUpgrade(bool is) { isUpgrade_ = is; }
+	bool GetIsUpgrade() { return isUpgrade_; }
+
+	void XPGain(float xpGain){ data_->info.xp.addXP(xpGain); }
+
 private:
 	void CollisionSettings(ICollisionComponent* collider) override;
 
 private:
 	std::shared_ptr<PlayerData> data_;
+
+	bool isUpgrade_ = false;
 };
 

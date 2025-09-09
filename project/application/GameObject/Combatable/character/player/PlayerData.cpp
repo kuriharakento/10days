@@ -54,7 +54,7 @@ void PlayerData::DrawImGui()
 		ImGui::PopID();
 		ImGui::TreePop();
 	}
-	if (ImGui::TreeNode("AddBonus(1/100%)"))
+	if (ImGui::TreeNode("AddBonus(x100%)"))
 	{
 		ImGui::PushID("AddBonus");
 		ImGui::DragFloat("KnockBack", &info.stats.knockback.increment, 0.01f);
@@ -81,7 +81,23 @@ void PlayerData::DrawImGui()
 		ImGui::PopID();
 		ImGui::TreePop();
 	}
+	if (ImGui::Button("ResetStats(XP&UpgradeCount)"))
+	{
+		ResetStats();
+	}
 	ImGui::PopID();
 	ImGui::Separator(); 
 #endif
+}
+
+void PlayerData::ResetStats()
+{
+	info.stats.knockback.upgradeCount = 0;
+	info.stats.attackSpeed.upgradeCount = 0;
+	info.stats.attackDamage.upgradeCount = 0;
+	info.stats.moveSpeed.upgradeCount = 0;
+	info.xp.level = 0;
+	info.xp.totalXP = 0;
+	info.xp.xpIntoLevel = 0;
+	info.xp.xpToNextThreshold = 0;
 }
