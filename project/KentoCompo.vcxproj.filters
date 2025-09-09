@@ -46,7 +46,7 @@
     <ClCompile Include="application\effect\EnemyDeathEffect.cpp">
       <Filter>application\effect</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\play\TitleScene.cpp">
+    <ClCompile Include="application\scene\title\TitleScene.cpp">
       <Filter>application\scene</Filter>
     </ClCompile>
     <ClCompile Include="application\scene\play\GamePlayScene.cpp">
@@ -289,7 +289,7 @@
     <ClCompile Include="engine\time\Timer.cpp">
       <Filter>engine\time</Filter>
     </ClCompile>
-  <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp">
+    <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp">
       <Filter>application\GameObject\combatable\character\base</Filter>
     </ClCompile>
     <ClCompile Include="application\GameObject\Combatable\character\player\Player.cpp" />
@@ -315,6 +315,13 @@
     <ClCompile Include="application\GameObject\component\action\LevelUpComponent.cpp" />
     <ClCompile Include="application\GameObject\component\action\PlayerAttackComponent.cpp" />
     <ClCompile Include="application\GameObject\component\action\EnemyKnockbackComponent.cpp" />
+    <ClCompile Include="application\scene\result\GameOverScene.cpp">
+      <Filter>application\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\result\GameClearScene.cpp">
+      <Filter>application\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="application\effect\Fade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -359,7 +366,7 @@
     <ClInclude Include="application\scene\play\StageEditScene.h">
       <Filter>application\scene</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\play\TitleScene.h">
+    <ClInclude Include="application\scene\title\TitleScene.h">
       <Filter>application\scene</Filter>
     </ClInclude>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -707,6 +714,13 @@
     <ClInclude Include="application\GameObject\component\action\LevelUpComponent.h" />
     <ClInclude Include="application\GameObject\component\action\PlayerAttackComponent.h" />
     <ClInclude Include="application\GameObject\component\action\EnemyKnockbackComponent.h" />
+    <ClInclude Include="application\scene\result\GameClearScene.h">
+      <Filter>application\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\result\GameOverScene.h">
+      <Filter>application\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\effect\Fade.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">

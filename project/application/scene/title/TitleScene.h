@@ -15,6 +15,7 @@
 #include "graphics/3d/Object3d.h"
 
 // effects
+#include "application/effect/Fade.h"
 #include "application/GameObject/base/GameObject.h"
 #include "application/GameObject/zone/Zone.h"
 #include "effects/particle/ParticleEmitter.h"
@@ -52,4 +53,6 @@ private: //メンバ変数
 	std::unique_ptr<GameObject> debugCube1_;
 	// ゾーン
 	std::unique_ptr<Zone> zone_;
+	// フェード
+	std::unique_ptr<Fade> fade_;
 };

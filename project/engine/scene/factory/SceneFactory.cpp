@@ -2,7 +2,7 @@
 
 #include "application/scene/play/GamePlayScene.h"
 #include "application/scene/play/StageEditScene.h"
-#include "application/scene/play/TitleScene.h"
+#include "application/scene/title/TitleScene.h"
 #include "base/Logger.h"
 
 BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
