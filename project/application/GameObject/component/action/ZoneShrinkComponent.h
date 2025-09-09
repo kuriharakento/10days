@@ -6,7 +6,7 @@ class ZoneShrinkComponent : public IActionComponent
 {
 public:
     /// @param 
-    explicit ZoneShrinkComponent(float shrinkSpeed = 0.01f);
+    explicit ZoneShrinkComponent(float shrinkSpeed = 0.8f);
 
     /// フレームごとに垂直速度を更新し、Y=0 より下には落とさない
     void Update(GameObject* owner) override;
@@ -22,7 +22,7 @@ private:
 	bool isFirstFrame_ = true;
 
 	// 縮小速度
-	float shrinkSpeed_ = 0.01f;
+	float shrinkSpeed_;
 
     // 最小縮小
 	float shrinkMin_ = 0.01f;

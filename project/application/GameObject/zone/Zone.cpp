@@ -13,7 +13,7 @@ void Zone::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager
 
 	// 初期位置、スケール設定
 	SetPosition({ 0.0f, 10.0f, 0.0f });
-	SetScale({ 20.0f, 10.0f, 20.0f });
+	SetScale({ 100.0f, 10.0f, 100.0f });
 
 	outEffect_ = std::make_unique<ParticleEmitter>();
 	outEffect_->Initialize("outEffect", "./Resources/exclamationMark.png");
