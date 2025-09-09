@@ -18,6 +18,9 @@ public:
 
 	void XPGain(float xpGain){ data_->info.xp.addXP(xpGain); }
 
+	void SetIsAttack(bool is) { isAttack_ = is; }
+	bool GetIsAttack() { return isAttack_; }
+
 private:
 	void CollisionSettings(ICollisionComponent* collider) override;
 
@@ -25,5 +28,7 @@ private:
 	std::shared_ptr<PlayerData> data_;
 
 	bool isUpgrade_ = false;
+
+	bool isAttack_ = false;
 };
 

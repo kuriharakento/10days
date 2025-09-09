@@ -13,7 +13,7 @@ public:
     void Update(GameObject* owner) override;
 
 private:
-    void ProcessAttack();
+    void ProcessAttack(GameObject* owner);
 
 private:
     GameObject* owner_ = nullptr;
