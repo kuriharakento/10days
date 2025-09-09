@@ -2,27 +2,27 @@
     "playerInfo": {
         "stats": {
             "attackDamage": {
-                "baseValue": 1.0,
-                "increment": 1.0,
+                "baseValue": 25.0,
+                "increment": 0.30000001192092896,
                 "upgradeCount": 0
             },
             "attackSpeed": {
                 "baseValue": 1.0,
-                "increment": 1.0,
+                "increment": 0.30000001192092896,
                 "upgradeCount": 0
             },
             "exp": 0.0,
             "heal": 30.0,
             "hitPoint": 100.0,
             "knockback": {
-                "baseValue": 1.0,
-                "increment": 1.0,
+                "baseValue": 2.5,
+                "increment": 0.30000001192092896,
                 "upgradeCount": 0
             },
             "maxHitPoint": 100.0,
             "moveSpeed": {
                 "baseValue": 9.0,
-                "increment": 1.0,
+                "increment": 0.20000000298023224,
                 "upgradeCount": 0
             }
         },
@@ -31,7 +31,7 @@
             "s": 1.0,
             "totalXP": 0.0,
             "xpIntoLevel": 0.0,
-            "xpToNextThreshold": 3.0
+            "xpToNextThreshold": 1.0
         }
     }
 }

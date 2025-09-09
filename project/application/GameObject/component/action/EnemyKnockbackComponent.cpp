@@ -1,5 +1,7 @@
 #include "EnemyKnockbackComponent.h"
 
+#include "../../../../engine/math/Easing.h"
+
 #include "application/GameObject/base/GameObject.h"
 #include "application/GameObject/Combatable/character/base/Character.h"
 #include "time/TimeManager.h"
@@ -26,7 +28,8 @@ void EnemyKnockbackComponent::Update(GameObject* owner)
 
     elapsed_ += TimeManager::GetInstance().GetDeltaTime();
     float t = std::min(elapsed_ / duration_, 1.0f);
-    Vector3 newPos = startPos_ * (1.0f - t) + targetPos_ * t;
+    //Vector3 newPos = startPos_ * (1.0f - t) + targetPos_ * t;
+    Vector3 newPos = MathUtils::Lerp(startPos_, targetPos_, EaseOutQuad(t));
     owner->SetPosition(newPos);
 
     if (t >= 1.0f)

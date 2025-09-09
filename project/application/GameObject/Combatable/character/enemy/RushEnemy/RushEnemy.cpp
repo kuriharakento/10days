@@ -3,6 +3,8 @@
 #include "../../../../component/collision/OBBColliderComponent.h"
 #include "../../../../component/action/EnemyKnockbackComponent.h"
 
+#include "application/GameObject/Combatable/character/player/Player.h"
+
 void RushEnemy::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager, float* moveSpeed, GameObject* target)
 {
 	EnemyBase::Initialize(object3dCommon, lightManager, moveSpeed, target);
@@ -47,29 +49,13 @@ void RushEnemy::CollisionSettings(ICollisionComponent* collider)
 	// 衝突時の処理を設定
 	collider->SetOnEnter([this](GameObject* other)
 		{
-			if (other->GetTag() == GameObjectTag::Character::PlayerRightArm ||
-				other->GetTag() == GameObjectTag::Character::PlayerLeftArm)
-			{
-				auto combatable = dynamic_cast<CombatableObject*>(other);
-				hp_.base -= combatable->GetAttackPower();
-
-				auto direction = GetPosition() - other->GetPosition();
-				direction.y = 0;
-				direction.Normalize();
-				auto knockback = GetComponent<EnemyKnockbackComponent>();
-
-				if (knockback)
-				{
-					knockback->StartKnokback(GetPosition(), GetPosition() + direction * 0.5f, 0.2f);
-				}
-
-				SetInvincible(0.5f);
-			}
+			TakeAttack(other, 1.0f);
 		});
 
 	collider->SetOnStay([this](GameObject* other)
 		{
 			// 衝突中の処理
+			TakeAttack(other, 1.0f);
 		});
 	collider->SetOnExit([this](GameObject* other)
 		{

@@ -2,7 +2,6 @@
 
 // system
 #include "input/Input.h"
-#include "manager/graphics/TextureManager.h"
 #include "manager/graphics/ModelManager.h"
 
 #include "time/TimeManager.h"
@@ -39,21 +38,18 @@ void GamePlayScene::Initialize()
 	//enemyManager_->AddBurstEnemy(2); // バースト敵を2体追加
 	//enemyManager_->AddChargeEnemy(3); // チャージ敵を4体追加
 
-	ResisterSprite("Resources/icon/ADIcon.png", {300,200});
-	ResisterSprite("Resources/icon/ASIcon.png", { 590,200 });
-	ResisterSprite("Resources/icon/MSIcon.png", { 880,200 });
-	ResisterSprite("Resources/icon/KBIcon.png", { 450,500 });
-	ResisterSprite("Resources/icon/HEALIcon.png", { 730,500 });
+	ui_ = std::make_unique<PlayUI>(player_.get(), sceneManager_->GetSpriteCommon());
+	ui_->Initialize();
 
 	// ゾーンの生成
 	zone_ = std::make_unique<Zone>();
 	zone_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), sceneManager_->GetCameraManager()->GetActiveCamera(), sceneManager_->GetPostProcessManager());
 
 	ModelManager::GetInstance()->LoadModel("Ground");
-	obj_ = std::make_unique<GameObject>();
-	obj_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager());
-	obj_->SetModel("Ground");
-	obj_->SetScale({ 300,1.0f,300 });
+	ground_ = std::make_unique<GameObject>();
+	ground_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager());
+	ground_->SetModel("Ground");
+	ground_->SetScale({ 300,1.0f,300 });
 }
 
 void GamePlayScene::Finalize()
@@ -73,13 +69,12 @@ void GamePlayScene::Update()
 	CollisionManager::GetInstance()->UpdatePreviousPositions();
 
 	player_->Update();
-	for (auto&& spr : upgradeIcons_)
-	{
-		spr->Update();
-	}
+
+	ui_->Update();
+
 	// カメラこんな感じがいいかも
-	sceneManager_->GetCameraManager()->GetActiveCamera()->SetRotate({ 0.78f,0,0 });
-	sceneManager_->GetCameraManager()->GetActiveCamera()->SetTranslate(player_->GetPosition() + Vector3(0,50,-50));
+	sceneManager_->GetCameraManager()->GetActiveCamera()->SetRotate({ 0.68f,0,0 });
+	sceneManager_->GetCameraManager()->GetActiveCamera()->SetTranslate(player_->GetPosition() + Vector3(0,45,-58));
 
 	
 	// エネミーマネージャーの更新
@@ -88,7 +83,7 @@ void GamePlayScene::Update()
 	// ゾーンの更新
 	zone_->Update();
 
-	obj_->Update();
+	ground_->Update();
 
 	// 衝突判定開始
 	CollisionManager::GetInstance()->CheckCollisions();
@@ -113,26 +108,10 @@ void GamePlayScene::Draw3D()
 	// ゾーンは行列のみ更新
 	zone_->Draw(sceneManager_->GetCameraManager());
 
-	obj_->Draw(sceneManager_->GetCameraManager());
+	ground_->Draw(sceneManager_->GetCameraManager());
 }
 
 void GamePlayScene::Draw2D()
 {
-	if (player_->GetIsUpgrade())
-	{
-		for (auto&& spr : upgradeIcons_)
-		{
-			spr->Draw();
-		}
-	}
-}
-
-void GamePlayScene::ResisterSprite(const std::string& path, Vector2 pos)
-{
-	TextureManager::GetInstance()->LoadTexture(path);
-	auto sprite = std::make_unique<Sprite>();
-	sprite->Initialize(sceneManager_->GetSpriteCommon(), path);
-	sprite->SetPosition(pos);
-	sprite->SetAnchorPoint({0.5f,0.5f});
-	upgradeIcons_.push_back(std::move(sprite));
+	ui_->Draw();
 }
