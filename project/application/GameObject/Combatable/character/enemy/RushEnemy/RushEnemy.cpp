@@ -1,6 +1,7 @@
 #include "RushEnemy.h"
 
 #include "../../../../component/collision/OBBColliderComponent.h"
+#include "../../../../component/action/EnemyKnockbackComponent.h"
 
 void RushEnemy::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager, float* moveSpeed, GameObject* target)
 {
@@ -18,10 +19,21 @@ void RushEnemy::Initialize(Object3dCommon* object3dCommon, LightManager* lightMa
 	// OBBコライダーコンポーネントを追加
 	AddComponent("OBBColliderComponent", std::make_unique<OBBColliderComponent>(this));
 
+	// ノックバックコンポーネントを追加
+	AddComponent("EnemyKnockbackComponent", std::make_unique<EnemyKnockbackComponent>());
+
 }
 
 void RushEnemy::Update()
 {
+	auto knockback = GetComponent<EnemyKnockbackComponent>();
+	if (knockback && knockback->IsKnockback())
+	{
+		knockback->Update(this);
+		// ノックバック中は他の移動処理をスキップ
+		return;
+	}
+
 	EnemyBase::Update();
 }
 
@@ -35,20 +47,26 @@ void RushEnemy::CollisionSettings(ICollisionComponent* collider)
 	// 衝突時の処理を設定
 	collider->SetOnEnter([this](GameObject* other)
 		{
-			// 衝突した瞬間の処理
-			if (other->GetTag() == GameObjectTag::Weapon::PlayerBullet)
+			if (other->GetTag() == GameObjectTag::Character::PlayerRightArm ||
+				other->GetTag() == GameObjectTag::Character::PlayerLeftArm)
 			{
 				auto combatable = dynamic_cast<CombatableObject*>(other);
 				hp_.base -= combatable->GetAttackPower();
-				// ノックバック
+
 				auto direction = GetPosition() - other->GetPosition();
-				direction.y = 0; // 水平面での向きに制限
+				direction.y = 0;
 				direction.Normalize();
-				SetPosition(GetPosition() + direction * 1.0f); // ノックバック量を調整
-				// 無敵時間を設定
-				SetInvincible(0.5f); // 0.5秒の無敵時間
+				auto knockback = GetComponent<EnemyKnockbackComponent>();
+
+				if (knockback)
+				{
+					knockback->StartKnokback(GetPosition(), GetPosition() + direction * 0.5f, 0.2f);
+				}
+
+				SetInvincible(0.5f);
 			}
 		});
+
 	collider->SetOnStay([this](GameObject* other)
 		{
 			// 衝突中の処理

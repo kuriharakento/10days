@@ -24,8 +24,6 @@ void ZombieEnemy::Initialize(Object3dCommon* object3dCommon, LightManager* light
 
 void ZombieEnemy::Update()
 {
-
-
 	auto knockback = GetComponent<EnemyKnockbackComponent>();
 	if (knockback && knockback->IsKnockback()) 
 	{
