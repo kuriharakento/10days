@@ -95,7 +95,7 @@ void LevelUpComponent::ProcessChoise(GameObject* owner)
 				mousePos.y >= 400.0f && mousePos.y <= 600.0f)
 			{
 				data_->info.stats.hitPoint += data_->info.stats.heal;
-				data_->info.stats.hitPoint = std::min<float>(data_->info.stats.hitPoint, 100.0f);
+				data_->info.stats.hitPoint = std::min<float>(data_->info.stats.hitPoint, data_->info.stats.maxHitPoint);
 				beforeLevel_++;
 				TimeManager::GetInstance().SetTimeScale(1.0f);
 			}
