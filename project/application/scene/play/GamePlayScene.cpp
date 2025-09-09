@@ -46,10 +46,25 @@ void GamePlayScene::Initialize()
 	zone_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), sceneManager_->GetCameraManager()->GetActiveCamera(), sceneManager_->GetPostProcessManager());
 
 	ModelManager::GetInstance()->LoadModel("Ground");
+
+	obj_ = std::make_unique<GameObject>();
+	obj_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager());
+	obj_->SetModel("Ground");
+	obj_->SetScale({ 300,1.0f,300 });
+
+	// フェードの初期化
+	fade_ = std::make_unique<Fade>();
+	fade_->Initialize("./Resources/black.png", sceneManager_->GetSpriteCommon());
+	fade_->Start(
+		FadeType::FadeIn,
+		2.0f
+	);
+
 	ground_ = std::make_unique<GameObject>();
 	ground_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager());
 	ground_->SetModel("Ground");
 	ground_->SetScale({ 300,1.0f,300 });
+
 }
 
 void GamePlayScene::Finalize()
@@ -61,9 +76,17 @@ void GamePlayScene::Update()
 {
 	debugCamera_->Update();
 
-	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
+	if (Input::GetInstance()->TriggerKey(DIK_TAB))
 	{
-		sceneManager_->ChangeScene("TITLE");
+		nextScene_ = true;
+		fade_->Start(
+			FadeType::FadeOut,
+			2.0f
+		);
+	}
+	if (nextScene_ && !fade_->IsActive())
+	{
+		sceneManager_->ChangeScene("GAMECLEAR");
 	}
 
 	CollisionManager::GetInstance()->UpdatePreviousPositions();
@@ -84,6 +107,8 @@ void GamePlayScene::Update()
 	zone_->Update();
 
 	ground_->Update();
+
+	fade_->Update();
 
 	// 衝突判定開始
 	CollisionManager::GetInstance()->CheckCollisions();
@@ -113,5 +138,25 @@ void GamePlayScene::Draw3D()
 
 void GamePlayScene::Draw2D()
 {
+
+	if (player_->GetIsUpgrade())
+	{
+		for (auto&& spr : upgradeIcons_)
+		{
+			spr->Draw();
+		}
+	}
+
+	fade_->Draw();
+}
+
+void GamePlayScene::ResisterSprite(const std::string& path, Vector2 pos)
+{
+	TextureManager::GetInstance()->LoadTexture(path);
+	auto sprite = std::make_unique<Sprite>();
+	sprite->Initialize(sceneManager_->GetSpriteCommon(), path);
+	sprite->SetPosition(pos);
+	sprite->SetAnchorPoint({0.5f,0.5f});
+	upgradeIcons_.push_back(std::move(sprite));
 	ui_->Draw();
 }

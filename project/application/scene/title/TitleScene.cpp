@@ -84,6 +84,10 @@ void TitleScene::Initialize()
 
 	// パーティクルエミッターの初期化
 	InitializeParticleEmitters();
+
+	// フェードの初期化
+	fade_ = std::make_unique<Fade>();
+	fade_->Initialize("./Resources/black.png", sceneManager_->GetSpriteCommon());
 }
 
 void TitleScene::Finalize()
@@ -95,9 +99,17 @@ void TitleScene::Update()
 {
 	if (Input::GetInstance()->TriggerKey(DIK_TAB))
 	{
-		// ステージエディットシーン移動
-		sceneManager_->ChangeScene("STAGEEDIT");
+		nextScene_ = true;
+		fade_->Start(
+			FadeType::FadeOut,
+			2.0f
+		);
 	}
+	if (nextScene_ && !fade_->IsActive())
+	{
+		sceneManager_->ChangeScene("GAMEPLAY");
+	}
+
 #ifdef _DEBUG
 
 #else
@@ -118,6 +130,7 @@ void TitleScene::Update()
 
 	debugCube1_->Update();
 	zone_->Update();
+	fade_->Update();
 
 	// 衝突判定開始
 	CollisionManager::GetInstance()->CheckCollisions();
@@ -127,8 +140,8 @@ void TitleScene::Draw3D()
 {
 	// グリッドの描画
 	LineManager::GetInstance()->DrawGrid(
-		300.0f, 
-		5.0f, 
+		300.0f,
+		5.0f,
 		VectorColorCodes::Chocolate
 	);
 
@@ -138,6 +151,7 @@ void TitleScene::Draw3D()
 
 void TitleScene::Draw2D()
 {
+	fade_->Draw();
 }
 
 void TitleScene::InitializeParticleEmitters()
@@ -336,6 +350,22 @@ void TitleScene::DrawImGui()
 		CreateTimer();
 	}
 
+	if (ImGui::Button("Fade In"))
+	{
+		fade_->Start(
+			FadeType::FadeIn,
+			2.0f,
+			VectorColorCodes::White
+		);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Fade Out"))
+	{
+		fade_->Start(
+			FadeType::FadeOut,
+			2.0f
+		);
+	}
 
 	Vector3 cube1pos = debugCube1_->GetPosition();
 	if (ImGui::DragFloat3("debugCube1", &cube1pos.x, 0.1f))

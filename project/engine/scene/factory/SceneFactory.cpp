@@ -2,7 +2,9 @@
 
 #include "application/scene/play/GamePlayScene.h"
 #include "application/scene/play/StageEditScene.h"
-#include "application/scene/play/TitleScene.h"
+#include "application/scene/result/GameClearScene.h"
+#include "application/scene/result/GameOverScene.h"
+#include "application/scene/title/TitleScene.h"
 #include "base/Logger.h"
 
 BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
@@ -17,6 +19,14 @@ BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 	else if (sceneName == "GAMEPLAY")
 	{
 		newScene = new GamePlayScene();
+	}
+	else if(sceneName == "GAMECLEAR")
+	{
+		newScene = new GameClearScene();
+	}
+	else if (sceneName == "GAMEOVER")
+	{
+		newScene = new GameOverScene();
 	}
 	else if(sceneName == "STAGEEDIT")
 	{
