@@ -289,7 +289,7 @@
     <ClCompile Include="engine\time\Timer.cpp">
       <Filter>engine\time</Filter>
     </ClCompile>
-  <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp">
+    <ClCompile Include="application\GameObject\Combatable\character\base\Character.cpp">
       <Filter>application\GameObject\combatable\character\base</Filter>
     </ClCompile>
     <ClCompile Include="application\GameObject\Combatable\character\player\Player.cpp" />
@@ -315,6 +315,7 @@
     <ClCompile Include="application\GameObject\component\action\LevelUpComponent.cpp" />
     <ClCompile Include="application\GameObject\component\action\PlayerAttackComponent.cpp" />
     <ClCompile Include="application\GameObject\component\action\EnemyKnockbackComponent.cpp" />
+    <ClCompile Include="application\PlayUI\PlayUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -707,6 +708,7 @@
     <ClInclude Include="application\GameObject\component\action\LevelUpComponent.h" />
     <ClInclude Include="application\GameObject\component\action\PlayerAttackComponent.h" />
     <ClInclude Include="application\GameObject\component\action\EnemyKnockbackComponent.h" />
+    <ClInclude Include="application\PlayUI\PlayUI.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">

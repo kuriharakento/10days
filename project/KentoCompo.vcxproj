@@ -218,6 +218,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\GameObject\Combatable\character\player\PlayerData.cpp" />
     <ClCompile Include="application\GameObject\component\action\PlayerXPComponent.cpp" />
     <ClCompile Include="application\GameObject\component\action\PlayerAttackComponent.cpp" />
+    <ClCompile Include="application\PlayUI\PlayUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObjectTag.h" />
@@ -364,6 +365,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\GameObject\component\action\PlayerXPComponent.h" />
     <ClInclude Include="application\GameObject\component\action\LevelUpComponent.h" />
     <ClInclude Include="application\GameObject\component\action\PlayerAttackComponent.h" />
+    <ClInclude Include="application\PlayUI\PlayUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="externals\imgui\LICENSE.txt" />

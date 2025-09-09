@@ -9,6 +9,10 @@ void PlayerData::DrawImGui()
 {
 #ifdef _DEBUG
 	ImGui::PushID("player");
+	if (ImGui::Button("Heal(100%"))
+	{
+		info.stats.hitPoint = 100.0f;
+	}
 	if (ImGui::TreeNode("CurrentStats"))
 	{
 		ImGui::PushID("CurrentStats");
