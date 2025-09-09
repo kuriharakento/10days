@@ -1,14 +1,13 @@
 #pragma once
 // scene
 #include "engine/scene/interface/BaseScene.h"
-
-#include "engine/graphics/2d/Sprite.h"
 // app
 #include "application/effect/Fade.h"
 #include "application/GameObject/Combatable/character/player/Player.h"
 #include "application//GameObject//Combatable//character//enemy//EnemyManager.h"
 #include "application/GameObject/zone/Zone.h"
 #include "camerawork/debug/DebugCamera.h"
+#include "../../PlayUI/PlayUI.h"
 
 class GamePlayScene : public BaseScene
 {
@@ -27,8 +26,6 @@ private:
 	// デバッグカメラ
 	std::unique_ptr<DebugCamera> debugCamera_;
 
-	void ResisterSprite(const std::string& path, Vector2 pos = {0,0});
-
 	std::unique_ptr<Player> player_;
 
 	// ゲームオブジェクト
@@ -37,9 +34,9 @@ private:
 	// ゾーン
 	std::unique_ptr<Zone> zone_;
 
-	std::vector<std::unique_ptr<Sprite>> upgradeIcons_;
+	std::unique_ptr<PlayUI> ui_;
 
-	std::unique_ptr<GameObject> obj_;
+	std::unique_ptr<GameObject> ground_;
 
 	float timer_ = 0.0f;
 	int spawnCount_ = 0;

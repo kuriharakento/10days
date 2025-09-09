@@ -27,6 +27,8 @@ public:
 			onDeathCallback_(this);
 		}
 	}
+protected:
+	void TakeAttack(GameObject* other, float knockbackValue);
 
 protected:
 

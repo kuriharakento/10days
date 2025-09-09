@@ -322,6 +322,7 @@
       <Filter>application\scene</Filter>
     </ClCompile>
     <ClCompile Include="application\effect\Fade.cpp" />
+    <ClCompile Include="application\PlayUI\PlayUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -721,6 +722,7 @@
       <Filter>application\scene</Filter>
     </ClInclude>
     <ClInclude Include="application\effect\Fade.h" />
+    <ClInclude Include="application\PlayUI\PlayUI.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">

@@ -22,6 +22,10 @@ public:
 	void SetIsAttack(bool is) { isAttack_ = is; }
 	bool GetIsAttack() { return isAttack_; }
 
+	float GetKnockBack() { return data_->info.stats.knockback.final(); }
+
+	PlayerData* GetPlayerData() { return data_.get(); }
+
 private:
 	void CollisionSettings(ICollisionComponent* collider) override;
 
@@ -31,6 +35,10 @@ private:
 	bool isUpgrade_ = false;
 
 	bool isAttack_ = false;
+
+	bool inZone_ = true;
+
+	float zoneDamagePerSec_ = 20.0f;
 
 	std::unique_ptr<ParticleEmitter> hitEffect_;
 };

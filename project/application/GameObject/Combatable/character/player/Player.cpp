@@ -14,6 +14,8 @@
 #include "manager/editor/JsonEditorManager.h"
 #include "math/VectorColorCodes.h"
 
+#include "time/TimeManager.h"
+
 Player::~Player()
 {
 	data_.reset();
@@ -37,7 +39,7 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 
 	// 経験値
 	data_->info.xp.calibrateS(/*λ*/0.6f, /*T*/180.0f, /*N* */10);
-	data_->info.xp.recalc();
+	//data_->info.xp.recalc();
 
 	// XPコンポーネントを追加
 	AddComponent("PlayerXPComponent", std::make_unique<PlayerXPComponent>(data_.get()));
@@ -45,6 +47,7 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 	AddComponent("LevelUpComponent", std::make_unique<LevelUpComponent>(data_.get()));
 	// 移動コンポーネントを追加
 	AddComponent("MoveComponent", std::make_unique<MoveComponent>(data_.get()));
+	//data_->info.xp.recalc();
 
 	hitEffect_ = std::make_unique<ParticleEmitter>();
 	hitEffect_->Initialize("hitEffect", "./Resources/star.png");
@@ -123,7 +126,25 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 
 void Player::Update()
 {
-	Character::Update();
+	if(isAlive_)
+	{
+		Character::Update();
+		if (!isInvincible_)
+		{
+			if (!inZone_)
+			{
+				data_->info.stats.hitPoint -= TimeManager::GetInstance().GetDeltaTime() * zoneDamagePerSec_;
+
+				SetInvincible(TimeManager::GetInstance().GetDeltaTime());
+			}
+		}
+		if (data_->info.stats.hitPoint <= 0.0f)
+		{
+			data_->info.stats.hitPoint = 0.0f;
+			isAlive_ = false;
+			isAttack_ = false;
+		}
+	}
 }
 
 void Player::Draw(CameraManager* camera)
@@ -137,15 +158,56 @@ void Player::CollisionSettings(ICollisionComponent* collider)
 	collider->SetUseSubstep(true);
 
 	// 衝突時の処理を設定
-	collider->SetOnEnter([this](GameObject* other) {
+	collider->SetOnEnter([this](GameObject* other) 
+		{
+		// 衝突した瞬間の処理
+			if (other->GetTag() == GameObjectTag::Character::BurstEnemy ||
+				other->GetTag() == GameObjectTag::Character::ChargeEnemy ||
+				other->GetTag() == GameObjectTag::Character::ZombieEnemy ||
+				other->GetTag() == GameObjectTag::Character::RushEnemy)
+			{
+				if (!isInvincible_)
+				{
+						auto combatable = dynamic_cast<CombatableObject*>(other);
+						data_->info.stats.hitPoint -= combatable->GetAttackPower();
 
-						 });
-	collider->SetOnStay([this](GameObject* other) {
+						SetInvincible(1.0f);
+				}
+			}
+
+			if (other->GetTag() == GameObjectTag::Field::Zone)
+			{
+				inZone_ = true;
+			}
+
+		});
+
+	collider->SetOnStay([this](GameObject* other) 
+		{
 		// 衝突中の処理
+			if (other->GetTag() == GameObjectTag::Character::BurstEnemy ||
+				other->GetTag() == GameObjectTag::Character::ChargeEnemy ||
+				other->GetTag() == GameObjectTag::Character::ZombieEnemy ||
+				other->GetTag() == GameObjectTag::Character::RushEnemy)
+			{
+				if (!isInvincible_)
+				{
+					auto combatable = dynamic_cast<CombatableObject*>(other);
+					data_->info.stats.hitPoint -= combatable->GetAttackPower();
 
-						});
-	collider->SetOnExit([this](GameObject* other) {
+					SetInvincible(1.0f);
+				}
+			}
+		});
+
+	collider->SetOnExit([this](GameObject* other) 
+		{
 		// 衝突が離れた時の処理
 
-						});
+			if (other->GetTag() == GameObjectTag::Field::Zone)
+			{
+				inZone_ = false;
+			}
+
+		});
 }
