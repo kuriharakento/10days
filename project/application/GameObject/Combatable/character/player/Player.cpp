@@ -51,7 +51,7 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 	Rarm->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
 	Rarm->SetAttackPower(50.0f);
 	Rarm->AddComponent("OBBColliderComponent", std::make_unique<OBBColliderComponent>(Rarm.get()));
-	Rarm->AddComponent("PlayerAttackComponent", std::make_unique<PlayerAttackComponent>(Rarm.get(), data_.get(), "R"));
+	Rarm->AddComponent("PlayerAttackComponent", std::make_unique<PlayerAttackComponent>(Rarm.get(), this, data_.get(), "R"));
 	AddChild(GameObjectTag::Character::PlayerRightArm, std::move(Rarm));
 
 	auto Larm = std::make_unique<CombatableObject>(GameObjectTag::Character::PlayerLeftArm);
@@ -60,7 +60,7 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 	Larm->SetPosition(Vector3(-3.0f, 0.0f, 0.0f));
 	Larm->SetAttackPower(50.0f);
 	Larm->AddComponent("OBBColliderComponent", std::make_unique<OBBColliderComponent>(Larm.get()));
-	Larm->AddComponent("PlayerAttackComponent", std::make_unique<PlayerAttackComponent>(Larm.get(), data_.get(), "L"));
+	Larm->AddComponent("PlayerAttackComponent", std::make_unique<PlayerAttackComponent>(Larm.get(), this, data_.get(), "L"));
 	AddChild(GameObjectTag::Character::PlayerLeftArm, std::move(Larm));
 #pragma endregion
 }

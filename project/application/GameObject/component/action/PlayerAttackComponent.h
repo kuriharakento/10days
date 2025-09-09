@@ -9,7 +9,7 @@ class GameObject;
 class PlayerAttackComponent : public IGameObjectComponent
 {
 public:
-    PlayerAttackComponent(GameObject* owner, PlayerData* data, const char* LR);
+    PlayerAttackComponent(GameObject* owner, GameObject* player, PlayerData* data, const char* LR);
     void Update(GameObject* owner) override;
 
 private:
@@ -17,6 +17,8 @@ private:
 
 private:
     GameObject* owner_ = nullptr;
+
+    GameObject* player_ = nullptr;
 
     PlayerData* data_ = nullptr;
 

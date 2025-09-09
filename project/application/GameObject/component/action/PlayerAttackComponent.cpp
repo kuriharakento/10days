@@ -6,9 +6,10 @@
 #include "time/TimeManager.h"
 #include "application/GameObject/Combatable/character/player/Player.h"
 
-PlayerAttackComponent::PlayerAttackComponent(GameObject* owner, PlayerData* data, const char* LR)
+PlayerAttackComponent::PlayerAttackComponent(GameObject* owner, GameObject* player, PlayerData* data, const char* LR)
 {
 	owner_ = owner;
+	player_ = player;
 	data_ = data;
 
 	basePos_ = owner_->GetPosition();
@@ -35,7 +36,7 @@ void PlayerAttackComponent::Update(GameObject* owner)
 
 void PlayerAttackComponent::ProcessAttack(GameObject* owner)
 {
-	auto player = dynamic_cast<Player*>(owner);
+	auto player = dynamic_cast<Player*>(player_);
 	player->SetIsAttack(false);
 	if (timer_ >= interval_)
 	{

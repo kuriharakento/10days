@@ -19,6 +19,7 @@
                 "increment": 1.0,
                 "upgradeCount": 0
             },
+            "maxHitPoint": 100.0,
             "moveSpeed": {
                 "baseValue": 9.0,
                 "increment": 1.0,
