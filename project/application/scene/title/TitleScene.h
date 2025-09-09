@@ -55,4 +55,5 @@ private: //メンバ変数
 	std::unique_ptr<Zone> zone_;
 	// フェード
 	std::unique_ptr<Fade> fade_;
+	bool nextScene_ = false;
 };

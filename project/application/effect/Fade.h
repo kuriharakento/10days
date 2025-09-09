@@ -21,6 +21,9 @@ public:
 	// 初期化
 	void Initialize(const std::string& texturePath, SpriteCommon* spriteCommon);
 
+	// 更新
+	void Update();
+
 	// 描画
 	void Draw();
 
@@ -28,7 +31,7 @@ public:
 	void Start(FadeType type, float duration, const Vector4& color = VectorColorCodes::Black);
 
 	// 終了
-	bool IsFinished() const;
+	bool IsActive() const;
 
 	// リセット
 	void Reset();
@@ -37,8 +40,12 @@ public:
 	void SetEasingFunction(float (*func)(float));
 
 private:
-	float (*easingFunc_)(float);
+	float (*easingFunc_)(float); // イージング関数のポインタ
 	bool isActive_;        // フェードがアクティブかどうか
+	bool isDraw_; 	  // 描画を行うかどうか
+	float duration_;    // フェードの総時間
+	float elapsedTime_; // 経過時間
+	FadeType type_;    // フェードの種類
 	std::unique_ptr<Sprite> sprite_; // フェード用のスプライト
 };
 

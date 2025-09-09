@@ -99,9 +99,17 @@ void TitleScene::Update()
 {
 	if (Input::GetInstance()->TriggerKey(DIK_TAB))
 	{
-		// ステージエディットシーン移動
-		sceneManager_->ChangeScene("STAGEEDIT");
+		nextScene_ = true;
+		fade_->Start(
+			FadeType::FadeOut,
+			2.0f
+		);
 	}
+	if (nextScene_ && !fade_->IsActive())
+	{
+		sceneManager_->ChangeScene("GAMEPLAY");
+	}
+
 #ifdef _DEBUG
 
 #else
@@ -122,6 +130,7 @@ void TitleScene::Update()
 
 	debugCube1_->Update();
 	zone_->Update();
+	fade_->Update();
 
 	// 衝突判定開始
 	CollisionManager::GetInstance()->CheckCollisions();

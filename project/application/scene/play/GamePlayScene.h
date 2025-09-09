@@ -4,6 +4,7 @@
 
 #include "engine/graphics/2d/Sprite.h"
 // app
+#include "application/effect/Fade.h"
 #include "application/GameObject/Combatable/character/player/Player.h"
 #include "application//GameObject//Combatable//character//enemy//EnemyManager.h"
 #include "application/GameObject/zone/Zone.h"
@@ -42,5 +43,9 @@ private:
 
 	float timer_ = 0.0f;
 	int spawnCount_ = 0;
+
+	// フェード
+	std::unique_ptr<Fade> fade_;
+	bool nextScene_ = false;
 };
 

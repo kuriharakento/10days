@@ -54,6 +54,14 @@ void GamePlayScene::Initialize()
 	obj_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager());
 	obj_->SetModel("Ground");
 	obj_->SetScale({ 300,1.0f,300 });
+
+	// フェードの初期化
+	fade_ = std::make_unique<Fade>();
+	fade_->Initialize("./Resources/black.png", sceneManager_->GetSpriteCommon());
+	fade_->Start(
+		FadeType::FadeIn,
+		2.0f
+	);
 }
 
 void GamePlayScene::Finalize()
@@ -65,9 +73,17 @@ void GamePlayScene::Update()
 {
 	debugCamera_->Update();
 
-	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
+	if (Input::GetInstance()->TriggerKey(DIK_TAB))
 	{
-		sceneManager_->ChangeScene("TITLE");
+		nextScene_ = true;
+		fade_->Start(
+			FadeType::FadeOut,
+			2.0f
+		);
+	}
+	if (nextScene_ && !fade_->IsActive())
+	{
+		sceneManager_->ChangeScene("GAMECLEAR");
 	}
 
 	CollisionManager::GetInstance()->UpdatePreviousPositions();
@@ -89,6 +105,8 @@ void GamePlayScene::Update()
 	zone_->Update();
 
 	obj_->Update();
+
+	fade_->Update();
 
 	// 衝突判定開始
 	CollisionManager::GetInstance()->CheckCollisions();
@@ -125,6 +143,8 @@ void GamePlayScene::Draw2D()
 			spr->Draw();
 		}
 	}
+
+	fade_->Draw();
 }
 
 void GamePlayScene::ResisterSprite(const std::string& path, Vector2 pos)
