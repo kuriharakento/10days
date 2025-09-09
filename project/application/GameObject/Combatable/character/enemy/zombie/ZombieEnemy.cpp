@@ -9,7 +9,7 @@ void ZombieEnemy::Initialize(Object3dCommon* object3dCommon, LightManager* light
 {
 	EnemyBase::Initialize(object3dCommon, lightManager, moveSpeed, target);
 	// モデルの設定
-	SetModel("cube");
+	SetModel("zombie");
 	// 初期位置設定
 	SetPosition(Vector3(0.0f, GetScale().y, 10.0f));
 	// HP

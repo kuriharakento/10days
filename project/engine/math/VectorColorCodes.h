@@ -9,7 +9,7 @@ namespace VectorColorCodes {
     const Vector4 Black = { 0.0f, 0.0f, 0.0f, 1.0f };     // 黒
     const Vector4 Yellow = { 1.0f, 1.0f, 0.0f, 1.0f };    // 黄色
     const Vector4 Cyan = { 0.0f, 1.0f, 1.0f, 1.0f };      // シアン
-    const Vector4 Magenta = { 1.0f, 0.0f, 1.0f, 1.0f };   // マゼンタ
+	const Vector4 Magenta = { 1.0f, 0.0f, 1.0f, 1.0f };   // マゼンタ
     const Vector4 Orange = { 1.0f, 0.5f, 0.0f, 1.0f };    // オレンジ
     const Vector4 Purple = { 0.5f, 0.0f, 0.5f, 1.0f };    // 紫
     const Vector4 Gray = { 0.5f, 0.5f, 0.5f, 1.0f };      // 灰色

@@ -93,35 +93,35 @@ void EnemyManager::Draw(CameraManager* camera)
 	}
 }
 
-void EnemyManager::AddZombieEnemy(uint32_t count)
+void EnemyManager::AddZombieEnemy(uint32_t count, AABB& range)
 {
 	for (uint32_t i = 0; i < count; ++i)
 	{
 		auto enemy = std::make_unique<ZombieEnemy>();
-		enemy->Initialize(object3dCommon_, lightManager_, new float(1.0f), target_);
+		enemy->Initialize(object3dCommon_, lightManager_, new float(3.0f), target_);
 		// 出現位置をランダムに設定
-		float x = emitRange_.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.x - emitRange_.min_.x)));
-		float z = emitRange_.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.z - emitRange_.min_.z)));
+		float x = range.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (range.max_.x - range.min_.x)));
+		float z = range.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (range.max_.z - range.min_.z)));
 		enemy->SetPosition(Vector3(x, enemy->GetScale().y, z)); // Y座標は地面に合わせる
 		enemies_.emplace_back(std::move(enemy));
 	}
 }
 
-void EnemyManager::AddRushEnemy(uint32_t count)
+void EnemyManager::AddRushEnemy(uint32_t count, AABB& range)
 {
 	for (uint32_t i = 0; i < count; ++i)
 	{
 		auto enemy = std::make_unique<RushEnemy>();
-		enemy->Initialize(object3dCommon_, lightManager_, new float(2.0f), target_);
+		enemy->Initialize(object3dCommon_, lightManager_, new float(6.0f), target_);
 		// 出現位置をランダムに設定
-		float x = emitRange_.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.x - emitRange_.min_.x)));
-		float z = emitRange_.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.z - emitRange_.min_.z)));
+		float x = range.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (range.max_.x - range.min_.x)));
+		float z = range.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (range.max_.z - range.min_.z)));
 		enemy->SetPosition(Vector3(x, enemy->GetScale().y, z)); // Y座標は地面に合わせる
 		enemies_.emplace_back(std::move(enemy));
 	}
 }
 
-void EnemyManager::AddBurstEnemy(uint32_t count)
+void EnemyManager::AddBurstEnemy(uint32_t count, AABB& range)
 {
 	for (uint32_t i = 0; i < count; ++i)
 	{
@@ -134,7 +134,7 @@ void EnemyManager::AddBurstEnemy(uint32_t count)
 				for (uint32_t j = 0; j < splitCount; ++j)
 				{
 					auto smallEnemy = std::make_unique<BurstEnemy>();
-					smallEnemy->Initialize(object3dCommon_, lightManager_, new float(1.3f), target_);
+					smallEnemy->Initialize(object3dCommon_, lightManager_, new float(3.8f), target_);
 					// 分裂した敵の位置を少しずらす
 					float angle = (360.0f / splitCount) * j;
 					float radians = angle * (3.14159f / 180.0f);
@@ -146,24 +146,24 @@ void EnemyManager::AddBurstEnemy(uint32_t count)
 				}
 			});
 
-		enemy->Initialize(object3dCommon_, lightManager_, new float(1.1f), target_);
+		enemy->Initialize(object3dCommon_, lightManager_, new float(3.4f), target_);
 		// 出現位置をランダムに設定
-		float x = emitRange_.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.x - emitRange_.min_.x)));
-		float z = emitRange_.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.z - emitRange_.min_.z)));
+		float x = range.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (range.max_.x - range.min_.x)));
+		float z = range.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (range.max_.z - range.min_.z)));
 		enemy->SetPosition(Vector3(x, enemy->GetScale().y, z)); // Y座標は地面に合わせる
 		enemies_.emplace_back(std::move(enemy));
 	}
 }
 
-void EnemyManager::AddChargeEnemy(uint32_t count)
+void EnemyManager::AddChargeEnemy(uint32_t count, AABB& range)
 {
 	for (uint32_t i = 0; i < count; ++i)
 	{
 		auto enemy = std::make_unique<ChargeEnemy>();
-		enemy->Initialize(object3dCommon_, lightManager_, new float(1.0f), target_);
+		enemy->Initialize(object3dCommon_, lightManager_, new float(3.0f), target_);
 		// 出現位置をランダムに設定
-		float x = emitRange_.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.x - emitRange_.min_.x)));
-		float z = emitRange_.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (emitRange_.max_.z - emitRange_.min_.z)));
+		float x = range.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (range.max_.x - range.min_.x)));
+		float z = range.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (range.max_.z - range.min_.z)));
 		enemy->SetPosition(Vector3(x, enemy->GetScale().y, z)); // Y座標は地面に合わせる
 		enemies_.emplace_back(std::move(enemy));
 	}

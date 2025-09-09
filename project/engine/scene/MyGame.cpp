@@ -156,4 +156,13 @@ void MyGame::LoadModels()
 	ModelManager::GetInstance()->LoadModel("wall");
 	ModelManager::GetInstance()->LoadModel("player");
 	ModelManager::GetInstance()->LoadModel("enemy");
+
+	// 以下アプリケーション
+	ModelManager::GetInstance()->LoadModel("playerBody");
+	ModelManager::GetInstance()->LoadModel("playerArm");
+	ModelManager::GetInstance()->LoadModel("zombie");
+	ModelManager::GetInstance()->LoadModel("burst");
+	ModelManager::GetInstance()->LoadModel("rush");
+	ModelManager::GetInstance()->LoadModel("charge");
+
 }

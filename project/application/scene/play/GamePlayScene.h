@@ -2,6 +2,7 @@
 // scene
 #include "engine/scene/interface/BaseScene.h"
 // app
+#include "application/effect/Fade.h"
 #include "application/GameObject/Combatable/character/player/Player.h"
 #include "application//GameObject//Combatable//character//enemy//EnemyManager.h"
 #include "application/GameObject/zone/Zone.h"
@@ -44,5 +45,12 @@ private:
 	float endTimer_ = 0.0f;
 	float timer_ = 12.0f;
 	int spawnCount_ = 0;
+
+	// フェード
+	std::unique_ptr<Fade> fade_;
+	bool nextScene_ = false;
+
+	// 出現範囲のAABB
+	AABB spawnRange_ = { {-50.0f,1.0f,-50.0f}, {50.0f,1.0f,50.0f} };
 };
 

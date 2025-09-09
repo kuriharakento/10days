@@ -20,13 +20,13 @@ public:
 	
 	const std::vector<std::unique_ptr<EnemyBase>>& GetEnemies() const { return enemies_; }
 	
-	void AddZombieEnemy(uint32_t count);
+	void AddZombieEnemy(uint32_t count, AABB& range);
 
-	void AddRushEnemy(uint32_t count);
+	void AddRushEnemy(uint32_t count, AABB& range);
 
-	void AddBurstEnemy(uint32_t count);
+	void AddBurstEnemy(uint32_t count, AABB& range);
 
-	void AddChargeEnemy(uint32_t count);
+	void AddChargeEnemy(uint32_t count, AABB& range);
 
 	void SetEnemyData(const std::vector<GameObjectInfo>& data);
 	

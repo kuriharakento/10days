@@ -42,10 +42,23 @@ void GamePlayScene::Initialize()
 	zone_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), sceneManager_->GetCameraManager()->GetActiveCamera(), sceneManager_->GetPostProcessManager());
 
 	ModelManager::GetInstance()->LoadModel("Ground");
+
 	ground_ = std::make_unique<GameObject>();
 	ground_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager());
 	ground_->SetModel("Ground");
 	ground_->SetScale({ 300,1.0f,300 });
+
+	// フェードの初期化
+	fade_ = std::make_unique<Fade>();
+	fade_->Initialize("./Resources/black.png", sceneManager_->GetSpriteCommon());
+	fade_->Start(
+		FadeType::FadeIn,
+		2.0f
+	);
+
+	// 敵出現範囲のAABB
+	spawnRange_ = { {-50.0f,1.0f,-50.0f}, {50.0f,1.0f,50.0f} };
+
 }
 
 void GamePlayScene::Finalize()
@@ -58,11 +71,21 @@ void GamePlayScene::Update()
 
 #ifdef _DEBUG
 	debugCamera_->Update();
-	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
+
+	if (Input::GetInstance()->TriggerKey(DIK_TAB))
 	{
-		sceneManager_->ChangeScene("TITLE");
+		nextScene_ = true;
+		fade_->Start(
+			FadeType::FadeOut,
+			2.0f
+		);
 	}
 #endif // _DEBUG
+
+	if (nextScene_ && !fade_->IsActive())
+	{
+		sceneManager_->ChangeScene("GAMECLEAR");
+	}
 
 	// カメラ
 	sceneManager_->GetCameraManager()->GetActiveCamera()->SetRotate({ 0.68f,0,0 });
@@ -72,8 +95,12 @@ void GamePlayScene::Update()
 	{
 
 		//========================↓↓↓ゲーム終了↓↓↓========================//
-
-
+		TimeManager::GetInstance().SetTimeScale(1.0f);
+		nextScene_ = true;
+		fade_->Start(
+			FadeType::FadeOut,
+			2.0f
+		);
 
 		//========================↑↑↑ゲーム終了↑↑↑========================//
 
@@ -114,6 +141,8 @@ void GamePlayScene::Update()
 		//=========================↑↑↑ゲーム中↑↑↑=========================//
 
 	}
+
+	fade_->Update();
 }
 
 void GamePlayScene::Draw3D()
@@ -130,6 +159,7 @@ void GamePlayScene::Draw3D()
 
 void GamePlayScene::Draw2D()
 {
+	fade_->Draw();
 	ui_->Draw();
 }
 
@@ -141,40 +171,40 @@ void GamePlayScene::Spawn(int count)
 	//enemyManager_->AddChargeEnemy(3); // チャージ敵を4体追加
 	if (count == 0)
 	{
-		enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
+		enemyManager_->AddZombieEnemy(5, spawnRange_); // ゾンビ敵を5体追加
 	}
 	if (count == 1)
 	{
-		enemyManager_->AddZombieEnemy(3); // ゾンビ敵を3体追加
-		enemyManager_->AddRushEnemy(6);  // ラッシュ敵を6体追加
+		enemyManager_->AddZombieEnemy(3, spawnRange_); // ゾンビ敵を3体追加
+		enemyManager_->AddRushEnemy(6, spawnRange_);  // ラッシュ敵を6体追加
 	}
 	if (count == 2)
 	{
-		enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
-		enemyManager_->AddChargeEnemy(2); // チャージ敵を2体追加
+		enemyManager_->AddZombieEnemy(5, spawnRange_); // ゾンビ敵を5体追加
+		enemyManager_->AddChargeEnemy(2, spawnRange_); // チャージ敵を2体追加
 	}
 	if (count == 3)
 	{
-		enemyManager_->AddBurstEnemy(3); // バースト敵を3体追加
-		enemyManager_->AddChargeEnemy(1); // チャージ敵を1体追加
+		enemyManager_->AddBurstEnemy(3, spawnRange_); // バースト敵を3体追加
+		enemyManager_->AddChargeEnemy(1, spawnRange_); // チャージ敵を1体追加
 	}
 	if (count == 4)
 	{
-		enemyManager_->AddZombieEnemy(10); // ゾンビ敵を10体追加
+		enemyManager_->AddZombieEnemy(10, spawnRange_); // ゾンビ敵を10体追加
 	}
 	if (count == 5)
 	{
-		enemyManager_->AddRushEnemy(20);  // ラッシュ敵を20体追加
+		enemyManager_->AddRushEnemy(20, spawnRange_);  // ラッシュ敵を20体追加
 	}
 	if (count == 6)
 	{
-		enemyManager_->AddZombieEnemy(6); // ゾンビ敵を3体追加
-		enemyManager_->AddRushEnemy(6);  // ラッシュ敵を6体追加
-		enemyManager_->AddBurstEnemy(2); // バースト敵を2体追加
-		enemyManager_->AddChargeEnemy(3); // チャージ敵を3体追加
+		enemyManager_->AddZombieEnemy(6, spawnRange_); // ゾンビ敵を3体追加
+		enemyManager_->AddRushEnemy(6, spawnRange_);  // ラッシュ敵を6体追加
+		enemyManager_->AddBurstEnemy(2, spawnRange_); // バースト敵を2体追加
+		enemyManager_->AddChargeEnemy(3, spawnRange_); // チャージ敵を3体追加
 	}
 	if (count == 7)
 	{
-		enemyManager_->AddBurstEnemy(10); // バースト敵を10体追加
+		enemyManager_->AddBurstEnemy(10, spawnRange_); // バースト敵を10体追加
 	}
 }

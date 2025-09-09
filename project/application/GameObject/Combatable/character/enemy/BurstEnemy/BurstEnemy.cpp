@@ -17,7 +17,7 @@ void BurstEnemy::Initialize(Object3dCommon* object3dCommon, LightManager* lightM
 	EnemyBase::Initialize(object3dCommon, lightManager, moveSpeed, target);
 
 	// モデルの設定
-	SetModel("cube");
+	SetModel("burst");
 	// HP
 	maxHp_.base = 30.0f; // バーストエネミーの最大HP
 	hp_.base = maxHp_.base; // 現在のHPを最大HPに設定

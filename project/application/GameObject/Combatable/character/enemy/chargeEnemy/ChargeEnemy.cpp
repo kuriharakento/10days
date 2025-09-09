@@ -11,11 +11,11 @@ void ChargeEnemy::Initialize(Object3dCommon* object3dCommon, LightManager* light
 	EnemyBase::Initialize(object3dCommon, lightManager, moveSpeed, target);
 
 	// モデルの設定
-	SetModel("cube");
+	SetModel("charge");
 	// 初期位置設定
 	SetPosition(Vector3(0.0f, GetScale().y, 10.0f));
 	// HP
-	maxHp_.base = 80.0f; // チャージエネミーの最大HP
+	maxHp_.base = 30.0f; // チャージエネミーの最大HP
 	hp_.base = maxHp_.base; // 現在のHPを最大HPに設定
 
 
