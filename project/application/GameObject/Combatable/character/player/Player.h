@@ -3,6 +3,7 @@
 #include "application/GameObject/component/base/ICollisionComponent.h"
 
 #include "PlayerData.h"
+#include "effects/particle/ParticleEmitter.h"
 
 class Player : public Character
 {
@@ -30,5 +31,7 @@ private:
 	bool isUpgrade_ = false;
 
 	bool isAttack_ = false;
+
+	std::unique_ptr<ParticleEmitter> hitEffect_;
 };
 
