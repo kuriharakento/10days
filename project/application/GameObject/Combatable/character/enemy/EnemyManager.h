@@ -2,6 +2,7 @@
 
 #include "../../../base/GameObjectInfo.h"
 #include "base/EnemyBase.h"
+#include "effects/particle/ParticleEmitter.h"
 #include "math/AABB.h"
 
 class LightManager;
@@ -49,6 +50,9 @@ private:
 	
 	// 敵データ
 	std::vector<GameObjectInfo> enemyData_;
+
+	// 敵死亡時のエフェクト
+	std::unique_ptr<ParticleEmitter> deathEffect_;
 
 };
 
