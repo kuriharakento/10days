@@ -15,7 +15,7 @@ void RushEnemy::Initialize(Object3dCommon* object3dCommon, LightManager* lightMa
 	// 初期位置設定
 	SetPosition(Vector3(0.0f, GetScale().y, 10.0f));
 	// HP
-	maxHp_.base = 30.0f; // ラッシュエネミーの最大HP
+	maxHp_.base = 50.0f; // ラッシュエネミーの最大HP
 	hp_.base = maxHp_.base; // 現在のHPを最大HPに設定
 
 	// OBBコライダーコンポーネントを追加
