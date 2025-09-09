@@ -30,7 +30,7 @@ void PlayerData::DrawImGui()
 	if (ImGui::TreeNode("BaseStats"))
 	{
 		ImGui::PushID("BaseStats");
-		ImGui::DragFloat("HP", &info.stats.hitPoint);
+		ImGui::DragFloat("HP", &info.stats.maxHitPoint);
 		ImGui::DragFloat("KnockBack", &info.stats.knockback.baseValue, 0.01f);
 		ImGui::PushItemWidth(ImGui::CalcItemWidth() * 0.5f);
 		ImGui::DragFloat("AS", &info.stats.attackSpeed.baseValue, 0.01f);
@@ -92,6 +92,7 @@ void PlayerData::DrawImGui()
 
 void PlayerData::ResetStats()
 {
+	info.stats.hitPoint = 100.0f;
 	info.stats.knockback.upgradeCount = 0;
 	info.stats.attackSpeed.upgradeCount = 0;
 	info.stats.attackDamage.upgradeCount = 0;

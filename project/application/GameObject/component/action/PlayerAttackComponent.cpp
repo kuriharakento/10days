@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "time/TimeManager.h"
+#include "application/GameObject/Combatable/character/player/Player.h"
 
 PlayerAttackComponent::PlayerAttackComponent(GameObject* owner, PlayerData* data, const char* LR)
 {
@@ -29,11 +30,13 @@ void PlayerAttackComponent::Update(GameObject* owner)
 {
 	deltaTime_ = TimeManager::GetInstance().GetDeltaTime();
 
-	ProcessAttack();
+	ProcessAttack(owner);
 }
 
-void PlayerAttackComponent::ProcessAttack()
+void PlayerAttackComponent::ProcessAttack(GameObject* owner)
 {
+	auto player = dynamic_cast<Player*>(owner);
+	player->SetIsAttack(false);
 	if (timer_ >= interval_)
 	{
 		//if (Input::GetInstance()->TriggerKey(DIK_RETURN))
@@ -63,6 +66,7 @@ void PlayerAttackComponent::ProcessAttack()
 			Matrix4x4 rotaMat = MakeRotateYMatrix(rota);
 			owner_->SetPosition(MathUtils::Transform(basePos_, rotaMat));
 			owner_->SetRotation({ 0,rota,0 });
+			player->SetIsAttack(true);
 		}
 	}
 }

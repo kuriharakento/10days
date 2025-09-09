@@ -23,6 +23,7 @@ struct ScalarStat
 // ---------- PlayerStats: プレイヤーの各ステータス ----------
 struct PlayerStats
 {
+    float maxHitPoint = 100.0f;
     float hitPoint = 100.0f;   // 現在HP
     ScalarStat knockback{ 1.0f, 1.0f, 0 };
     ScalarStat attackSpeed{ 1.0f, 1.0f, 0 };
@@ -93,6 +94,6 @@ struct PlayerInfo
 
 // JSON
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(ScalarStat, baseValue, increment, upgradeCount)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(PlayerStats, hitPoint, knockback, attackSpeed, attackDamage, moveSpeed, heal, exp)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(PlayerStats, maxHitPoint, hitPoint, knockback, attackSpeed, attackDamage, moveSpeed, heal, exp)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(XPProgress, s, level, totalXP, xpIntoLevel, xpToNextThreshold)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(PlayerInfo, stats, xp)
