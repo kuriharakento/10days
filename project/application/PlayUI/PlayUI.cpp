@@ -10,7 +10,8 @@ void PlayUI::Initialize()
 	ResisterIcon("Resources/icon/HEALIcon.png", { 730,500 });
 
 	ResisterUI("Resources/UI/hpxpFrame.png");
-	ResisterUI("Resources/UI/LV.png", {0, 5});
+	ResisterUI("Resources/UI/LV.png", { 0, 5 });
+	ResisterUI("Resources/UI/operation.png");
 
 	TextureManager::GetInstance()->LoadTexture("Resources/UI/hpbar.png");
 	hpbar_ = std::make_unique<Sprite>();
