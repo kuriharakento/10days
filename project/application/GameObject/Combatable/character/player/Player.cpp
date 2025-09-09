@@ -32,10 +32,12 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 
 	// ステージデータの初期化
 	data_ = std::make_unique<PlayerData>();
-
+	
 	data_->LoadJson("PlayerInfo.json");
 
 	JsonEditorManager::GetInstance()->Register("PlayerInfo", data_);
+
+	SetModel("playerBody");
 
 	// 経験値
 	data_->info.xp.calibrateS(/*λ*/0.6f, /*T*/180.0f, /*N* */10);
@@ -75,7 +77,7 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 	// 試しに腕を追加
 	auto Rarm = std::make_unique<CombatableObject>(GameObjectTag::Character::PlayerRightArm);
 	Rarm->Initialize(object3dCommon, lightManager);
-	Rarm->SetModel("cube");
+	Rarm->SetModel("playerArm");
 	Rarm->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
 	Rarm->SetAttackPower(50.0f);
 	auto collider = std::make_unique<OBBColliderComponent>(Rarm.get());
@@ -100,7 +102,7 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 
 	auto Larm = std::make_unique<CombatableObject>(GameObjectTag::Character::PlayerLeftArm);
 	Larm->Initialize(object3dCommon, lightManager);
-	Larm->SetModel("cube");
+	Larm->SetModel("playerArm");
 	Larm->SetPosition(Vector3(-3.0f, 0.0f, 0.0f));
 	Larm->SetAttackPower(50.0f);
 	auto collider2 = std::make_unique<OBBColliderComponent>(Larm.get());

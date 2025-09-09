@@ -56,6 +56,9 @@ void GamePlayScene::Initialize()
 		2.0f
 	);
 
+	// 敵出現範囲のAABB
+	spawnRange_ = { {-50.0f,1.0f,-50.0f}, {50.0f,1.0f,50.0f} };
+
 }
 
 void GamePlayScene::Finalize()
@@ -168,40 +171,40 @@ void GamePlayScene::Spawn(int count)
 	//enemyManager_->AddChargeEnemy(3); // チャージ敵を4体追加
 	if (count == 0)
 	{
-		enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
+		enemyManager_->AddZombieEnemy(5, spawnRange_); // ゾンビ敵を5体追加
 	}
 	if (count == 1)
 	{
-		enemyManager_->AddZombieEnemy(3); // ゾンビ敵を3体追加
-		enemyManager_->AddRushEnemy(6);  // ラッシュ敵を6体追加
+		enemyManager_->AddZombieEnemy(3, spawnRange_); // ゾンビ敵を3体追加
+		enemyManager_->AddRushEnemy(6, spawnRange_);  // ラッシュ敵を6体追加
 	}
 	if (count == 2)
 	{
-		enemyManager_->AddZombieEnemy(5); // ゾンビ敵を5体追加
-		enemyManager_->AddChargeEnemy(2); // チャージ敵を2体追加
+		enemyManager_->AddZombieEnemy(5, spawnRange_); // ゾンビ敵を5体追加
+		enemyManager_->AddChargeEnemy(2, spawnRange_); // チャージ敵を2体追加
 	}
 	if (count == 3)
 	{
-		enemyManager_->AddBurstEnemy(3); // バースト敵を3体追加
-		enemyManager_->AddChargeEnemy(1); // チャージ敵を1体追加
+		enemyManager_->AddBurstEnemy(3, spawnRange_); // バースト敵を3体追加
+		enemyManager_->AddChargeEnemy(1, spawnRange_); // チャージ敵を1体追加
 	}
 	if (count == 4)
 	{
-		enemyManager_->AddZombieEnemy(10); // ゾンビ敵を10体追加
+		enemyManager_->AddZombieEnemy(10, spawnRange_); // ゾンビ敵を10体追加
 	}
 	if (count == 5)
 	{
-		enemyManager_->AddRushEnemy(20);  // ラッシュ敵を20体追加
+		enemyManager_->AddRushEnemy(20, spawnRange_);  // ラッシュ敵を20体追加
 	}
 	if (count == 6)
 	{
-		enemyManager_->AddZombieEnemy(6); // ゾンビ敵を3体追加
-		enemyManager_->AddRushEnemy(6);  // ラッシュ敵を6体追加
-		enemyManager_->AddBurstEnemy(2); // バースト敵を2体追加
-		enemyManager_->AddChargeEnemy(3); // チャージ敵を3体追加
+		enemyManager_->AddZombieEnemy(6, spawnRange_); // ゾンビ敵を3体追加
+		enemyManager_->AddRushEnemy(6, spawnRange_);  // ラッシュ敵を6体追加
+		enemyManager_->AddBurstEnemy(2, spawnRange_); // バースト敵を2体追加
+		enemyManager_->AddChargeEnemy(3, spawnRange_); // チャージ敵を3体追加
 	}
 	if (count == 7)
 	{
-		enemyManager_->AddBurstEnemy(10); // バースト敵を10体追加
+		enemyManager_->AddBurstEnemy(10, spawnRange_); // バースト敵を10体追加
 	}
 }

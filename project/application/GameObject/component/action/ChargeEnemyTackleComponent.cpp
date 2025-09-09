@@ -19,8 +19,8 @@ void ChargeEnemyTackleComponent::Update(GameObject* owner)
 {
 	constexpr float approachDistance = 25.0f;   // タックル開始距離
 	constexpr float chargeTime = 1.0f;         // 溜め時間（秒）
-	constexpr float tackleSpeed = 50.0f;       // タックル時の速度
-    constexpr float tackleDuration = 2.0f;     // タックル継続時間（秒）
+	constexpr float tackleSpeed = 45.0f;       // タックル時の速度
+    constexpr float tackleDuration = 1.3f;     // タックル継続時間（秒）
 
 	Vector3 ToTarget = target_->GetPosition() - owner->GetPosition();
 	ToTarget.y = 0.0f;

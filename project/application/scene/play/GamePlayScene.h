@@ -49,5 +49,8 @@ private:
 	// フェード
 	std::unique_ptr<Fade> fade_;
 	bool nextScene_ = false;
+
+	// 出現範囲のAABB
+	AABB spawnRange_ = { {-50.0f,1.0f,-50.0f}, {50.0f,1.0f,50.0f} };
 };
 
