@@ -6,6 +6,7 @@
 #include "effects/particle/component/single/ColorFadeOutComponent.h"
 #include "effects/particle/component/single/ScaleOverLifetimeComponent.h"
 #include "math/VectorColorCodes.h"
+#include "time/TimeManager.h"
 
 ZoneShrinkComponent::ZoneShrinkComponent(float shrinkSpeed)
 {
@@ -24,7 +25,7 @@ void ZoneShrinkComponent::Update(GameObject* owner)
 	if (owner->GetScale().x > shrinkMin_)
 	{
 		// ゾーンの縮小は XZ 平面のみ
-		Vector3 newScale = owner->GetScale() - Vector3{ shrinkSpeed_, 0.0f, shrinkSpeed_ };
+		Vector3 newScale = owner->GetScale() - Vector3{ shrinkSpeed_ * TimeManager::GetInstance().GetDeltaTime(), 0.0f, shrinkSpeed_ * TimeManager::GetInstance().GetDeltaTime() };
 		owner->SetScale(newScale);
 		// ゾーンエフェクトの拡大
 		if (zoneEffect_)
