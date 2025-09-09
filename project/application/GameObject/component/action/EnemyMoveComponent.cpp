@@ -21,7 +21,10 @@ void EnemyMoveComponent::Update(GameObject* owner)
 	Vector3 movement = (direction * speed_) * TimeManager::GetInstance().GetDeltaTime();
 
 	// 位置を更新
-	owner->SetPosition(owner->GetPosition() + movement);
+    if(Vector3::Length(target_->GetPosition() - owner->GetPosition()) >= 1.5f)
+    {
+        owner->SetPosition(owner->GetPosition() + movement);
+    }
 
     //正規化された方向ベクトル
        Vector3 normalizedDir = direction;

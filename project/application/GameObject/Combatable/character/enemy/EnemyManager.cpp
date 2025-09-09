@@ -112,7 +112,7 @@ void EnemyManager::AddRushEnemy(uint32_t count, AABB& range)
 	for (uint32_t i = 0; i < count; ++i)
 	{
 		auto enemy = std::make_unique<RushEnemy>();
-		enemy->Initialize(object3dCommon_, lightManager_, new float(7.0f), target_);
+		enemy->Initialize(object3dCommon_, lightManager_, new float(6.0f), target_);
 		// 出現位置をランダムに設定
 		float x = range.min_.x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (range.max_.x - range.min_.x)));
 		float z = range.min_.z + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (range.max_.z - range.min_.z)));
