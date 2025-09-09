@@ -47,7 +47,8 @@ void ZombieEnemy::CollisionSettings(ICollisionComponent* collider)
 	// 衝突時の処理を設定
 	collider->SetOnEnter([this](GameObject* other)
 		{
-			if (other->GetTag() == GameObjectTag::Weapon::PlayerBullet)
+			if (other->GetTag() == GameObjectTag::Character::PlayerRightArm ||
+				other->GetTag() == GameObjectTag::Character::PlayerLeftArm)
 			{
 				auto combatable = dynamic_cast<CombatableObject*>(other);
 				hp_.base -= combatable->GetAttackPower();
