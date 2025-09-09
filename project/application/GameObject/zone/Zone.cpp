@@ -20,7 +20,6 @@ void Zone::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager
 		if (other->GetTag() == GameObjectTag::Character::Player)
 		{
 			postProcess->grayscaleEffect_->SetEnabled(false);
-			other->GetObject3d()->SetColor(VectorColorCodes::Red);
 		}
 							 });
 	zoneCollider->SetOnStay([](GameObject* other) {
@@ -29,7 +28,6 @@ void Zone::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager
 	zoneCollider->SetOnExit([this, postProcess](GameObject* other) {
 		if (other->GetTag() == GameObjectTag::Character::Player)
 		{
-			other->GetObject3d()->SetColor(VectorColorCodes::White);
 			postProcess->grayscaleEffect_->SetEnabled(true);
 			postProcess->grayscaleEffect_->SetIntensity(1.0f);
 		}
