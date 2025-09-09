@@ -17,6 +17,7 @@ namespace GameObjectTag
 		// プレイヤー
 		const std::string Player = "Player";
 		const std::string PlayerRightArm = "PlayerRightArm";
+		const std::string PlayerLeftArm = "PlayerLeftArm";
 
 		// 敵キャラクター
 		const std::string ZombieEnemy = "ZombieEnemy";
@@ -34,6 +35,12 @@ namespace GameObjectTag
 		const std::string EnemyBullet = "EnemyBullet";
 		const std::string Knife = "Knife";
 	}
+
+	// フィールド
+	namespace Field {
+		const std::string Zone = "Zone";
+	}
+
 
 	// アイテム
 	namespace Item 

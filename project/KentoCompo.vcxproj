@@ -111,6 +111,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\GameObject\Combatable\character\player\Player.cpp" />
     <ClCompile Include="application\GameObject\component\action\MoveComponent.cpp" />
     <ClCompile Include="application\GameObject\component\collision\CollisionUtils.cpp" />
+    <ClCompile Include="application\GameObject\component\collision\CollisionAlgorithm.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.cpp" />
     <ClCompile Include="application\GameObject\component\action\EnemyMoveComponent.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\enemy\EnemyManager.cpp" />
@@ -177,6 +178,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\GameObject\component\action\GravityPhysicsComponent.cpp" />
     <ClCompile Include="engine\jsonEditor\JsonSerialization.cpp" />
     <ClCompile Include="engine\jsonEditor\JsonEditorImGuiUtils.cpp" />
+    <ClCompile Include="application\GameObject\component\action\LevelUpComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="engine\manager\system\SrvManager.cpp" />
     <ClCompile Include="engine\manager\effect\ParticleManager.cpp" />
@@ -208,14 +210,21 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\scene\play\StageEditScene.cpp" />
     <ClCompile Include="engine\time\Timer.cpp" />
     <ClCompile Include="engine\time\TimerManager.cpp" />
+    <ClCompile Include="application\GameObject\component\collision\SphereColliderComponent.cpp" />
+    <ClCompile Include="application\GameObject\zone\Zone.cpp" />
+    <ClCompile Include="application\GameObject\component\action\ZoneShrinkComponent.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\enemy\zombie\ZombieEnemy.cpp" />
     <ClCompile Include="application\GameObject\Combatable\character\enemy\rushEnemy\RushEnemy.cpp" />
+    <ClCompile Include="application\GameObject\Combatable\character\player\PlayerData.cpp" />
+    <ClCompile Include="application\GameObject\component\action\PlayerXPComponent.cpp" />
+    <ClCompile Include="application\GameObject\component\action\PlayerAttackComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObjectTag.h" />
     <ClInclude Include="application\GameObject\combatable\base\StatusValue.h" />
     <ClInclude Include="application\GameObject\Combatable\character\base\Character.h" />
     <ClInclude Include="application\GameObject\Combatable\character\player\Player.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\player\PlayerInfo.h" />
     <ClInclude Include="application\GameObject\component\action\MoveComponent.h" />
     <ClInclude Include="application\GameObject\component\collision\AABBColliderComponent.h" />
     <ClInclude Include="application\effect\AssaultRifleHitEffect.h" />
@@ -224,6 +233,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\GameObject\component\collision\CollisionUtils.h" />
     <ClInclude Include="application\GameObject\combatable\base\CombatableObject.h" />
     <ClInclude Include="application\GameObject\base\GameObjectInfo.h" />
+    <ClInclude Include="application\GameObject\component\collision\CollisionAlgorithm.h" />
     <ClInclude Include="application\GameObject\Combatable\character\enemy\base\EnemyBase.h" />
     <ClInclude Include="application\GameObject\component\action\EnemyMoveComponent.h" />
     <ClInclude Include="application\GameObject\Combatable\character\enemy\EnemyManager.h" />
@@ -257,6 +267,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\light\LightConstants.h" />
     <ClInclude Include="engine\light\PointLight.h" />
     <ClInclude Include="engine\light\SpotLight.h" />
+    <ClInclude Include="engine\math\Sphere.h" />
     <ClInclude Include="engine\math\VectorColorCodes.h" />
     <ClInclude Include="engine\math\AABB.h" />
     <ClInclude Include="engine\math\Easing.h" />
@@ -344,8 +355,15 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\scene\play\StageEditScene.h" />
     <ClInclude Include="engine\time\Timer.h" />
     <ClInclude Include="engine\time\TimerManager.h" />
+    <ClInclude Include="application\GameObject\component\collision\SphereColliderComponent.h" />
+    <ClInclude Include="application\GameObject\zone\Zone.h" />
+    <ClInclude Include="application\GameObject\component\action\ZoneShrinkComponent.h" />
     <ClInclude Include="application\GameObject\Combatable\character\enemy\zombie\ZombieEnemy.h" />
     <ClInclude Include="application\GameObject\Combatable\character\enemy\rushEnemy\RushEnemy.h" />
+    <ClInclude Include="application\GameObject\Combatable\character\player\PlayerData.h" />
+    <ClInclude Include="application\GameObject\component\action\PlayerXPComponent.h" />
+    <ClInclude Include="application\GameObject\component\action\LevelUpComponent.h" />
+    <ClInclude Include="application\GameObject\component\action\PlayerAttackComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="externals\imgui\LICENSE.txt" />

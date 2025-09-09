@@ -3,19 +3,17 @@
 #include "math/MathUtils.h"
 #include <cmath>
 
-#include "base/Logger.h"
-#include "math/Easing.h"
-#include "time/TimerManager.h"
-#include "time/Timer.h"
+#include "time/TimeManager.h"
 
-MoveComponent::MoveComponent()
+MoveComponent::MoveComponent(PlayerData* data)
 {
+    data_ = data;
 }
 
 void MoveComponent::Update(GameObject* owner)
 {
     // タイマー更新
-    deltaTime = 1.0f / 60.0f/*TimerManager::GetInstance().GetTimer("")*/;
+    deltaTime = TimeManager::GetInstance().GetDeltaTime();
 
     // 通常移動
     ProcessMovement(owner);
@@ -32,7 +30,7 @@ void MoveComponent::ProcessMovement(GameObject* owner)
     if (hasMovementInput_)
     {
         moveDirection.NormalizeSelf(); // 正規化
-        owner->SetPosition(owner->GetPosition() + moveDirection * moveSpeed_ * deltaTime/*TimerManager::GetInstance().GetTimer("")*/);
+        owner->SetPosition(owner->GetPosition() + moveDirection * data_->info.stats.moveSpeed.final() * TimeManager::GetInstance().GetDeltaTime());
 
         // プレイヤーの向きを滑らかに変える
         UpdateRotation(owner, moveDirection);
@@ -77,7 +75,7 @@ void MoveComponent::UpdateRotation(GameObject* owner, const Vector3& direction)
         float easedRotationY = MathUtils::LerpAngle(
             currentRotation.y,
             targetRotationY,
-            0.2f // 補間速度（回避中は少し速めに）
+            (TimeManager::GetInstance().GetDeltaTime() / 0.0167f) * 0.2f
         );
 
         // 回転を更新
