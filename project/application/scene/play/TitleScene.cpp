@@ -61,7 +61,7 @@ void TitleScene::Initialize()
 	debugCamera_->Initialize(sceneManager_->GetCameraManager()->GetActiveCamera());
 	debugCamera_->Start();
 
-	debugCube1_ = std::make_unique<GameObject>("DebugCube");
+	debugCube1_ = std::make_unique<GameObject>(GameObjectTag::Character::Player);
 	debugCube1_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), sceneManager_->GetCameraManager()->GetActiveCamera());
 	debugCube1_->SetPosition({ -5.0f, 0.0f, 0.0f });
 	// 当たり判定用のコンポーネントを追加

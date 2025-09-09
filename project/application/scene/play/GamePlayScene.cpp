@@ -14,6 +14,18 @@
 
 void GamePlayScene::Initialize()
 {
+	// 当たり判定マネージャーの初期化
+	CollisionManager::GetInstance()->Initialize();
+	// 衝突判定を2Dで実行
+	CollisionManager::GetInstance()->SetCollisionDimension(CollisionDimension::Mode2D);
+	// 衝突判定はXz平面で行う
+	CollisionManager::GetInstance()->SetCollisionPlane(CollisionPlane::XZ);
+
+	// デバッグカメラを起動
+	debugCamera_ = std::make_unique<DebugCamera>();
+	debugCamera_->Initialize(sceneManager_->GetCameraManager()->GetActiveCamera());
+	debugCamera_->Start();
+
 	player_ = std::make_unique<Player>();
 	player_->Initialize(
 		sceneManager_->GetObject3dCommon(),
@@ -33,6 +45,10 @@ void GamePlayScene::Initialize()
 	ResisterSprite("Resources/icon/KBIcon.png", { 450,500 });
 	ResisterSprite("Resources/icon/HEALIcon.png", { 730,500 });
 
+	// ゾーンの生成
+	zone_ = std::make_unique<Zone>();
+	zone_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager(), sceneManager_->GetCameraManager()->GetActiveCamera(), sceneManager_->GetPostProcessManager());
+
 	ModelManager::GetInstance()->LoadModel("Ground");
 	obj_ = std::make_unique<GameObject>();
 	obj_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager());
@@ -47,10 +63,15 @@ void GamePlayScene::Finalize()
 
 void GamePlayScene::Update()
 {
+	debugCamera_->Update();
+
 	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
 	{
 		sceneManager_->ChangeScene("TITLE");
 	}
+
+	CollisionManager::GetInstance()->UpdatePreviousPositions();
+
 	player_->Update();
 	for (auto&& spr : upgradeIcons_)
 	{
@@ -63,6 +84,9 @@ void GamePlayScene::Update()
 	
 	// エネミーマネージャーの更新
 	enemyManager_->Update();
+  
+	// ゾーンの更新
+	zone_->Update();
 
 	obj_->Update();
 
@@ -85,6 +109,9 @@ void GamePlayScene::Draw3D()
 	player_->Draw(sceneManager_->GetCameraManager());
 	// エネミーマネージャーの描画
 	enemyManager_->Draw(sceneManager_->GetCameraManager());
+
+	// ゾーンは行列のみ更新
+	zone_->Draw(sceneManager_->GetCameraManager());
 
 	obj_->Draw(sceneManager_->GetCameraManager());
 }
