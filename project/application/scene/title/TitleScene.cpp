@@ -126,7 +126,7 @@ void TitleScene::Initialize()
 	zoneEffect_->SetBillborad(false);
 	zoneEffect_->SetInitialScale(Vector3(60.0f, 25.0f, 60.0f));
 	zoneEffect_->SetInitialRotation(Vector3{ std::numbers::pi_v<float>, 0.0f, 0.0f }); //　地面に倒す角度にする
-	zoneEffect_->SetInitialColor(VectorColorCodes::Firebrick - Vector4(0.0f, 0.0f, 0.0f, 0.7));
+	zoneEffect_->SetInitialColor(VectorColorCodes::Firebrick - Vector4(0.0f, 0.0f, 0.0f, 0.7f));
 	// 円柱を使用する
 	zoneEffect_->SetModelType(ParticleGroup::ParticleType::Cylinder);
 	// Y軸回転を加える
@@ -175,6 +175,15 @@ void TitleScene::Update()
 	fade_->Update();
 
 	orbitCamera_->Update();
+
+	// プレイヤーの浮遊処理（コンポーネント化推奨）
+	static float floatTime_ = 0.0f;
+	floatTime_ += TimeManager::GetInstance().GetDeltaTime();
+	float floatHeight = 0.1f; // 浮遊の高さ
+	float floatSpeed = 2.0f;  // 浮遊の速さ
+	Vector3 playerPos = player_->GetPosition();
+	playerPos.y = std::sin(floatTime_ * floatSpeed) * floatHeight;
+	player_->SetPosition(playerPos);
 
 	// 衝突判定開始
 	CollisionManager::GetInstance()->CheckCollisions();
