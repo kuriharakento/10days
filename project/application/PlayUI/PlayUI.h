@@ -19,6 +19,8 @@ private:
 
 	void ResisterUI(const std::string& path, Vector2 pos = { 0,0 }, Vector2 anc = { 0,0 });
 
+	void MOIcon();
+
 private:
 	Player* player_ = nullptr;
 
@@ -33,5 +35,12 @@ private:
 	Vector2 xpsize_ = {};
 
 	std::array<std::unique_ptr<Sprite>, 2> lvSpr_;
+
+	float timer_ = 0.0f;
+
+	float easeTime_ = 1.0f;
+
+	Vector2 base_ = { 200,200 };
+	Vector2 max_ = { 230,230 };
 };
 
