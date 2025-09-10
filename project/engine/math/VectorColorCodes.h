@@ -3,6 +3,12 @@
 
 namespace VectorColorCodes {
     const Vector4 Red = { 1.0f, 0.0f, 0.0f, 1.0f };       // 赤
+    const Vector4 Crimson = { 0.86f, 0.08f, 0.24f, 1.0f };   // クリムゾン
+    const Vector4 Firebrick = { 0.70f, 0.13f, 0.13f, 1.0f };   // ファイアブリック
+    const Vector4 IndianRed = { 0.80f, 0.36f, 0.36f, 1.0f };   // インディアンレッド
+    const Vector4 DarkRed = { 0.55f, 0.0f, 0.0f, 1.0f };     // ダークレッド
+    const Vector4 Tomato = { 1.0f, 0.39f, 0.28f, 1.0f };    // トマト
+    const Vector4 Salmon = { 0.98f, 0.5f, 0.45f, 1.0f };    // サーモン（既存）
     const Vector4 Green = { 0.0f, 1.0f, 0.0f, 1.0f };     // 緑
     const Vector4 Blue = { 0.0f, 0.0f, 1.0f, 1.0f };      // 青
     const Vector4 White = { 1.0f, 1.0f, 1.0f, 1.0f };     // 白
@@ -27,7 +33,6 @@ namespace VectorColorCodes {
     const Vector4 SteelBlue = { 0.27f, 0.51f, 0.71f, 1.0f };
     const Vector4 Gold = { 1.0f, 0.84f, 0.0f, 1.0f };
     const Vector4 Coral = { 1.0f, 0.5f, 0.31f, 1.0f };
-    const Vector4 Salmon = { 0.98f, 0.5f, 0.45f, 1.0f };
     const Vector4 Khaki = { 0.94f, 0.9f, 0.55f, 1.0f };
     const Vector4 Chocolate = { 0.82f, 0.41f, 0.12f, 1.0f };
     const Vector4 Indigo = { 0.29f, 0.0f, 0.51f, 1.0f };

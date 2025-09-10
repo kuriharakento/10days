@@ -41,15 +41,15 @@ void LightManager::Initialize(DirectXCommon* dxCommon)
 	//イージング関数の設定
 	pEasingFunc_ = EaseInSine<float>;
 
-	//ポイントライトの追加
-	AddPointLight("pointLight" + std::to_string(pointLights_.size()));
+	////ポイントライトの追加
+	//AddPointLight("pointLight" + std::to_string(pointLights_.size()));
 
-	//スポットライトの追加
-	AddSpotLight("spotLight" + std::to_string(spotLights_.size()));
+	////スポットライトの追加
+	//AddSpotLight("spotLight" + std::to_string(spotLights_.size()));
 
-	//グラデーションしてみる
-	StartGradient("pointLight0", startPointLightColor_, endPointLightColor_, duration_, pEasingFunc_);
-	StartGradient("spotLight0", startSpotLightColor_, endSpotLightColor_, duration_, pEasingFunc_);
+	////グラデーションしてみる
+	//StartGradient("pointLight0", startPointLightColor_, endPointLightColor_, duration_, pEasingFunc_);
+	//StartGradient("spotLight0", startSpotLightColor_, endSpotLightColor_, duration_, pEasingFunc_);
 
 }
 

@@ -2,6 +2,7 @@
 
 // math
 #include "math/MathUtils.h"
+#include "time/TimeManager.h"
 
 void OrbitCameraWork::Initialize(Camera* camera)
 {
@@ -14,6 +15,8 @@ void OrbitCameraWork::Update()
 {
     if (!isActive_) return;
 
+	//時間経過
+    time_ += speed_ * TimeManager::GetInstance().GetDeltaTime();
 	Vector3 targetPosition = GetTarget();
     // カメラ位置を円軌道で計算
 	Vector3 cameraPosition = MathUtils::CalculateOrbitPosition(targetPosition, radius_, time_);
@@ -23,8 +26,7 @@ void OrbitCameraWork::Update()
     //カメラの回転を計算して設定
 	Vector3 rotation = MathUtils::CalculateYawPitchFromDirection(toTarget);
     camera_->SetRotate(rotation);
-	//時間経過
-    time_ += speed_ * 0.016f;
+	
 }
 
 void OrbitCameraWork::Start(Vector3 target, float radius, float speed)

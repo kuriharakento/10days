@@ -17,7 +17,9 @@
 // effects
 #include "application/effect/Fade.h"
 #include "application/GameObject/base/GameObject.h"
+#include "application/GameObject/Combatable/character/player/Player.h"
 #include "application/GameObject/zone/Zone.h"
+#include "camerawork/orbit/OrbitCameraWork.h"
 #include "effects/particle/ParticleEmitter.h"
 
 class TitleScene : public BaseScene
@@ -34,25 +36,21 @@ public:
 	void Draw2D() override;
 
 private:
-	// パーティクルエミッターの初期化
-	void InitializeParticleEmitters();
 	// ImGuiの描画
 	void DrawImGui();
 
 private: //メンバ変数
 	// カメラワーク
 	std::unique_ptr<DebugCamera> debugCamera_;
-	// エミッター
-	std::unique_ptr<ParticleEmitter> dust_;
-	std::unique_ptr<ParticleEmitter> redEffect_;
-	std::unique_ptr<ParticleEmitter> fallHeart_;
-	std::unique_ptr<ParticleEmitter> glitch_;
-	std::unique_ptr<ParticleEmitter> mordeVFXGround_;
-	std::unique_ptr<ParticleEmitter> mordeVFXFragment_;
-	// デバッグ
-	std::unique_ptr<GameObject> debugCube1_;
-	// ゾーン
-	std::unique_ptr<Zone> zone_;
+	// オービットカメラ
+	std::unique_ptr<OrbitCameraWork> orbitCamera_;
+	// プレイヤー
+	std::unique_ptr<Player> player_;
+	// スカイドーム
+	std::unique_ptr<GameObject> skydome_;
+	// パーティクル
+	std::unique_ptr<ParticleEmitter> playerParticle_;
+	std::unique_ptr<ParticleEmitter> zoneEffect_;
 	// フェード
 	std::unique_ptr<Fade> fade_;
 	bool nextScene_ = false;

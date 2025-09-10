@@ -19,7 +19,7 @@ public:	//アクセッサ
 	bool IsActive() const { return isActive_; }
 	void SetActive(bool active) { isActive_ = active; }
 	void SetTarget(Vector3 target) { targetValue_ = target; }
-	void SetTarget(Vector3* target) { targetPtr_ = target; }
+	void SetTarget(const Vector3* target) { targetPtr_ = target; }
 	void SetPositionOffset(const Vector3& offset) { positionOffset = offset; }
 
 private: //非公開メンバ関数
