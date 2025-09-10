@@ -54,4 +54,6 @@ private: //メンバ変数
 	// フェード
 	std::unique_ptr<Fade> fade_;
 	bool nextScene_ = false;
+	// ロゴ
+	std::unique_ptr<GameObject> logo_;
 };

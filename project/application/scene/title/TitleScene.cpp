@@ -75,6 +75,12 @@ void TitleScene::Initialize()
 	skydome_->SetModel("skydome");
 	skydome_->SetScale(Vector3(0.3f, 0.3f, 0.3f));
 
+	// ロゴの生成
+	logo_ = std::make_unique<GameObject>();
+	logo_->Initialize(sceneManager_->GetObject3dCommon(), sceneManager_->GetLightManager());
+	logo_->SetModel("logo");
+	logo_->SetPosition(Vector3(0.0f, 5.0f, 0.0f));
+
 	// 衝突判定を2Dモードに変更
 	CollisionManager::GetInstance()->SetCollisionDimension(CollisionDimension::Mode2D);
 	// 2Dモード時の衝突判定面をXz平面に設定
@@ -202,6 +208,7 @@ void TitleScene::Draw3D()
 
 	skydome_->Draw(sceneManager_->GetCameraManager());
 	player_->Draw(sceneManager_->GetCameraManager());
+	logo_->Draw(sceneManager_->GetCameraManager());
 }
 
 void TitleScene::Draw2D()

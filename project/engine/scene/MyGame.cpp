@@ -168,5 +168,6 @@ void MyGame::LoadModels()
 	ModelManager::GetInstance()->LoadModel("burst");
 	ModelManager::GetInstance()->LoadModel("rush");
 	ModelManager::GetInstance()->LoadModel("charge");
+	ModelManager::GetInstance()->LoadModel("logo");
 
 }
