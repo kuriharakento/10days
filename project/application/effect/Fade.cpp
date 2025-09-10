@@ -20,7 +20,7 @@ void Fade::Initialize(const std::string& texturePath, SpriteCommon* spriteCommon
 	sprite_->Initialize(spriteCommon, texturePath);
 	sprite_->SetPosition({ 0.0f, 0.0f });
 	sprite_->SetSize({ 1280.0f, 720.0f });				  // 画面全体を覆うサイズに設定
-	sprite_->SetColor({ 0.0f, 0.0f, 0.0f, 0.0f }); // 初期は透明
+	sprite_->SetColor({ sprite_->GetColor().x, sprite_->GetColor().y, sprite_->GetColor().z, 0.0f }); // 初期は透明
 	sprite_->SetAnchorPoint({ 0.0f, 0.0f }); // 左上を基準点に設定
 	isActive_ = false; // 最初は非アクティブ
 	duration_ = 0.0f;
@@ -80,7 +80,8 @@ void Fade::Start(FadeType type, float duration, const Vector4& color)
 {
 	type_ = type;
 	duration_ = duration;
-	sprite_->SetColor(color);
+	//sprite_->SetColor(color);
+	color;
 	isActive_ = true;
 	isDraw_ = true;
 }

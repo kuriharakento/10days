@@ -82,7 +82,7 @@ void TitleScene::Initialize()
 
 	// フェードの初期化
 	fade_ = std::make_unique<Fade>();
-	fade_->Initialize("./Resources/black.png", sceneManager_->GetSpriteCommon());
+	fade_->Initialize("./Resources/firstFade.png", sceneManager_->GetSpriteCommon());
 
 	player_ = std::make_unique<Player>();
 	player_->Initialize(
