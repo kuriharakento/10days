@@ -197,14 +197,12 @@ void TitleScene::Update()
 
 void TitleScene::Draw3D()
 {
-#ifdef _DEBUG
 	// グリッドの描画
 	LineManager::GetInstance()->DrawGrid(
 		300.0f,
 		5.0f,
 		VectorColorCodes::Black
 	);
-#endif
 
 	skydome_->Draw(sceneManager_->GetCameraManager());
 	player_->Draw(sceneManager_->GetCameraManager());
