@@ -166,23 +166,26 @@ void Player::CollisionSettings(ICollisionComponent* collider)
 	collider->SetOnEnter([this](GameObject* other) 
 		{
 		// 衝突した瞬間の処理
-			if (other->GetTag() == GameObjectTag::Character::BurstEnemy ||
-				other->GetTag() == GameObjectTag::Character::ChargeEnemy ||
-				other->GetTag() == GameObjectTag::Character::ZombieEnemy ||
-				other->GetTag() == GameObjectTag::Character::RushEnemy)
+			if(TimeManager::GetInstance().GetDeltaTime() > 0.0f)
 			{
-				if (!isInvincible_)
+				if (other->GetTag() == GameObjectTag::Character::BurstEnemy ||
+					other->GetTag() == GameObjectTag::Character::ChargeEnemy ||
+					other->GetTag() == GameObjectTag::Character::ZombieEnemy ||
+					other->GetTag() == GameObjectTag::Character::RushEnemy)
 				{
+					if (!isInvincible_)
+					{
 						auto combatable = dynamic_cast<CombatableObject*>(other);
 						data_->info.stats.hitPoint -= combatable->GetAttackPower();
 
 						SetInvincible(1.0f);
+					}
 				}
-			}
 
-			if (other->GetTag() == GameObjectTag::Field::Zone)
-			{
-				inZone_ = true;
+				if (other->GetTag() == GameObjectTag::Field::Zone)
+				{
+					inZone_ = true;
+				}
 			}
 
 		});
@@ -190,17 +193,20 @@ void Player::CollisionSettings(ICollisionComponent* collider)
 	collider->SetOnStay([this](GameObject* other) 
 		{
 		// 衝突中の処理
-			if (other->GetTag() == GameObjectTag::Character::BurstEnemy ||
-				other->GetTag() == GameObjectTag::Character::ChargeEnemy ||
-				other->GetTag() == GameObjectTag::Character::ZombieEnemy ||
-				other->GetTag() == GameObjectTag::Character::RushEnemy)
+			if (TimeManager::GetInstance().GetDeltaTime() > 0.0f)
 			{
-				if (!isInvincible_)
+				if (other->GetTag() == GameObjectTag::Character::BurstEnemy ||
+					other->GetTag() == GameObjectTag::Character::ChargeEnemy ||
+					other->GetTag() == GameObjectTag::Character::ZombieEnemy ||
+					other->GetTag() == GameObjectTag::Character::RushEnemy)
 				{
-					auto combatable = dynamic_cast<CombatableObject*>(other);
-					data_->info.stats.hitPoint -= combatable->GetAttackPower();
+					if (!isInvincible_)
+					{
+						auto combatable = dynamic_cast<CombatableObject*>(other);
+						data_->info.stats.hitPoint -= combatable->GetAttackPower();
 
-					SetInvincible(1.0f);
+						SetInvincible(1.0f);
+					}
 				}
 			}
 		});
