@@ -2,6 +2,7 @@
 #include <memory>
 
 // app
+#include "../../titleUI/TitleUI.h"
 
 // camerawork
 #include "camerawork/debug/DebugCamera.h"
@@ -56,4 +57,7 @@ private: //メンバ変数
 	bool nextScene_ = false;
 	// ロゴ
 	std::unique_ptr<GameObject> logo_;
+	// UI
+	//std::unique_ptr<TitleUI> ui_;
+	std::unique_ptr<Sprite> ui_;
 };

@@ -147,6 +147,8 @@ void MyGame::LoadTextures()
 
 	// 以下アプリケーション
 	TextureManager::GetInstance()->LoadTexture("./Resources/firstFade.png");
+	TextureManager::GetInstance()->LoadTexture("./Resources/icon/lvupUI.png");
+	TextureManager::GetInstance()->LoadTexture("./Resources/UI/titleUI.png");
 
 }
 
