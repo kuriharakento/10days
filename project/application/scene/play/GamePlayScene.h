@@ -52,5 +52,8 @@ private:
 
 	// 出現範囲のAABB
 	AABB spawnRange_ = { {-50.0f,1.0f,-50.0f}, {50.0f,1.0f,50.0f} };
+
+	// ヴィネット用
+	float preHp_;
 };
 
