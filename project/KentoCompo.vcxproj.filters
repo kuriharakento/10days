@@ -323,6 +323,8 @@
     </ClCompile>
     <ClCompile Include="application\effect\Fade.cpp" />
     <ClCompile Include="application\PlayUI\PlayUI.cpp" />
+    <ClCompile Include="application\ResultUI\ResultUI.cpp" />
+    <ClCompile Include="application\ResultUI\Result.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -723,6 +725,8 @@
     </ClInclude>
     <ClInclude Include="application\effect\Fade.h" />
     <ClInclude Include="application\PlayUI\PlayUI.h" />
+    <ClInclude Include="application\ResultUI\ResultUI.h" />
+    <ClInclude Include="application\ResultUI\Result.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">

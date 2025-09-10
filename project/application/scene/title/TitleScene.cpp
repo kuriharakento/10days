@@ -13,6 +13,7 @@
 #include "manager/effect/PostProcessManager.h"
 // app
 #include "application/GameObject/component/collision/CollisionManager.h"
+#include "../../ResultUI/Result.h"
 // components
 #include "effects/particle/component/group/MaterialColorComponent.h"
 #include "effects/particle/component/group/UVTranslateComponent.h"
@@ -88,6 +89,8 @@ void TitleScene::Initialize()
 	// フェードの初期化
 	fade_ = std::make_unique<Fade>();
 	fade_->Initialize("./Resources/black.png", sceneManager_->GetSpriteCommon());
+
+	Result::GetInstance()->Init();
 }
 
 void TitleScene::Finalize()
@@ -97,7 +100,7 @@ void TitleScene::Finalize()
 
 void TitleScene::Update()
 {
-	if (Input::GetInstance()->TriggerKey(DIK_TAB))
+	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
 	{
 		nextScene_ = true;
 		fade_->Start(
@@ -109,16 +112,6 @@ void TitleScene::Update()
 	{
 		sceneManager_->ChangeScene("GAMEPLAY");
 	}
-
-#ifdef _DEBUG
-
-#else
-	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
-	{
-		sceneManager_->ChangeScene("GAMEPLAY");
-	}
-#endif // _DEBUG
-
 
 	// ImGuiの描画
 	DrawImGui();
