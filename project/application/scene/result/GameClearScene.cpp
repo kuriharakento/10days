@@ -41,6 +41,7 @@ void GameClearScene::Update()
 
 	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
 	{
+		Audio::GetInstance()->PlayWave("tap", false);
 		nextScene_ = true;
 		fade_->Start(
 			FadeType::FadeOut,

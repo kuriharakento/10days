@@ -76,12 +76,16 @@ void GamePlayScene::Initialize()
 	// 敵出現範囲のAABB
 	spawnRange_ = { {-50.0f,1.0f,-50.0f}, {50.0f,1.0f,50.0f} };
 
+	// ヴィネット用
+	preHp_ = player_->GetPlayerData()->info.stats.hitPoint;
 }
 
 void GamePlayScene::Finalize()
 {
 	// グレースケールをオフにする
 	sceneManager_->GetPostProcessManager()->grayscaleEffect_->SetEnabled(false);
+	// ヴィネットをオフにする
+	sceneManager_->GetPostProcessManager()->vignetteEffect_->SetEnabled(false);
 
 	// 当たり判定マネージャーの終了
 	CollisionManager::GetInstance()->Finalize();
@@ -143,6 +147,23 @@ void GamePlayScene::Update()
 
 		endTimer_ += TimeManager::GetInstance().GetDeltaTime();
 
+		// 体力に応じてヴィネット
+		if (preHp_ != player_->GetPlayerData()->info.stats.maxHitPoint)
+		{
+			preHp_ = player_->GetPlayerData()->info.stats.hitPoint;
+		}
+		//体力が半分以下になったらヴィネットを行う
+		if (player_->GetPlayerData()->info.stats.hitPoint <= player_->GetPlayerData()->info.stats.maxHitPoint / 2)
+		{
+			sceneManager_->GetPostProcessManager()->vignetteEffect_->SetEnabled(true);
+			float intensity = 1.0f - (player_->GetPlayerData()->info.stats.hitPoint / (player_->GetPlayerData()->info.stats.maxHitPoint / 2));
+			sceneManager_->GetPostProcessManager()->vignetteEffect_->SetIntensity(intensity);
+			sceneManager_->GetPostProcessManager()->vignetteEffect_->SetColor({ 1.0f,0.0f,0.0f });
+		}
+		else
+		{
+			sceneManager_->GetPostProcessManager()->vignetteEffect_->SetEnabled(false);
+		}
 
 		// エネミーマネージャーの更新
 		enemyManager_->Update();
