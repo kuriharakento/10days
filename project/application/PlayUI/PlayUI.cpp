@@ -37,6 +37,7 @@ void PlayUI::Initialize()
 	ResisterUI("Resources/UI/hpxpFrame.png");
 	ResisterUI("Resources/UI/LV.png", { 0, 5 });
 	ResisterUI("Resources/UI/operation.png");
+	ResisterUI("Resources/UI/zoneframe.png", {0,-20});
 
 	TextureManager::GetInstance()->LoadTexture("Resources/UI/hpbar.png");
 	hpbar_ = std::make_unique<Sprite>();
@@ -49,6 +50,14 @@ void PlayUI::Initialize()
 	xpbar_->Initialize(sprcom_, "Resources/UI/xpbar.png");
 	xpbar_->SetPosition({ 277,645 });
 	xpsize_ = xpbar_->GetSize();
+
+
+	TextureManager::GetInstance()->LoadTexture("Resources/UI/zonebar.png");
+	zonebar_ = std::make_unique<Sprite>();
+	zonebar_->Initialize(sprcom_, "Resources/UI/zonebar.png");
+	zonebar_->SetPosition({ 600,51 });
+	zonebar_->SetAnchorPoint({ 0.5f,0.5f });
+	zonesize_ = zonebar_->GetSize();
 
 
 	TextureManager::GetInstance()->LoadTexture("Resources/UI/number.png");
@@ -69,6 +78,10 @@ void PlayUI::Update()
 	float p = (player_->GetPlayerData()->info.xp.xpIntoLevel / player_->GetPlayerData()->info.xp.xpToNextThreshold);
 	xpbar_->SetSize({ xpsize_.x * p, xpsize_.y });
 	xpbar_->Update();
+
+	zonebar_->Update();
+	zonebar_->SetSize({ zonesize_.x * (1.0f - (endTimer_ / 120.0f)), zonesize_.y });
+
 	for (auto&& spr : upgradeIcons_)
 	{
 		spr->Update();
@@ -97,6 +110,7 @@ void PlayUI::Draw()
 	}
 	hpbar_->Draw();
 	xpbar_->Draw();
+	zonebar_->Draw();
 	for (int i = 0; i < 2; ++i)
 	{
 		lvSpr_[i]->Draw();
