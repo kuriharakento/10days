@@ -14,6 +14,8 @@ public:
 	void Update();
 	void Draw();
 
+	void SetEndTimer(float time) { endTimer_ = time; }
+
 private:
 	void ResisterIcon(const std::string& path, Vector2 pos = { 0,0 });
 
@@ -34,6 +36,10 @@ private:
 	Vector2 hpsize_ = {};
 	Vector2 xpsize_ = {};
 
+
+	std::unique_ptr<Sprite> zonebar_;
+	Vector2 zonesize_ = {};
+
 	std::array<std::unique_ptr<Sprite>, 2> lvSpr_;
 
 	float timer_ = 0.0f;
@@ -42,5 +48,7 @@ private:
 
 	Vector2 base_ = { 200,200 };
 	Vector2 max_ = { 230,230 };
+
+	float endTimer_ = 0.0f;
 };
 

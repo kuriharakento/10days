@@ -143,6 +143,7 @@ void GamePlayScene::Update()
 		CollisionManager::GetInstance()->UpdatePreviousPositions();
 
 		player_->Update();
+		ui_->SetEndTimer(endTimer_);
 		ui_->Update();
 
 		endTimer_ += TimeManager::GetInstance().GetDeltaTime();
