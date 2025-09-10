@@ -9,6 +9,7 @@
 #include "effects/particle/component/single/ColorFadeOutComponent.h"
 #include "effects/particle/component/single/DragComponent.h"
 #include "math/VectorColorCodes.h"
+#include "../../../../ResultUI/Result.h"
 
 void EnemyManager::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager, GameObject* target)
 {
@@ -66,6 +67,7 @@ void EnemyManager::Update()
 			it = enemies_.erase(it); // 死亡した敵を削除
 			auto player = dynamic_cast<Player*>(target_);
 			player->XPGain(2.0f);
+			Result::GetInstance()->IncrementEnemyNum();
 		} 
 		else
 		{

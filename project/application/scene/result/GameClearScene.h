@@ -1,5 +1,8 @@
 #pragma once
 #include "scene/interface/BaseScene.h"
+// app
+#include "application/effect/Fade.h"
+#include "../../ResultUI/ResultUI.h"
 
 class GameClearScene : public BaseScene
 {
@@ -15,6 +18,10 @@ public:
 	void Draw2D() override;
 
 private:
+	std::unique_ptr<ResultUI> resultUI_;
 
+	// フェード
+	std::unique_ptr<Fade> fade_;
+	bool nextScene_ = false;
 };
 

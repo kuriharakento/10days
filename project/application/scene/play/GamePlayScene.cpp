@@ -9,6 +9,7 @@
 #include "engine/scene/manager/SceneManager.h"
 // app
 #include "application/GameObject/component/collision/CollisionManager.h"
+#include "../../ResultUI/Result.h"
 
 
 void GamePlayScene::Initialize()
@@ -101,6 +102,8 @@ void GamePlayScene::Update()
 			FadeType::FadeOut,
 			2.0f
 		);
+		Result::GetInstance()->SetLifeTime(endTimer_);
+		Result::GetInstance()->SetLevel(player_->GetPlayerData()->info.xp.level);
 
 		//========================↑↑↑ゲーム終了↑↑↑========================//
 
