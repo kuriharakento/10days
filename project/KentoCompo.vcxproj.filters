@@ -325,6 +325,7 @@
     <ClCompile Include="application\PlayUI\PlayUI.cpp" />
     <ClCompile Include="application\ResultUI\ResultUI.cpp" />
     <ClCompile Include="application\ResultUI\Result.cpp" />
+    <ClCompile Include="application\titleUI\TitleUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\GameObject\base\GameObject.h">
@@ -727,6 +728,7 @@
     <ClInclude Include="application\PlayUI\PlayUI.h" />
     <ClInclude Include="application\ResultUI\ResultUI.h" />
     <ClInclude Include="application\ResultUI\Result.h" />
+    <ClInclude Include="application\titleUI\TitleUI.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Line.hlsli">

@@ -50,5 +50,8 @@ private:
 	Vector2 max_ = { 230,230 };
 
 	float endTimer_ = 0.0f;
-};
 
+
+	Vector2 mouseUIBase_ = { 1280,720 };
+	Vector2 mouseUIMax_ = { 1350,759 };
+};
