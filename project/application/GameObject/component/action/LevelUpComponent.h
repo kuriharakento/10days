@@ -18,5 +18,6 @@ private:
 private:
 	PlayerData* data_ = nullptr;
 	int beforeLevel_ = 1;
+	bool levelUp_ = false;
 };
 

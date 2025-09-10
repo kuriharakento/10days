@@ -3,6 +3,7 @@
 #include "time/TimeManager.h"
 
 #include "../application/GameObject/Combatable/character/player/Player.h"
+#include "audio/Audio.h"
 
 LevelUpComponent::LevelUpComponent(PlayerData* data)
 {
@@ -21,6 +22,11 @@ void LevelUpComponent::ProcessChoise(GameObject* owner)
 	player->SetIsUpgrade(false);
 	if (beforeLevel_ < data_->info.xp.level && data_->info.stats.hitPoint > 0.0f)
 	{
+		if (!levelUp_)
+		{
+			Audio::GetInstance()->PlayWave("level_up", false);
+			levelUp_ = true;
+		}
 		TimeManager::GetInstance().SetTimeScale(0.0f);
 		player->SetIsUpgrade(true);
 #ifdef _DEBUG
@@ -69,6 +75,7 @@ void LevelUpComponent::ProcessChoise(GameObject* owner)
 				data_->info.stats.attackDamage.upgradeCount++;
 				beforeLevel_++;
 				TimeManager::GetInstance().SetTimeScale(1.0f);
+				levelUp_ = false;
 			}
 			if (mousePos.x >= 490.0f && mousePos.x <= 690.0f &&
 				mousePos.y >= 100.0f && mousePos.y <= 300.0f)
@@ -76,6 +83,7 @@ void LevelUpComponent::ProcessChoise(GameObject* owner)
 				data_->info.stats.attackSpeed.upgradeCount++;
 				beforeLevel_++;
 				TimeManager::GetInstance().SetTimeScale(1.0f);
+				levelUp_ = false;
 			}
 			if (mousePos.x >= 780.0f && mousePos.x <= 980.0f &&
 				mousePos.y >= 100.0f && mousePos.y <= 300.0f)
@@ -83,6 +91,7 @@ void LevelUpComponent::ProcessChoise(GameObject* owner)
 				data_->info.stats.moveSpeed.upgradeCount++;
 				beforeLevel_++;
 				TimeManager::GetInstance().SetTimeScale(1.0f);
+				levelUp_ = false;
 			}
 			if (mousePos.x >= 350.0f && mousePos.x <= 550.0f &&
 				mousePos.y >= 400.0f && mousePos.y <= 600.0f)
@@ -90,6 +99,7 @@ void LevelUpComponent::ProcessChoise(GameObject* owner)
 				data_->info.stats.knockback.upgradeCount++;
 				beforeLevel_++;
 				TimeManager::GetInstance().SetTimeScale(1.0f);
+				levelUp_ = false;
 			}
 			if (mousePos.x >= 630.0f && mousePos.x <= 830.0f &&
 				mousePos.y >= 400.0f && mousePos.y <= 600.0f)
@@ -98,6 +108,7 @@ void LevelUpComponent::ProcessChoise(GameObject* owner)
 				data_->info.stats.hitPoint = std::min<float>(data_->info.stats.hitPoint, data_->info.stats.maxHitPoint);
 				beforeLevel_++;
 				TimeManager::GetInstance().SetTimeScale(1.0f);
+				levelUp_ = false;
 			}
 		}
 	}

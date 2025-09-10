@@ -10,6 +10,7 @@
 #include "effects/particle/component/single/DragComponent.h"
 #include "math/VectorColorCodes.h"
 #include "../../../../ResultUI/Result.h"
+#include "audio/Audio.h"
 
 void EnemyManager::Initialize(Object3dCommon* object3dCommon, LightManager* lightManager, GameObject* target)
 {
@@ -63,7 +64,7 @@ void EnemyManager::Update()
 				0.0f,
 				false
 			);
-
+			Audio::GetInstance()->PlayWave("enemy_death", false);
 			it = enemies_.erase(it); // 死亡した敵を削除
 			auto player = dynamic_cast<Player*>(target_);
 			player->XPGain(2.0f);

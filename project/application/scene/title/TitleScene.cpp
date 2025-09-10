@@ -50,9 +50,11 @@ void CreateTimer()
 
 void TitleScene::Initialize()
 {
-	Audio::GetInstance()->LoadWave("fanfare", "game.wav", SoundGroup::BGM);
+	Audio::GetInstance()->LoadWave("title_bgm", "bgm/title.wav", SoundGroup::BGM);
+	Audio::GetInstance()->LoadWave("tap", "se/tap.wav", SoundGroup::BGM);
 	// 音声の再生
-	Audio::GetInstance()->PlayWave("fanfare", true);
+	Audio::GetInstance()->PlayWave("title_bgm", true);
+	Audio::GetInstance()->SetVolume("title_bgm", 0.1f);
 
 	//当たり判定マネージャーの初期化
 	CollisionManager::GetInstance()->Initialize();
@@ -96,12 +98,16 @@ void TitleScene::Initialize()
 void TitleScene::Finalize()
 {
 	CollisionManager::GetInstance()->Finalize();
+
+	// Audioの停止
+	Audio::GetInstance()->StopWave("title_bgm");
 }
 
 void TitleScene::Update()
 {
 	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
 	{
+		Audio::GetInstance()->PlayWave("tap", false);
 		nextScene_ = true;
 		fade_->Start(
 			FadeType::FadeOut,
