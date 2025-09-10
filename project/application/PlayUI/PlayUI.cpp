@@ -33,6 +33,7 @@ void PlayUI::Initialize()
 	ResisterIcon("Resources/icon/MSIcon.png", { 880,200 });
 	ResisterIcon("Resources/icon/KBIcon.png", { 450,500 });
 	ResisterIcon("Resources/icon/HEALIcon.png", { 730,500 });
+	ResisterIcon("Resources/icon/lvupUI.png", { 730,350 });
 
 	ResisterUI("Resources/UI/hpxpFrame.png");
 	ResisterUI("Resources/UI/LV.png", { 0, 5 });
@@ -196,5 +197,7 @@ void PlayUI::MOIcon()
 	{
 		upgradeIcons_[4]->SetSize(base_);
 	}
+
+	upgradeIcons_[5]->SetSize(Lerp(mouseUIBase_, mouseUIMax_, Triangle01(t)));
 
 }

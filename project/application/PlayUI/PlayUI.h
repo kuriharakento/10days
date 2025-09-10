@@ -42,5 +42,7 @@ private:
 
 	Vector2 base_ = { 200,200 };
 	Vector2 max_ = { 230,230 };
-};
 
+	Vector2 mouseUIBase_ = { 1280,720 };
+	Vector2 mouseUIMax_ = { 1350,759 };
+};
