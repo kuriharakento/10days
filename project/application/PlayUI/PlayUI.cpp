@@ -1,5 +1,30 @@
 #include "PlayUI.h"
 #include "manager/graphics/TextureManager.h"
+#include "input/Input.h"
+#include "time/TimeManager.h"
+
+#include <algorithm>
+#include <cmath>
+
+// 1) 線形（三角波）
+inline float Triangle01(float t)
+{
+	t = std::clamp(t, 0.0f, 1.0f);
+	return 1.0f - std::fabs(2.0f * t - 1.0f); // 0→1→0
+}
+
+// 2) なめらか（半サイン）
+inline float ArchSine01(float t)
+{
+	t = std::clamp(t, 0.0f, 1.0f);
+	constexpr float PI = 3.14159265358979323846f;
+	return 0.5f - 0.5f * std::cos(2.0f * PI * t); // 0→1→0
+}
+
+Vector2 Lerp(const Vector2& start, const Vector2& end, float t)
+{
+	return start + (end - start) * t;
+}
 
 void PlayUI::Initialize() 
 {
@@ -60,6 +85,8 @@ void PlayUI::Update()
 	lvSpr_[0]->SetTextureLeftTop({ 64.0f * float(ten), 0 });
 	int one = player_->GetPlayerData()->info.xp.level % 10;
 	lvSpr_[1]->SetTextureLeftTop({ 64.0f * float(one), 0 });
+
+	MOIcon();
 }
 
 void PlayUI::Draw()
@@ -101,4 +128,73 @@ void PlayUI::ResisterUI(const std::string& path, Vector2 pos, Vector2 anc)
 	sprite->SetPosition(pos);
 	sprite->SetAnchorPoint(anc);
 	uiSpr_.push_back(std::move(sprite));
+}
+
+void PlayUI::MOIcon()
+{
+	if (timer_ > easeTime_)
+	{
+		timer_ = 0;
+	}
+
+	timer_ += TimeManager::GetInstance().GetRealDeltaTime();
+	float t = timer_ / easeTime_;
+
+	Vector2 mousePos = { Input::GetInstance()->GetMouseX(), Input::GetInstance()->GetMouseY() };
+
+	if (mousePos.x >= 200.0f && mousePos.x <= 400.0f &&
+		mousePos.y >= 100.0f && mousePos.y <= 300.0f)
+	{
+		// AD
+		upgradeIcons_[0]->SetSize(Lerp(base_, max_, Triangle01(t)));
+	}
+	else
+	{
+		upgradeIcons_[0]->SetSize(base_);
+	}
+
+	if (mousePos.x >= 490.0f && mousePos.x <= 690.0f &&
+		mousePos.y >= 100.0f && mousePos.y <= 300.0f)
+	{
+		// AS
+		upgradeIcons_[1]->SetSize(Lerp(base_, max_, Triangle01(t)));
+	}
+	else
+	{
+		upgradeIcons_[1]->SetSize(base_);
+	}
+
+	if (mousePos.x >= 780.0f && mousePos.x <= 980.0f &&
+		mousePos.y >= 100.0f && mousePos.y <= 300.0f)
+	{
+		// MS
+		upgradeIcons_[2]->SetSize(Lerp(base_, max_, Triangle01(t)));
+	}
+	else
+	{
+		upgradeIcons_[2]->SetSize(base_);
+	}
+
+	if (mousePos.x >= 350.0f && mousePos.x <= 550.0f &&
+		mousePos.y >= 400.0f && mousePos.y <= 600.0f)
+	{
+		// KB
+		upgradeIcons_[3]->SetSize(Lerp(base_, max_, Triangle01(t)));
+	}
+	else
+	{
+		upgradeIcons_[3]->SetSize(base_);
+	}
+
+	if (mousePos.x >= 630.0f && mousePos.x <= 830.0f &&
+		mousePos.y >= 400.0f && mousePos.y <= 600.0f)
+	{
+		// HEAL
+		upgradeIcons_[4]->SetSize(Lerp(base_, max_, Triangle01(t)));
+	}
+	else
+	{
+		upgradeIcons_[4]->SetSize(base_);
+	}
+
 }
