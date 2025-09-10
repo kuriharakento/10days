@@ -144,6 +144,10 @@ void MyGame::LoadTextures()
 	TextureManager::GetInstance()->LoadTexture("./Resources/star.png");
 	TextureManager::GetInstance()->LoadTexture("./Resources/skybox.dds");
 	TextureManager::GetInstance()->LoadTexture("./Resources/exclamationMark.png");
+
+	// 以下アプリケーション
+	TextureManager::GetInstance()->LoadTexture("./Resources/firstFade.png");
+
 }
 
 void MyGame::LoadModels()
