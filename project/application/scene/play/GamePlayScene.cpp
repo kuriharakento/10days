@@ -10,6 +10,7 @@
 // app
 #include "application/GameObject/component/collision/CollisionManager.h"
 #include "../../ResultUI/Result.h"
+#include "manager/effect/PostProcessManager.h"
 
 
 void GamePlayScene::Initialize()
@@ -20,6 +21,9 @@ void GamePlayScene::Initialize()
 	CollisionManager::GetInstance()->SetCollisionDimension(CollisionDimension::Mode2D);
 	// 衝突判定はXz平面で行う
 	CollisionManager::GetInstance()->SetCollisionPlane(CollisionPlane::XZ);
+
+	// グレースケールをオフにする
+	sceneManager_->GetPostProcessManager()->grayscaleEffect_->SetEnabled(false);
 
 	// デバッグカメラを起動
 	debugCamera_ = std::make_unique<DebugCamera>();
@@ -64,7 +68,8 @@ void GamePlayScene::Initialize()
 
 void GamePlayScene::Finalize()
 {
-	
+	// グレースケールをオフにする
+	sceneManager_->GetPostProcessManager()->grayscaleEffect_->SetEnabled(false);
 }
 
 void GamePlayScene::Update()
