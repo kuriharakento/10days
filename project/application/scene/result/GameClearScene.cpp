@@ -6,10 +6,18 @@
 
 #include "time/TimeManager.h"
 // scene
+#include "audio/Audio.h"
 #include "engine/scene/manager/SceneManager.h"
 
 void GameClearScene::Initialize()
 {
+	// Audioの読み込み
+	Audio::GetInstance()->LoadWave("result_bgm", "bgm/result.wav", SoundGroup::BGM);
+
+	// 音声の再生
+	Audio::GetInstance()->PlayWave("result_bgm", true);
+	Audio::GetInstance()->SetVolume("result_bgm", 0.1f);
+
 	resultUI_ = std::make_unique<ResultUI>(sceneManager_->GetSpriteCommon());
 	resultUI_->Initialize();
 
@@ -23,7 +31,8 @@ void GameClearScene::Initialize()
 }
 
 void GameClearScene::Finalize()
-{
+{// Audioの停止
+	Audio::GetInstance()->StopWave("result_bgm");
 }
 
 void GameClearScene::Update()

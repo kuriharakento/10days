@@ -8,6 +8,7 @@
 #include "application/GameObject/component/base/ICollisionComponent.h"
 #include "application/GameObject/component/collision/CollisionUtils.h"
 #include "application/GameObject/component/collision/OBBColliderComponent.h"
+#include "audio/Audio.h"
 #include "effects/particle/component/single/ColorFadeOutComponent.h"
 #include "effects/particle/component/single/DragComponent.h"
 
@@ -93,6 +94,7 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 				0.5f,
 				false
 			);
+			Audio::GetInstance()->PlayWave("hit", false);
 		}
 						 });
 
@@ -118,6 +120,7 @@ void Player::Initialize(Object3dCommon* object3dCommon, LightManager* lightManag
 				0.0f,
 				false
 			);
+			Audio::GetInstance()->PlayWave("hit", false);
 		}
 						 });
 	Larm->AddComponent("OBBColliderComponen", std::move(collider2));

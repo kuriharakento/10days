@@ -10,6 +10,7 @@
 // app
 #include "application/GameObject/component/collision/CollisionManager.h"
 #include "../../ResultUI/Result.h"
+#include "audio/Audio.h"
 #include "manager/effect/PostProcessManager.h"
 
 
@@ -21,6 +22,17 @@ void GamePlayScene::Initialize()
 	CollisionManager::GetInstance()->SetCollisionDimension(CollisionDimension::Mode2D);
 	// 衝突判定はXz平面で行う
 	CollisionManager::GetInstance()->SetCollisionPlane(CollisionPlane::XZ);
+
+	// Audioの読み込み
+	Audio::GetInstance()->LoadWave("game_bgm", "bgm/game.wav", SoundGroup::BGM);
+	Audio::GetInstance()->LoadWave("hit", "se/hit.wav", SoundGroup::SE);
+	Audio::GetInstance()->LoadWave("level_up", "se/level_up.wav", SoundGroup::SE);
+	Audio::GetInstance()->LoadWave("enemy_death", "se/enemy_death.wav", SoundGroup::SE);
+
+	// 音声の再生
+	Audio::GetInstance()->PlayWave("game_bgm", true);
+	Audio::GetInstance()->SetVolume("game_bgm", 0.08f);
+	Audio::GetInstance()->SetVolume("hit", 0.2f);
 
 	// グレースケールをオフにする
 	sceneManager_->GetPostProcessManager()->grayscaleEffect_->SetEnabled(false);
@@ -70,6 +82,12 @@ void GamePlayScene::Finalize()
 {
 	// グレースケールをオフにする
 	sceneManager_->GetPostProcessManager()->grayscaleEffect_->SetEnabled(false);
+
+	// 当たり判定マネージャーの終了
+	CollisionManager::GetInstance()->Finalize();
+
+	// Audioの停止
+	Audio::GetInstance()->StopWave("game_bgm");
 }
 
 void GamePlayScene::Update()
