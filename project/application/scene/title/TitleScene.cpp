@@ -94,7 +94,7 @@ void TitleScene::Initialize()
 	//ui_ = std::make_unique<TitleUI>(sceneManager_->GetSpriteCommon());
 	//ui_->Initialize();Resources/UI/titleUI
 	ui_ = std::make_unique<Sprite>();
-	ui_->Initialize(sceneManager_->GetSpriteCommon(), "uvCheker.png");
+	ui_->Initialize(sceneManager_->GetSpriteCommon(), "Resources/UI/titleUI.png");
 	ui_->SetPosition({ 0.0f,0.0f });
 	ui_->SetSize({ 1280.0f,720.0f });
 
